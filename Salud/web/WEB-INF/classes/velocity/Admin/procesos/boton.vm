@@ -1,0 +1,6 @@
+<a href='${href}' class='${clase}'  title='${titulo}' ${onclick} >
+    <span style='${estilo_span}' class='fa-stack'>
+        <i class='fa fa-square fa-stack-2x'></i>
+        <i class='fa ${clase_extra} fa-stack-1x fa-inverse'></i>
+    </span>
+</a>

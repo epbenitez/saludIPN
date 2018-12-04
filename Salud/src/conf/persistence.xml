@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="BecasIPNPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>becasipnJNDI</jta-data-source>
+    <class>com.becasipn.persistence.model.Agrupador</class>
+    <class>com.becasipn.persistence.model.Alumno</class>
+    <class>com.becasipn.persistence.model.AlumnoDAE</class>
+    <class>com.becasipn.persistence.model.AlumnoTarjetaBancaria</class>
+    <class>com.becasipn.persistence.model.AreasConocimiento</class>
+    <class>com.becasipn.persistence.model.Beca</class>
+    <class>com.becasipn.persistence.model.Bitacora</class>
+    <class>com.becasipn.persistence.model.BitacoraAlumno</class>
+    <class>com.becasipn.persistence.model.BitacoraEstatusProceso</class>
+    <class>com.becasipn.persistence.model.BitacoraOtorgamientos</class>
+    <class>com.becasipn.persistence.model.BitacoraTarjetaBancaria</class>
+    <class>com.becasipn.persistence.model.Cargo</class>
+    <class>com.becasipn.persistence.model.Carrera</class>
+    <class>com.becasipn.persistence.model.CompaniaCelular</class>
+    <class>com.becasipn.persistence.model.Configuracion</class>
+    <class>com.becasipn.persistence.model.Cuestionario</class>
+    <class>com.becasipn.persistence.model.SolicitudBeca</class>
+    <class>com.becasipn.persistence.model.CuestionarioPreguntaRespuesta</class>
+    <class>com.becasipn.persistence.model.CuestionarioPreguntaTipo</class>
+    <class>com.becasipn.persistence.model.CuestionarioPreguntas</class>
+    <class>com.becasipn.persistence.model.CuestionarioRespuestas</class>
+    <class>com.becasipn.persistence.model.CuestionarioRespuestasUsuario</class>
+    <class>com.becasipn.persistence.model.CuestionarioSeccion</class>
+    <class>com.becasipn.persistence.model.CuestionarioTransporte</class>
+    <class>com.becasipn.persistence.model.DepositoNoCoincide</class>
+    <class>com.becasipn.persistence.model.DepositoUnidadAcademica</class>
+    <class>com.becasipn.persistence.model.Depositos</class>
+    <class>com.becasipn.persistence.model.Direccion</class>
+    <class>com.becasipn.persistence.model.Discapacidad</class>
+    <class>com.becasipn.persistence.model.Documentos</class>
+    <class>com.becasipn.persistence.model.EntProceso</class>
+    <class>com.becasipn.persistence.model.EnteroBeca</class>
+    <class>com.becasipn.persistence.model.EntidadFederativa</class>
+    <class>com.becasipn.persistence.model.EstadoCivil</class>
+    <class>com.becasipn.persistence.model.Estatus</class>
+    <class>com.becasipn.persistence.model.EstatusDeposito</class>
+    <class>com.becasipn.persistence.model.EstatusTarjetaBancaria</class>
+    <class>com.becasipn.persistence.model.Genero</class>
+    <class>com.becasipn.persistence.model.LocalidadColonia</class>
+    <class>com.becasipn.persistence.model.Menu</class>
+    <class>com.becasipn.persistence.model.Modalidad</class>
+    <class>com.becasipn.persistence.model.Movimiento</class>
+    <class>com.becasipn.persistence.model.MovimientoBajasDiversas</class>
+    <class>com.becasipn.persistence.model.MunicipioDelegacion</class>
+    <class>com.becasipn.persistence.model.Nacionalidad</class>
+    <class>com.becasipn.persistence.model.Nivel</class>
+    <class>com.becasipn.persistence.model.OrdenDeposito</class>
+    <class>com.becasipn.persistence.model.Otorgamiento</class>
+    <class>com.becasipn.persistence.model.OtorgamientoBajasDetalle</class>
+    <class>com.becasipn.persistence.model.Pais</class>
+    <class>com.becasipn.persistence.model.Parentesco</class>
+    <class>com.becasipn.persistence.model.Periodo</class>
+    <class>com.becasipn.persistence.model.PersonalAdministrativo</class>
+    <class>com.becasipn.persistence.model.Presupuesto</class>
+    <class>com.becasipn.persistence.model.PresupuestoPeriodo</class>
+    <class>com.becasipn.persistence.model.PresupuestoTipoBecaPeriodo</class>
+    <class>com.becasipn.persistence.model.PresupuestoUnidadAcademica</class>
+    <class>com.becasipn.persistence.model.Proceso</class>
+    <class>com.becasipn.persistence.model.ProcesoEstatus</class>
+    <class>com.becasipn.persistence.model.RelacionGeografica</class>
+    <class>com.becasipn.persistence.model.RelacionMenuRoles</class>
+    <class>com.becasipn.persistence.model.Rol</class>
+    <class>com.becasipn.persistence.model.TarjetaBancaria</class>
+    <class>com.becasipn.persistence.model.TipoBajasDetalle</class>
+    <class>com.becasipn.persistence.model.TipoBeca</class>
+    <class>com.becasipn.persistence.model.TipoBecaPeriodo</class>
+    <class>com.becasipn.persistence.model.TipoBecaPeriodoHistorico</class>
+    <class>com.becasipn.persistence.model.TipoDeposito</class>
+    <class>com.becasipn.persistence.model.TipoMovimiento</class>
+    <class>com.becasipn.persistence.model.TipoProceso</class>
+    <class>com.becasipn.persistence.model.Transporte</class>
+    <class>com.becasipn.persistence.model.TransporteDatosFamiliares</class>
+    <class>com.becasipn.persistence.model.TransporteTraslado</class>
+    <class>com.becasipn.persistence.model.Trayecto</class>
+    <class>com.becasipn.persistence.model.UnidadAcademica</class>
+    <class>com.becasipn.persistence.model.Usuario</class>
+    <class>com.becasipn.persistence.model.UsuarioPrivilegio</class>
+    <class>com.becasipn.persistence.model.VWOrdenDeposito</class>
+    <class>com.becasipn.persistence.model.VWPresupuestoPeriodo</class>
+    <class>com.becasipn.persistence.model.VWPresupuestoTipoBecaPeriodo</class>
+    <class>com.becasipn.persistence.model.VWPresupuestoUnidadAcademica</class>
+    <class>com.becasipn.persistence.model.VWDepositosEstatus</class>
+    <class>com.becasipn.persistence.model.VWUltimaBajaDetalle</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <!--
+            # Logging level :
+            #        OFF \u2013 disables logging
+            #        SEVERE \u2013 logs exceptions indicating EclipseLink cannot continue, as well as any exceptions generated during login. This includes a stack trace.
+            #        WARNING \u2013 logs exceptions that do not force EclipseLink to stop, including all exceptions not logged with severe level. This does not include a stack trace.
+            #        INFO \u2013 logs the login/logout per sever session, including the user name. After acquiring the session, detailed information is logged.
+            #        CONFIG \u2013 logs only login, JDBC connection, and database information.
+            #        FINE \u2013 logs SQL.
+            #        FINER \u2013 similar to warning. Includes stack trace.
+            #        FINEST \u2013 includes additional low level information. 
+            #
+            #-->
+      <property name="eclipselink.logging.level" value="SEVERE"/>
+      <property name="eclipselink.logging.level.sql" value="SEVERE"/>
+      <property name="eclipselink.logging.level.cache" value="SEVERE"/>
+      <property name="eclipselink.logging.logger" value="DefaultLogger"/>
+    </properties>
+  </persistence-unit>
+</persistence>

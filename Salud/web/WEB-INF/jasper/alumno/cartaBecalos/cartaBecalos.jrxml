@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta Becalos" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50862c93-38aa-4358-818e-782141c20f34">
+	<property name="ireport.zoom" value="1.7715610000000022"/>
+	<property name="ireport.x" value="10"/>
+	<property name="ireport.y" value="1176"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="datos" uuid="36dcefed-a5b5-43c0-9bed-82d4bc5a3b08">
+		<field name="parametro1" class="java.lang.String"/>
+		<field name="parametro2" class="java.lang.String"/>
+		<field name="parametro3" class="java.lang.String"/>
+		<field name="parametro4" class="java.lang.String"/>
+		<field name="parametro5" class="java.lang.String"/>
+		<field name="parametro6" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="imagenPlaca" class="java.lang.String"/>
+	<parameter name="nombreCompleto" class="java.lang.String"/>
+	<parameter name="beca" class="java.lang.String"/>
+	<parameter name="meses" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="nivel" class="java.lang.String"/>
+	<parameter name="curp" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="85">
+			<image>
+				<reportElement x="61" y="2" width="448" height="67" uuid="9284b60f-4709-4644-9e6d-bb73cf810bb2"/>
+				<imageExpression><![CDATA[$P{imagenPlaca}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="201" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="15" y="190" width="544" height="11" uuid="6435116f-ab1a-4d1c-9fed-a7bd95e088b6"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="datos" uuid="d4d7466b-2e7b-4744-9de6-06f49968fb3b">
+						<dataSourceExpression><![CDATA[$P{meses}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="16ab1834-1e5e-41a1-b1bf-d5ea44683529">
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="49b67eeb-456b-4368-8cb6-dfdf9981abba"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{parametro1}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="4f620851-181b-4394-9959-0271b3af5e4d">
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="715e5d6e-39d7-4254-ad42-1c487298bcb8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{parametro2}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="e2a79851-04c4-4912-89c4-321a64f21686">
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="fdb4da99-8b4a-4dff-bbe9-a73a41cae764"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{parametro3}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="c29dbbc4-2145-4bab-9645-9e2a83c613ba">
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="492dfed4-97c9-4d08-a499-0b57e95c7a31"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{parametro4}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="d04dd84c-14f3-40c8-a7e8-e7460a43234b">
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="7ced22c5-d904-4f53-926f-036a3604cd31"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{parametro5}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="75e01e9b-2c8e-42d0-9f66-b5092ba940be">
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="28c5fbdf-ed44-43c1-adee-5a7a49502f86"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{parametro6}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="15" y="128" width="546" height="16" uuid="c8fcc1dd-1280-4c06-a26a-9dedd009baaa"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<text><![CDATA[Derechos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="15" y="57" width="543" height="14" uuid="a50ab7e7-5089-4eb3-87f6-94d797ad58e8"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Estimado " + $P{nombreCompleto} + ":"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="151" width="535" height="14" uuid="69daa9cb-f908-4446-b796-25f1d5d33e14"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[1.Tienes el derecho a recibir tu beca por este año de esta forma:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="171" width="535" height="14" uuid="dcdb72d0-b576-442b-8c03-5e98a0e18b59"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[Ciclo escolar 2017-2018]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="13" width="543" height="25" uuid="34049877-84b3-4f65-bb2b-6bffea56a441"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="20"/>
+				</textElement>
+				<text><![CDATA[¡Bienvenido al ciclo escolar 2017-2018!]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="15" y="71" width="543" height="42" uuid="54f9fc09-1257-4b59-85fe-f02f789f1736"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Gracias por sumarte a este gran proyecto que te ofrece una beca para que sigas estudiando. Para nosotros es muy importante que conozcas tus derechos y obligaciones al ser un Becario de BÉCALOS de " + $P{beca}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="631">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+			<staticText>
+				<reportElement x="26" y="7" width="533" height="42" uuid="b3a2a709-eb91-426d-bea2-41db9efb2940"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[2. Tienes el derecho a exigir la entrega de tu beca en tiempo y forma, por lo que cualquier anomalía envía un mail con tu nombre completo, CURP e Institución a la que perteneces : acompanamiento@becalos.mx. En menos de 48 horas hábiles recibirás una respuesta.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="55" width="535" height="42" uuid="3b503498-1b83-4ff3-aff9-eec8cb037902"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[3. Bécalos te apoya con una Beca de Inglés: estudia al menos 15 minutos diariamente, o bien, una hora a la semana. Recuerda que quien sabe inglés puede ganar hasta un 40% más de quien no sabe. ¡Aprovéchalo! (Mas información en tu correo de bienvenida).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="103" width="535" height="42" uuid="9c38e140-74b9-4d7e-9d5c-89b267926a64"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[4. Participar en el programa de Bécalos en Acción, al tener un proyecto en tu comunidad (escuela, familia, población, etc.) en el cual podrás ganar una beca educativa adicional para el desarrollo o ejecución de tu proyecto.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="155" width="546" height="18" uuid="30fdd7c2-ce0a-46ec-859d-1e5de0c80e45"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<text><![CDATA[Obligaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="199" width="534" height="14" uuid="43e4fcf1-016e-46ce-8529-427942cc2267"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[2. Mantener un promedio igual o superior a 8.5.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="219" width="535" height="14" uuid="ad8f7c36-0698-459e-b7c1-237a4966c1fb"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[3. Compromiso con tu comunidad a través de las siguientes acciones:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="239" width="524" height="14" uuid="16e6f18b-2c9b-4e1e-a210-c7aa8d899ff8"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[a. Proyecto en tu comunidad (escuela, familia, colonia, población, etc.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="259" width="523" height="14" uuid="372e3529-588b-4601-806b-5afb9d56b5c2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[b. Recaudar fondos a través del Boteo para que otros puedan tener una beca igual a la tuya.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="279" width="523" height="14" uuid="c6d43106-d0cf-4067-997c-bfd1224f303e"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[c. Estudiar Inglés al menos 15 minutos diariamente , o bien, una hora a la semana.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="299" width="535" height="28" uuid="91b328ca-24d8-435a-ad9d-a29e7346c989"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[4. Debes de ingresar a  Comunidad Virtual Bécalos  https://comunidad.becalos.mx al menos una vez por mes, también puedes bajar la App para tu teléfono móvil (solo Android).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="333" width="535" height="28" uuid="8d707b59-503e-4bda-b88a-3cc0a3766a92"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[5. Completar el perfil, dentro del portal de comunidad ingresar en la opción de “Actualizar datos” y completar el formulario.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="368" width="535" height="28" uuid="3c2d72a1-a75e-4f53-9dcc-777e943ec851"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[6. Inscríbete al grupo cerrado en Facebook de tu estado… búscalo como “CONTACTO BÉCALOS (Tu estado)”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="403" width="546" height="14" uuid="9e687938-ae28-4671-aecf-89bf16eb4003"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[Gracias por ser parte de esta gran familia, deseamos que termines la escuela y seas un profesionista exitoso.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="438" width="546" height="18" uuid="97360bdf-6e23-4cc2-84d5-f87f790b4ddb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="13"/>
+				</textElement>
+				<text><![CDATA[¡HAY TALENTO SOLO FALTA APOYARLO!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="477" width="546" height="14" uuid="2967d6da-d4e3-4f40-bd0e-c7a9981d3336"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[He leído y entendido esta Carta de Derechos y Obligaciones. El incumplimiento puede causar la baja a esta beca.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="26" y="179" width="532" height="14" uuid="a65b3e51-7af0-4304-b838-13bab157b237"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. Continuar estudiando y terminar el nivel " + $P{nivel} + "."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="207" y="578" width="164" height="1" uuid="fe315881-6c68-46fe-ae27-050ddf8bac58"/>
+			</line>
+			<textField>
+				<reportElement x="143" y="584" width="288" height="14" uuid="67339867-87ce-4a56-8824-475ccc91058a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="598" width="164" height="14" uuid="fb5fa8aa-8673-4204-ad40-8e73b9964205"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{curp}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd MMMMM yyyy hh:mm aaa">
+				<reportElement x="207" y="612" width="164" height="14" uuid="1e44abc9-1fb3-4309-841e-a9d5ffad1e85"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement x="350" y="0" width="102" height="12" uuid="221c5b53-634d-4d99-9678-8b529b71d677"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora de impresion: ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm:ss">
+				<reportElement x="452" y="0" width="114" height="12" uuid="c98286b7-56d6-4358-84a5-ab8c8c7b4114"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

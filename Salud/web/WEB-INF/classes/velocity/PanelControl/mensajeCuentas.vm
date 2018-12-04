@@ -1,0 +1,8 @@
+<h4 class='text-center'>\n\
+	Si obtuviste una beca <u>distinta</u> a la Beca Universal y NO tienes una cuenta bancaria, deberás abrir una y capturarla en el SIBec en <a href='/misdatos/configuracionCuentaBancaria.action'><u>Configuración Cuenta</u></a>, en el periodo del \n\
+	<b>${d} al ${endD} de ${m} de ${y}</b>.\n\
+</h4>\n\
+<h4 class='text-center'>\n\
+	Puedes abrir la cuenta en cualquier banco. Si te interesa, Banamex diseñó la cuenta PERFIL EJECUTIVO para los becarios del IPN, que no te cobra comisiones mientras seas becario.</h4><h4 class='text-center'>	Descarga el instructivo \n\
+	<a href='http://www.ipn.mx/dse/Becas/Documents/slider/img/2017/Carteles/citibanamex.pdf' target='_blank'><u>aquí</u></a>.\n\
+</h4>

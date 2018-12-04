@@ -1,0 +1,14 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <package name="recursoReconsideracion"  namespace="/recursoReconsideracion" extends="default">
+        
+        <action name="*RecursoReconsideracion" class="com.becasipn.actions.alumno.AdministraRecursoReconsideracionAction" method="{1}">
+            <result name="cuestionario">/WEB-INF/jsp/alumno/recursoReconsideracion/form.jsp</result>
+            <result name="success">/WEB-INF/jsp/alumno/recursoReconsideracion/form.jsp</result>
+            <result name="deshabilitado">/WEB-INF/jsp/alumno/recursoReconsideracion/deshabilitado.jsp</result>
+            <result name="pdf">/WEB-INF/jsp/alumno/recursoReconsideracion/pdf.jsp</result>
+        </action>
+        
+    </package>
+</struts>

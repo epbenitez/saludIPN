@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta de ingresos no comprobables" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50862c93-38aa-4358-818e-782141c20f34">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="boleta" class="java.lang.String"/>
+	<parameter name="nombreCompleto" class="java.lang.String"/>
+	<parameter name="folio" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="39" y="15" width="495" height="20" uuid="34049877-84b3-4f65-bb2b-6bffea56a441"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[CARTA DE INGRESOS NO COMPROBABLES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="314" y="58" width="220" height="18" uuid="34113fb7-beda-4552-ab5c-7d766e26e615"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="414" splitType="Stretch">
+			<staticText>
+				<reportElement x="39" y="7" width="495" height="15" uuid="15704b1e-24cc-4d3b-bb42-50bf303d271b"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO POLITÉCNICO NACIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="271" width="495" height="68" uuid="4264e0a1-872f-4d19-82c4-5e84e6e04cd2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[Manifiesto por medio de la presente y BAJO PROTESTA DE DECIR LA VERDAD, mi imposibilidad de comprobar mis ingresos, por lo que hago de su conocimiento que la actividad diaria que realizo no implica contraprestación que se documente mediante un comprobante emitido por un patrón similar, sin embargo, cuento con un ingreso mensual aproximado de $___________  pesos ( ____________________________________ M/N).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="180" width="394" height="81" uuid="6882bc89-1057-4131-8676-893894419486"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="10" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[“…Formato de reporte de ingresos y egresos de la/del alumna/o aspirante y de los familiares y/o responsables de la manutención de la/del alumna/o expedido por el sistema y debidamente requisitado; acompañado de la copia de los comprobantes de percepciones del la/del alumna/o aspirante y de los familiares que aporten al ingreso familiar, cuya expedición no sea mayor a los últimos tres meses inmediatos anteriores a la fecha de la solicitud de la beca; o en su caso, carta de ingresos no comprobables emitida por el padre, la madre o tutora/or de la/del alumna/o aspirante a becas con la documentación soporte correspondiente (identificación oficial de las/los firmante/s).-…”]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="142" width="495" height="30" uuid="93d4ebb3-8e59-411f-81ad-153073811750"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[Al respecto, en cumplimiento al requisito establecido en la Convocatoria General de Becas del ciclo escolar 2018-2019, por lo cual solicita:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="347" width="495" height="30" uuid="45ab7bf3-871c-4bd0-bf3e-252dbae44696"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[De esta manera quedo dispuesto para cualquier situación, y en ésta carta anexo dos copias de las credenciales de elector de dos testigos de confianza.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="25" width="495" height="17" uuid="6ccf2552-b1df-4281-8a03-1b864baf71fd"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[PRESENTE
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="39" y="48" width="495" height="86" uuid="786ab1d3-c57e-49b4-b69b-95b12333a9ff"/>
+				<textFieldExpression><![CDATA["Quien suscribe ____________________________________, identificándome con credencial de elector folio _______________________________, [Padre/Madre/Tutor] _______________________________ del alumno "
++ $P{nombreCompleto} + " quien cursa el programa académico _______________________________, siendo asignado al grupo _______________________________, del turno ________________, de la escuela ____________________________________."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="39" y="386" width="495" height="28" uuid="558f09fd-2b5f-4ca9-8914-eefc89add2f1"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="11"/>
+				</textElement>
+				<text><![CDATA[Finalmente anexo a la presente copia de la referida identificación oficial y quedo dispuesto para cualquier aclaración que pudiera requerirse con motivo de la situación manifiesta.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="72" splitType="Stretch">
+			<line>
+				<reportElement x="208" y="8" width="164" height="1" uuid="e415f67b-7b65-4f23-8ee1-31ca62336d78"/>
+			</line>
+			<staticText>
+				<reportElement x="208" y="16" width="164" height="12" uuid="57349da1-16b4-43ee-81b9-dbbea8011e90"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="10"/>
+				</textElement>
+				<text><![CDATA[Nombre y firma del padre/madre/tutor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="28" width="164" height="12" uuid="0137018d-5198-42c3-9a56-854f5eb078f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="10"/>
+				</textElement>
+				<text><![CDATA[(Especificar parentesco)]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="282" y="8" width="252" height="12" uuid="6f723eac-1d26-4044-a7be-717a87c75c5c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Alumno: " + $P{nombreCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="8" width="97" height="12" uuid="e0962ce8-0c03-4c08-9bb0-69396a29ec36"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Boleta: " + $P{boleta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="39" y="25" width="169" height="12" uuid="5aab8db2-4f47-40a4-acf7-73922b7cad52"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{folio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="5" splitType="Stretch"/>
+	</summary>
+</jasperReport>

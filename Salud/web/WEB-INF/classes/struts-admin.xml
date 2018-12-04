@@ -1,0 +1,214 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="admin"  namespace="/admin" extends="default">
+        
+        <action name="*Datos" class="com.becasipn.actions.admin.AdministracionDatosUsuarioAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/datos/{1}.jsp</result>
+            <result name="formulario">/WEB-INF/jsp/admin/datos/form.jsp</result>
+        </action>
+        
+        <action name="*Usuario" class="com.becasipn.actions.admin.AdministracionUsuariosAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/usuarios/{1}.jsp</result>
+            <result name="formulario">/WEB-INF/jsp/admin/usuarios/form.jsp</result>
+            <result name="lista">/WEB-INF/jsp/admin/usuarios/lista.jsp</result>
+        </action>
+        
+        <action name="*Proceso" class="com.becasipn.actions.admin.AdministracionProcesosAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/procesos/{1}.jsp</result>
+            <result name="formulario">/WEB-INF/jsp/admin/procesos/edicion.jsp</result>
+            <result name="lista">/WEB-INF/jsp/admin/procesos/lista.jsp</result>
+            <result name="validacion">/WEB-INF/jsp/admin/procesos/validacion.jsp</result>
+        </action>
+
+        <action name="*AsignacionAutomatica" class="com.becasipn.actions.admin.AdministracionAsignacionAutomaticaAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/asignacionAutomatica/{1}.jsp</result>
+            <result name="nuevos">/WEB-INF/jsp/admin/asignacionAutomatica/nuevos.jsp</result>
+            <result name="revalidantes">/WEB-INF/jsp/admin/asignacionAutomatica/revalidantes.jsp</result>
+            <result name="revertir">/WEB-INF/jsp/admin/asignacionAutomatica/form.jsp</result>
+        </action>
+        
+        <action name="*Configuracion" class="com.becasipn.actions.admin.AdministracionConfiguracionAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/variablesSistema/{1}.jsp</result>
+        </action>
+        
+        <action name="*ValidacionInscripcion" class="com.becasipn.actions.admin.AdministraInscripcionAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/validacionInscripcion/{1}.jsp</result>
+        </action>
+        
+        <action name="*EnvioCorreos" class="com.becasipn.actions.admin.AdministracionEnvioCorreosAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">nombreExcel,alumnosLst</param>
+                <param name="autoCreateSession">true</param>
+                <param name="key">envioCorreosSess</param>
+            </interceptor-ref>            
+            <interceptor-ref name="generalBecasIPN" />
+            <interceptor-ref name="fileUpload">
+                <param name = "allowedTypes"> 
+                    application/vnd.ms-excel,
+                    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                    application/pdf,
+                    image/jpeg,
+                    image/png 
+                </param>
+                <param name="maximumSize">2000000</param>
+            </interceptor-ref>            
+            <result name="success">/WEB-INF/jsp/admin/envioCorreos/{1}.jsp</result>
+            <result name="form">/WEB-INF/jsp/admin/envioCorreos/form.jsp</result>
+            <result name="lista">/WEB-INF/jsp/admin/envioCorreos/lista.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        
+        <action name="*Prospera" class="com.becasipn.actions.admin.AdministracionProsperaAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumnosLst</param>
+                <param name="type">middle</param>
+                <param name="key">alumnosLtKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="success">/WEB-INF/jsp/admin/prospera/{1}.jsp</result>
+            <result name="lista">/WEB-INF/jsp/admin/prospera/lista.jsp</result>
+        </action>
+	
+        <action name="*FichaEscolar" class="com.becasipn.actions.admin.AdministracionFichaEscolarAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumnosLst</param>
+                <param name="type">middle</param>
+                <param name="key">alumnosLtKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="success">/WEB-INF/jsp/admin/fichaEscolar/{1}.jsp</result>
+            <result name="lista">/WEB-INF/jsp/admin/fichaEscolar/lista.jsp</result>
+        </action>
+        
+        <action name="*Presupuesto" class="com.becasipn.actions.admin.AdministracionPresupuestosAction" method="{1}" >
+            <result name="periodo">/WEB-INF/jsp/admin/presupuestos/periodo.jsp</result>
+            <result name="tipobeca">/WEB-INF/jsp/admin/presupuestos/tipobeca.jsp</result>
+            <result name="unidadacademica">/WEB-INF/jsp/admin/presupuestos/unidadacademica.jsp</result>
+        </action>
+        
+        <action name="*OrdenesDeposito" class="com.becasipn.actions.admin.AdministracionOrdenesDepositoAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/ordenesDeposito/{1}.jsp</result>
+            <result name="personalizacion">/WEB-INF/jsp/admin/tarjeta/personalizacion.jsp</result>
+        </action>
+        
+        <action name="*Tarjeta" class="com.becasipn.actions.admin.AdministraTarjetaAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/tarjeta/{1}.jsp</result>
+            <result name="asignacion">/WEB-INF/jsp/admin/tarjeta/asignacion.jsp</result>
+            <result name="estatus">/WEB-INF/jsp/admin/tarjeta/cambioEstatus.jsp</result>
+            <result name="personalizacion">/WEB-INF/jsp/admin/tarjeta/personalizacion.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+	
+        <action name="*Banamex" class="com.becasipn.actions.alumno.AdministraAlumnoAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/cuenta/{1}.jsp</result>
+            <result name="listado">/WEB-INF/jsp/admin/cuenta/listado.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        
+        <action name="*OrdenesSolicitudCuentas" class="com.becasipn.actions.admin.AdministraCuentaAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/cuenta/{1}.jsp</result>
+            <result name="lista">/WEB-INF/jsp/admin/cuenta/lista.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        
+        <action name="*Estadisticas" class="com.becasipn.actions.admin.AdministraEstadisticasAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/estadisticas/{1}.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result> 
+        </action>
+              
+        <action name="*Cuestionario" class="com.becasipn.actions.admin.AdministracionCuestionariosAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/cuestionarios/{1}.jsp</result>
+        </action>
+        
+        <action name="*CuentasExternas" class="com.becasipn.actions.admin.AdministracionCuentasExternasAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/cuentasExternas/{1}.jsp</result>
+            <result name="permitir">/WEB-INF/jsp/admin/cuentasExternas/permitir.jsp</result>
+        </action>
+        
+        <action name="*Reporte" class="com.becasipn.actions.admin.AdministraReportesAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/reporte/{1}.jsp</result>
+        </action>
+        
+        <action name="*PreasignacionMasiva" class="com.becasipn.actions.admin.AdministracionPreasignacionMasivaAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">nombreExcel</param>
+                <param name="type">middle</param>
+                <param name="key">nombreExcelKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="success">/WEB-INF/jsp/admin/preasignacionMasiva/{1}.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        
+        <action name="*CuentaBancaria" class="com.becasipn.actions.alumno.AdministraCuentaBancariaAction" method="{1}" >
+            <result name="configuracion">/WEB-INF/jsp/alumno/cuentaBancaria/configuracion.jsp</result>
+        </action>
+        
+        <action name="*Notificaciones" class="com.becasipn.actions.admin.AdministracionNotificacionesAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/notificaciones/{1}.jsp</result>
+            <result name="administrar">/WEB-INF/jsp/admin/notificaciones/crear.jsp</result>
+            <result name="edicion">/WEB-INF/jsp/admin/notificaciones/edicion.jsp</result>
+            <result name="eliminar">/WEB-INF/jsp/admin/notificaciones/administrar.jsp</result>
+        </action>
+        
+        <action name="*TipoNotificacion" class="com.becasipn.actions.admin.AdministracionTipoNotificacionAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/admin/tipoNotificacion/{1}.jsp</result>
+            <result name="administrar">/WEB-INF/jsp/admin/tipoNotificacion/crear.jsp</result>
+            <result name="edicion">/WEB-INF/jsp/admin/tipoNotificacion/edicion.jsp</result>
+            <result name="eliminar">/WEB-INF/jsp/admin/tipoNotificacion/administrar.jsp</result>
+        </action>
+        
+        <action name="*Accesos" class="com.becasipn.actions.admin.AdministracionAccesosAction" method="{1}">
+            <result name="success">/WEB-INF/jsp/admin/accesos/{1}.jsp</result>
+        </action>
+        
+        <action name="*AccesoNivel" class="com.becasipn.actions.admin.AdministracionAccesoNivelAction" method="{1}">
+            <result name="success">/WEB-INF/jsp/admin/accesos/nivel/{1}.jsp</result>
+            <result name="formulario">/WEB-INF/jsp/admin/accesos/nivel/editar.jsp</result>
+            <result name="configuracion">/WEB-INF/jsp/admin/accesos/administracion.jsp</result>
+        </action>
+        
+        <action name="*AccesoUAcademica" class="com.becasipn.actions.admin.AdministracionAccesoUAcademicaAction" method="{1}">
+            <result name="success">/WEB-INF/jsp/admin/accesos/administracion.jsp</result>
+            <result name="nuevo">/WEB-INF/jsp/admin/accesos/uacademica/form.jsp</result>
+            <result name="formulario">/WEB-INF/jsp/admin/accesos/uacademica/editar.jsp</result>
+        </action>
+        
+        <action name="*AccesoAlumno" class="com.becasipn.actions.admin.AdministracionAccesoAlumnoAction" method="{1}">
+            <result name="success">/WEB-INF/jsp/admin/accesos/alumno/{1}.jsp</result>
+            <result name="formulario">/WEB-INF/jsp/admin/accesos/alumno/editar.jsp</result>
+            <result name="configuracion">/WEB-INF/jsp/admin/accesos/administracion.jsp</result>
+        </action>
+        
+    </package>
+</struts>

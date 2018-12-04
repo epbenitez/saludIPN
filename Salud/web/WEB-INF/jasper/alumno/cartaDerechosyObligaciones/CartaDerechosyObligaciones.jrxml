@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta Derechos y Obligaciones" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2a0df2c2-8e5c-47de-b727-9d2834432ce0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="2166a77b-5679-4f8e-85c0-9daff8a943a4"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="cicloEscolar" class="java.lang.String"/>
+	<parameter name="nombreAlumno" class="java.lang.String"/>
+	<parameter name="organizacion" class="java.lang.String"/>
+	<parameter name="nivel" class="java.lang.String"/>
+	<parameter name="promedio" class="java.lang.String"/>
+	<parameter name="estado" class="java.lang.String"/>
+	<parameter name="curp" class="java.lang.String"/>
+	<parameter name="folio" class="java.lang.String"/>
+	<parameter name="imagenPlaca" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="67">
+			<image>
+				<reportElement x="49" y="0" width="448" height="67" uuid="b76b8764-2641-493d-9bdb-26ea37031d5f"/>
+				<imageExpression><![CDATA[$P{imagenPlaca}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="701" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="113" width="555" height="30" uuid="19766c89-67cf-4303-b8f7-17f59b4bb75b"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["Gracias por sumarte a este gran proyecto que te ofrece una beca para que sigas estudiando. Para nosotros es muy importante que conozcas tus derechos y obligaciones al ser un Becario de BÉCALOS y " + $P{organizacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="180" width="555" height="14" uuid="97f85261-3fa2-476b-bed5-ef18b40348ab"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[1. Tienes el derecho a recibir tu beca por este año de esta forma:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="194" width="555" height="20" uuid="dea7b0d0-d0ed-4e21-a466-57d893ea3214"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["Ciclo Escolar: "+$P{cicloEscolar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="343" width="555" height="80" uuid="907cb258-7039-4138-abfe-b4b65e5b1848"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[2. Tienes el derecho a exigir la entrega de tu beca en tiempo y forma, por lo que cualquier anomalía envía un mail con tu nombre completo, CURP e Institución a la que perteneces: acompanamiento@becalos.mx
+En menos de 48 horas hábiles recibirás una respuesta.
+
+3. Participar en el programa de Bécalos en Acción, al tener un proyecto en tu comunidad (escuela, familia, población, etc.) en el cual podrás ganar una beca educativa adicional para el desarrollo o ejecución de tu proyecto.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="423" width="555" height="20" uuid="01d7f955-0e74-4baa-8c0e-dcceaee6721a"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["4. Tu beca es posible gracias al donativo del programa Bécalos y "+$P{organizacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="449" width="555" height="20" uuid="6acff0f1-5009-4945-aa18-733e091d9a9b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBLIGACIONES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="469" width="555" height="20" uuid="b2fd8e9a-01e9-4596-86b1-e8c49ec95f47"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["1.Continuar estudiando y terminar el nivel "+$P{nivel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="509" width="555" height="71" uuid="94516001-138c-4106-9014-9d818a51f1f9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[3.Compromiso con tu comunidad a través de las siguientes acciones:
+
+	a.Proyecto en tu comunidad (escuela, familia, colonia, población, etc.)
+
+	b.Recaudar fondos a través del Boteo para que otros puedan tener una beca igual a la tuya.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="489" width="555" height="20" uuid="056fef5e-c937-4950-9a7d-7db390787219"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["2.Mantener un promedio igual o superior a " + $P{promedio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="93" width="555" height="20" uuid="c0fea351-e87b-4250-ae69-2a8a29f020cd"/>
+				<textFieldExpression><![CDATA["Estimado " + $P{nombreAlumno} + ":"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="31" uuid="6dede720-5eb7-43de-ad65-19168948e243"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="24"/>
+				</textElement>
+				<text><![CDATA[CARTA DE DERECHOS Y OBLIGACIONES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="31" width="555" height="20" uuid="a959ed64-ef58-4196-81bc-fc2a20b6ae85"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="62" width="555" height="21" uuid="1a2354f5-2e5d-47c2-85a6-ec5eb2a22499"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["¡Bienvenido al ciclo escolar " + $P{cicloEscolar} + "!"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="147" width="555" height="16" uuid="6fe7d7c2-cdb6-4061-ab45-a9d7e613d22d"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DERECHOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="214" width="555" height="124" uuid="fe9ec455-7187-4bf0-b1b0-05486ef70984"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36"/>
+				</textElement>
+				<text><![CDATA[TABLA]]></text>
+			</staticText>
+		</band>
+		<band height="701">
+			<staticText>
+				<reportElement x="0" y="680" width="555" height="20" uuid="e030bdbe-bfd2-4722-9853-62153fc573c9"/>
+				<textElement textAlignment="Right">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[*Recuerda firmar todas las hojas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="622" width="555" height="58" uuid="5c95d4a9-71a8-41b9-a06f-32c379a1c1ba"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["__________________________________________________"+
+"Nombre: " +$P{nombreAlumno} +
+"CURP: " +$P{curp} +
+"Fecha: " +$P{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="505" width="555" height="19" uuid="86062005-ad24-4b2e-97df-b418c1e6d3f5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[¡HAY TALENTO SOLO FALTA APOYARLO!]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="534" width="555" height="20" uuid="c19c60d1-40e7-49dc-a2c4-dbf70ccc7877"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[He leído y entendido esta Carta de Derechos y Obligaciones. El incumplimiento puede causar la baja a esta beca.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="28" width="555" height="281" uuid="4b959581-0edf-4102-8da4-ee0f888dbdd3"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[5.Acepto apoyar a Bécalos de manera voluntaria, en eventos, entrevistas, etc. para promoción del programa.
+
+6.Los principios de la Cultura Cívica y de Legalidad también son para nosotros, los jóvenes, y por ello me comprometo a:
+
+	a.Conocer, respetar y cumplir las leyes porque eso nos brindará armonía, bienestar, justicia y paz social.
+
+	b.Reconocer que las leyes existen para proteger nuestros derechos y los de los demás.
+
+	c.Tratar a todas las personas con las que me relaciono de manera digna y respetuosa: empezando por mi familia y amigos.
+
+	d.Rechazar los comportamientos indebidos y denunciar los actos ilegales que sufra o de los que yo sea testigo.
+
+	e.Ser transparente y claro, y actuar siempre con honestidad.
+
+	f.Evitar que mis decisiones y comportamiento tengan consecuencias negativas.
+
+	g.Cumplir con el principio de: “Si no es mío… es de alguien”.
+
+
+Gracias por ser parte de esta gran familia, deseamos que termines la escuela y seas un profesionista exitoso.
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="8" width="555" height="20" uuid="6a1bb731-0cff-4a9c-b895-f6c94ec3bf3b"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA["4.Inscríbete al grupo cerrado en Facebook de tu estado… búscalo como “CONTACTO BÉCALOS " + $P{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="34" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

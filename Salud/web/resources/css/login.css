@@ -1,0 +1,138 @@
+/* 
+    Created on : 6/10/2016, 06:26:31 PM
+    Author     : Gustavo A. Alamillo
+*/
+
+#login-box{
+    -webkit-border-top-left-radius: 15px;
+    -webkit-border-top-right-radius: 15px;
+    -moz-border-radius-topleft: 15px;
+    -moz-border-radius-topright: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#login-logo{
+    background: rgba(26,188,156,1);
+    background: -moz-linear-gradient(left, rgba(26,188,156,1) 0%, rgba(7,165,238,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(26,188,156,1)), color-stop(100%, rgba(7,165,238,1)));
+    background: -webkit-linear-gradient(left, rgba(26,188,156,1) 0%, rgba(7,165,238,1) 100%);
+    background: -o-linear-gradient(left, rgba(26,188,156,1) 0%, rgba(7,165,238,1) 100%);
+    background: -ms-linear-gradient(left, rgba(26,188,156,1) 0%, rgba(7,165,238,1) 100%);
+    background: linear-gradient(to right, rgba(26,188,156,1) 0%, rgba(7,165,238,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1abc9c', endColorstr='#07a5ee', GradientType=1 );
+    font-size: 20px;
+    padding:14px 0px 5px 25px;
+    text-align: left;
+    font-family:'ITC Avant Garde Gothic LT Book';
+    font-weight:bold;
+    font-size:14pt;
+}
+
+.errorIniciar{
+    background-color:#DB3A58;
+    color: white;
+    text-align: left;
+    font-family:'ITC Avant Garde Gothic LT Book';
+    font-weight:normal;
+    font-size:10pt;
+    padding: 7px 15px;
+    margin-bottom: 30px;
+}
+
+.exitoIniciar{
+    background-color:#7FDC58;
+    color: white;
+    text-align: left;
+    font-family:'ITC Avant Garde Gothic LT Book';
+    font-weight:normal;
+    font-size:10pt;
+    padding: 7px 15px;
+    margin-bottom: 30px;
+}
+
+#img_login{
+    margin-bottom: 30px;
+}
+
+#img_login img{
+    display: block;
+    margin: auto;
+}
+
+@media (max-width: 767px) { 
+    #img_login img{width: 65%}
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    #img_login img{width: 65%}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    #img_login img{width: 65%}
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    #img_login img{width: 100%}
+}
+
+#remember-me-wrapper{
+    margin-top: -12px;   
+}
+
+#remember-me-wrapper a{
+    color:#56A9BB;
+}
+
+#enviarBtn{
+    background-color: #2f2e30;
+    border-color: #2f2e30;
+
+}
+
+#login-box .btn {
+    font-size: 12px;
+    padding: 5px 15px;
+    margin-bottom: 8px;
+    margin-top: -2px;
+}
+
+.btn {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-clip: padding-box;
+    border-color: -moz-use-text-color;
+    border-image: none;
+    border-radius: 10px;
+    border-style: none none solid;
+    border-width: medium medium 2px;
+    outline: medium none;
+
+    transition: border-color 0.1s ease-in-out 0s, background-color 0.1s ease-in-out 0s;
+}
+
+#login-box-inner{
+    padding-bottom: 0px;
+    border-bottom: 1px;
+    background-image: url("/resources/img/login/escudo.svg");  
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: -1vw;
+}
+
+#login-box-footer{
+    font-size:14px;
+    background-color:#F3F5F6;
+    margin-top:0px;
+    padding: 10px;
+}
+
+#login-box{
+    -webkit-box-shadow: 0 0 25px 10px #000000;
+    box-shadow:0px 2px 25px #000000;
+}

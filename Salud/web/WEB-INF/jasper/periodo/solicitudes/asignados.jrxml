@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Referencia" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50862c93-38aa-4358-818e-782141c20f34">
+	<property name="ireport.zoom" value="1.6105100000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#CCCCCC"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+			<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+			<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#CCCCCC"/>
+			<bottomPen lineWidth="0.5" lineColor="#CCCCCC"/>
+		</box>
+	</style>
+	<subDataset name="listaDataSet" uuid="de7635ba-fc9b-486f-be1c-930c58177b80">
+		<field name="nombreCompleto" class="java.lang.String"/>
+		<field name="boleta" class="java.lang.String"/>
+		<field name="curp" class="java.lang.String"/>
+		<field name="genero" class="java.lang.String"/>
+		<field name="nombreBeca" class="java.lang.String"/>
+		<field name="grupoEdad" class="java.lang.String"/>
+		<field name="estado" class="java.lang.String"/>
+		<field name="municipio" class="java.lang.String"/>
+		<field name="localidad" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="imagenPlaca" class="java.lang.String"/>
+	<parameter name="unidadAcademica" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="tutor" class="java.lang.String"/>
+	<parameter name="boleta" class="java.lang.String"/>
+	<parameter name="curp" class="java.lang.String"/>
+	<parameter name="folio" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="listaDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="grupoEdad" class="java.lang.String"/>
+	<parameter name="estado" class="java.lang.String"/>
+	<parameter name="municipio" class="java.lang.String"/>
+	<parameter name="localidad" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="32" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="752" height="32" uuid="9284b60f-4709-4644-9e6d-bb73cf810bb2"/>
+				<imageExpression><![CDATA[$P{imagenPlaca}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="212" y="15" width="360" height="15" uuid="76f5e190-aeec-4699-a814-e8ab8243567a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Periodo: " + $P{periodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="106" y="-13" width="572" height="35" uuid="a90b4d9e-8770-42d3-b634-28e665db9952"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="18" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Alumnos con Beca Otorgada]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table 1" x="14" y="0" width="724" height="31" uuid="03461ed7-c427-4458-a0d3-4a6e64f14761"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="listaDataSet" uuid="e4a5100a-4730-497d-88cb-f97e1aa5340d">
+						<dataSourceExpression><![CDATA[$P{listaDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="100" uuid="3e79698f-4e58-44fa-bfd2-b2d9ecafe095">
+						<jr:tableHeader style="table_TD" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="9e963420-ce56-43c5-8d99-98b7594e7bbf"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Calibri" size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Boleta]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="13" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="13" uuid="413c3835-dce5-4ae9-8b90-983527886f72"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{boleta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="59b1ebaf-58e0-45a5-a13d-1f4e7f1c56df">
+						<jr:tableHeader style="table_TD" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="820cfaf0-c539-4bc3-9c73-9b4b1db28b51"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Calibri" size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Escuela]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="13" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="13" uuid="163e8197-8991-4831-974b-63eec06135f8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{curp}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="7988e82f-9777-4133-b704-4822eda5e47d">
+						<jr:tableHeader style="table_TD" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="be6de770-6fe3-43a4-84d3-cc3a0240df0e"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Calibri" size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Beca Asignada]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="13" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="13" uuid="8063c7f9-5905-4d60-a595-bafda5793f0f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nombreBeca}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="58bbe7b3-7979-444d-97c9-f426ba4c1e92">
+						<jr:tableHeader style="table_TD" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="7cb9ca39-7253-4795-b97a-f5a38c865f48"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Calibri" size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Grupo de Edad]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="13" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="13" uuid="e75ff20e-3556-4c0f-bbc7-c0352ff9691f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{grupoEdad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="8ee64e79-f429-4483-90c2-8aa5eaa54cfa">
+						<jr:tableHeader style="table_TD" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="798e3631-db66-40eb-b863-4c19063e451b"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Calibri" size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Entidad Federativa]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="13" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="13" uuid="21f45d69-096d-4490-88ee-4688fb78c9b1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="def10dd0-4878-4f62-92bf-3d1c9478e30d">
+						<jr:tableHeader style="table_TD" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="9e4846f9-5082-46c3-bcc3-a6737153dbf3"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Calibri" size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Municipio]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="13" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="13" uuid="675cebc9-ddf7-4eab-8654-6c027f8642a7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{municipio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="8b717255-3746-4503-961a-2261d25addbf">
+						<jr:tableHeader style="table_TD" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="15" uuid="ec665639-126e-489b-b1ae-e00958e903e2"/>
+								<textElement textAlignment="Center" verticalAlignment="Top">
+									<font fontName="Calibri" size="9" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Localidad]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table_TD" height="13" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="13" uuid="e43d6c65-ef17-4e8f-8fa9-d5b179db2fc3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Calibri" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{localidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="16" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="8" y="2" width="83" height="10" uuid="7209e9d9-32bf-4393-ae4e-626972d96be5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha de impresión:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="706" y="0" width="26" height="10" uuid="63babc8b-3cd5-495a-bff1-2a577caecb29"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="95" y="2" width="97" height="10" uuid="c74a027d-96c7-4f3a-8fa2-69642c0a8c10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="656" y="0" width="48" height="10" uuid="9e30b8ea-b450-435b-b15d-40f6bb30c1e0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Calibri" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

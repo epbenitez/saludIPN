@@ -1,0 +1,4 @@
+<div class='solo-lectura checkbox-nice'>
+    <input type=checkbox ${checked} id='${id}' value='${value}' onclick='${onclick}' class='solo-lectura' />
+    <label for ='${id}'> </label>
+</div>

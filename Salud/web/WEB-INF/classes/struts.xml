@@ -1,0 +1,206 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.ui.theme" value="css_xhtml" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+    <constant name="struts.multipart.maxSize" value="240097152" />
+    <constant name="struts.custom.i18n.resources" value="messages" />
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+
+    <!-- Configuration for the default package. -->
+    <package name="default" namespace="/" extends="struts-default">
+
+        <!-- result-types? -->
+        <result-types>
+            <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"/>
+        </result-types>
+
+        <!-- interceptors? -->
+        <interceptors>
+            <interceptor name="exceptionBecasIPN" class="com.becasipn.util.ExceptionMappingInterceptor" />
+            <interceptor-stack name="generalBecasIPN">
+                <interceptor-ref name="exceptionBecasIPN">
+                    <param name="logEnabled">true</param>
+                    <param name="logCategory">com.becasipn.util</param>
+                    <param name="logLevel">ERROR</param>
+                </interceptor-ref>
+                <interceptor-ref name="alias" />
+                <interceptor-ref name="servletConfig" />
+                <interceptor-ref name="i18n" />
+                <interceptor-ref name="prepare" />
+                <interceptor-ref name="chain" />
+                <interceptor-ref name="debugging" />
+                <interceptor-ref name="profiling" />
+                <interceptor-ref name="scopedModelDriven" />
+                <interceptor-ref name="modelDriven" />
+                <interceptor-ref name="fileUpload">
+                    <param name="maximumSize">240097152</param>
+                </interceptor-ref>
+                <interceptor-ref name="checkbox" />
+                <interceptor-ref name="staticParams" />
+                <interceptor-ref name="actionMappingParams" />
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <!--                <interceptor-ref name="conversionError" />-->
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- default-interceptor-ref? -->
+        <default-interceptor-ref name="generalBecasIPN" />
+
+        <!-- default-action-ref? -->
+        <default-action-ref name="login" />
+
+        <!-- default-class-ref? -->
+
+        <!-- global-results? -->
+        <global-results>
+            <result name="unhandledException">/WEB-INF/jsp/exception.jsp</result>
+            <result name="userSessionException">/WEB-INF/jsp/expiredUserSession.jsp</result>
+            <result name="noActionDefined">/WEB-INF/jsp/exception.jsp</result>
+            <result name="login" type="redirect">/login.action</result>
+            <result name="sinacceso">/WEB-INF/jsp/access_denied.jsp</result>
+        </global-results>
+
+        <!-- global-exception-mappings? -->
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Throwable" result="unhandledException" />
+            <exception-mapping exception="com.becasipn.exception.UserSessionException" result="userSessionException" />
+            <exception-mapping exception="java.lang.NoSuchMethodException" result="noActionDefined" />
+            <exception-mapping exception="com.becasipn.exception.SsoValidUserException" result="sinacceso" />
+        </global-exception-mappings>
+
+        <!-- action * -->
+
+        <action name="index" class="com.becasipn.actions.IndexAction">
+            <result name="input" type="redirect">/tableroControl.action</result>
+            <result name="success" type="redirect">/panelcontrol/mostrar.action</result>
+            <result name="error" type="redirect">/login.action</result>
+        </action>
+
+        <action name="tableroControl" class="com.becasipn.actions.admin.TableroControlAction">
+            <result name="success">/WEB-INF/jsp/tablero/detalle.jsp</result>
+        </action>
+
+        <action name="login" class="com.becasipn.actions.security.LoginAction">
+            <result name="input">/WEB-INF/jsp/security/login.jsp</result>
+            <result name="loggedin" type="redirect">/index.action</result>
+            <result>/WEB-INF/jsp/security/login.jsp</result>
+        </action>
+                
+        <action name="*Contrasenia" class="com.becasipn.actions.usuario.AdministraUsuariosAction" method="{1}Contrasenia" >
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="input">/WEB-INF/jsp/contrasenia/cambio.jsp</result>
+            <result name="recuperar">/WEB-INF/jsp/contrasenia/recuperar.jsp</result>
+            <result name="login" >/WEB-INF/jsp/security/login.jsp</result>
+        </action>
+                        
+        <action name="busca" class="com.becasipn.actions.usuario.BuscadorAction" method="busca" >
+            <result name="input">/WEB-INF/jsp/usuario/buscador.jsp</result>
+        </action>  
+        
+        <action name="consultar" class="com.becasipn.actions.usuario.ManualAction" method="consultar" >
+            <result name="SUCCES">/WEB-INF/jsp/manuales/alumno/index.jsp</result>
+        </action>  
+        
+        <action name="*Global" class="com.becasipn.actions.admin.ReportesAction" method="{1}">
+            <result name="error" type="redirect">/index.action</result>
+            <result name="success">/WEB-INF/jsp/reportes/global.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/csv"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+	
+        <action name="*Rendimiento" class="com.becasipn.actions.admin.ReportesAction" method="{1}">
+            <result name="error" type="redirect">/index.action</result>
+            <result name="success">/WEB-INF/jsp/reportes/rendimiento.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/csv"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+	
+        <action name="*EstadisticaSolicitudes" class="com.becasipn.actions.admin.ReportesAction" method="{1}">
+            <result name="error" type="redirect">/index.action</result>
+            <result name="success">/WEB-INF/jsp/reportes/solicitudes.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/csv"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+		
+        <action name="*EstadisticaDepositos" class="com.becasipn.actions.admin.ReportesAction" method="{1}">
+            <result name="error" type="redirect">/index.action</result>
+            <result name="vacio">/WEB-INF/jsp/reportes/error.jsp</result>
+            <result name="success">/WEB-INF/jsp/reportes/depositos.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/csv"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+		
+        <action name="reporteCuentas" class="com.becasipn.actions.admin.ReportesAction" method="reporte">
+            <result name="error" type="redirect">/index.action</result>
+            <result name="success">/WEB-INF/jsp/reportes/cuentas.jsp</result>
+        </action>
+        
+        <action name="reporteSeguimientoBecarios" class="com.becasipn.actions.admin.ReportesAction" method="cuestionarios">
+            <result name="error" type="redirect">/index.action</result>
+            <result name="success">/WEB-INF/jsp/reportes/seguimientoBecarios.jsp</result>
+        </action>
+        
+        <action name="reporteCensoSalud" class="com.becasipn.actions.admin.ReportesAction" method="cuestionarios">
+            <result name="error" type="redirect">/index.action</result>
+            <result name="success">/WEB-INF/jsp/reportes/censoSalud.jsp</result>
+        </action>
+        
+        <action name="estatusCuentas" class="com.becasipn.actions.admin.ReportesAction" method="descargaEstatusCuentas">
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/csv"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        
+                
+        <action name="error403" class="com.becasipn.actions.security.Error403Action" method="show">
+            <result>/WEB-INF/jsp/403.jsp</result>
+        </action>
+        
+        <action name="error404" class="com.becasipn.actions.security.Error404Action" method="show">
+            <result>/WEB-INF/jsp/404.jsp</result>
+        </action>
+    </package>
+
+
+    <include file="struts-alumno.xml" />
+    <include file="struts-ajax.xml" />
+    
+    <include file="struts-catalogos.xml" />
+    <include file="struts-admin.xml" />
+    <include file="struts-becas.xml" />
+    <include file="struts-cargas.xml" />
+    <include file="struts-jasper.xml" />
+    <include file="struts-becas-externas.xml" />
+    <include file="struts-recurso-reconsideracion.xml" />
+
+</struts>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<decorators defaultdir="/WEB-INF/decorators">
+    
+    <excludes>
+        <pattern>/ajax/*</pattern>
+    </excludes>
+    
+    <decorator name="fancyBox" page="fancyBoxMain.jsp">
+        <pattern>/admin/formAccesoAlumno.action</pattern>
+        <pattern>/admin/editarAccesoAlumno.action*</pattern>
+        <pattern>/admin/guardarAccesoAlumno.action*</pattern>
+        <pattern>/admin/formAccesoUAcademica.action</pattern>
+        <pattern>/admin/editarAccesoUAcademica.action*</pattern>
+        <pattern>/admin/guardarAccesoUAcademica.action*</pattern>
+        <pattern>/admin/formAccesoNivel.action</pattern>
+        <pattern>/admin/editarAccesoNivel.action*</pattern>
+        <pattern>/admin/guardarAccesoNivel.action*</pattern>
+        <pattern>/admin/bitacoraProceso.action*</pattern>
+        <pattern>/admin/*CuentaBancaria.action*</pattern>
+        <pattern>/admin/censoSaludCuestionario.action*</pattern>
+        <pattern>/admin/resultadoSeguimientoBecarios.action*</pattern>
+        <pattern>/admin/detalleOrdenesSolicitudCuentas.action*</pattern>
+        <pattern>/admin/edicionProceso.action*</pattern>
+        <pattern>/admin/edicionUsuario.action*</pattern>
+        <pattern>/admin/enviarCorreosEnvioCorreos.action*</pattern>
+        <pattern>/admin/eseCuestionario.action*</pattern>
+        <pattern>/admin/esetCuestionario.action*</pattern>
+        <pattern>/admin/estatusOrdenesSolicitudCuentas.action*</pattern>
+        <pattern>/admin/formEnvioCorreos.action*</pattern>
+        <pattern>/admin/enviarPruebaEnvioCorreos.action*</pattern>
+        <pattern>/admin/formProceso.action*</pattern>
+        <pattern>/admin/formUsuario.action*</pattern>
+        <pattern>/admin/guardaProceso.action*</pattern>
+        <pattern>/admin/guardaUsuario.action*</pattern>
+        <pattern>/admin/listaEstadisticas.action*</pattern>
+        <pattern>/admin/crearNotificaciones.action*</pattern>
+        <pattern>/admin/edicionNotificaciones.action*</pattern>
+        <pattern>/admin/guardaNotificaciones.action*</pattern>        
+        <pattern>/admin/crearTipoNotificacion.action*</pattern>
+        <pattern>/admin/edicionTipoNotificacion.action*</pattern>
+        <pattern>/admin/guardaTipoNotificacion.action*</pattern>        
+        <pattern>/admin/verUsuario.action*</pattern>
+        <pattern>/becas/cambiarAsignaciones.action</pattern>
+        <pattern>/becas/cotejarAsignaciones.action</pattern>
+        <pattern>/becas/detalleOrdenesDeposito.action*</pattern>
+        <pattern>/becas/editarAsignaciones.action</pattern>
+        <pattern>/becas/estatusAsignaciones.action</pattern>
+        <pattern>/becas/formAsignaciones.action*</pattern>
+        <pattern>/becas/formBajaBecas.action*</pattern>
+        <pattern>/becas/presupuestoAsignaciones.action</pattern>
+        <pattern>/becas/rechazoAsignaciones.action</pattern>
+        <pattern>/becas/requisitosAsignaciones.action</pattern> 
+        <pattern>/becas/validacionAsignaciones.action</pattern>
+        <pattern>/becas/verEstatusSolicitud.action*</pattern>
+        <pattern>/becas/verAlumnoBecasDisponibles.action*</pattern>
+        <pattern>/becas/editarExcluirAlumnosDeposito.action</pattern>
+        <pattern>/becas/guardarExcluirAlumnosDeposito.action*</pattern>
+        
+        <pattern>/catalogos/edicionTipoBeca.action*</pattern>
+        <pattern>/catalogos/edicionTipoBecaPeriodo.action*</pattern>
+        <pattern>/catalogos/edicionTipoProceso.action*</pattern>
+        <pattern>/catalogos/edicionPeriodo.action*</pattern>
+        <pattern>/catalogos/edicionUnidadAcademica.action*</pattern>
+        
+        <pattern>/catalogos/guardaMontoMaximoIngresos.action*</pattern>
+        <pattern>/catalogos/guardaPeriodo.action*</pattern>
+        <pattern>/catalogos/guardaTipoBeca.action*</pattern>
+        <pattern>/catalogos/guardaTipoBecaPeriodo.action*</pattern>
+        <pattern>/catalogos/guardaTipoProceso.action*</pattern>
+        <pattern>/catalogos/guardaUnidadAcademica.action*</pattern>
+        <pattern>/catalogos/formPeriodo.action*</pattern>
+        <pattern>/catalogos/formTipoBeca.action*</pattern>
+        <pattern>/catalogos/formTipoBecaPeriodo.action*</pattern>
+        <pattern>/catalogos/formTipoProceso.action*</pattern>
+        <pattern>/catalogos/formUnidadAcademica.action*</pattern>
+        <pattern>/catalogos/formularioMontoMaximoIngresos.action*</pattern>
+        <pattern>/carga/cargaRespuestaBancaria.action*</pattern> 
+        <pattern>/carga/cargaSolicitudesCuentasRespuestaBancaria.action*</pattern>
+        <pattern>/carga/formRespuestaBancaria.action*</pattern>
+        <pattern>/carga/formSolicitudRespuestaBancaria.action*</pattern>
+        <pattern>/carga/rechazadoRespuestaBancaria.action*</pattern>
+        <pattern>/depositos/formAdministraDepositos.action*</pattern>
+        <pattern>/misdatos/adminSaludCuestionarioSalud.action*</pattern>
+        <pattern>/misdatos/adminSeguimientoSeguimientoBecarios.action*</pattern>
+        <pattern>/misdatos/cambioPermisoCambio.action*</pattern>
+        <pattern>/misdatos/cartaCompromisoDocumentos.action</pattern>
+        <pattern>/misdatos/comprobanteDocumentos.action</pattern>
+        <pattern>/misdatos/datosBancariosPermisoCambio.action*</pattern>
+        <pattern>/misdatos/datosDAEPermisoCambio.action*</pattern>
+        <pattern>/misdatos/detalleHistorialBecas.action*</pattern>
+        <pattern>/misdatos/detalleOtorgamientoHistorialBecas.action*</pattern>
+        <pattern>/misdatos/editarPermisoCambio.action*</pattern> 
+        <pattern>/misdatos/guardaDAEPermisoCambio.action*</pattern> 
+        <pattern>/misdatos/unidadCarreraPermisoCambio.action</pattern> 
+        <pattern>/misdatos/validacionPermisoCambio.action*</pattern>
+        <pattern>/misdatos/verPermisoCambio.action*</pattern>
+        <pattern>/tarjeta/bitacoraMonitoreoTarjetaBancaria.action*</pattern>   
+        <pattern>/becasexternas/formBecaExterna.action*</pattern>   
+        <pattern>/becasexternas/bitacoraBecaExterna.action*</pattern>  
+        <pattern>/becasexternas/guardaBecaExterna.action*</pattern>
+        <pattern>*</pattern>
+    </decorator>
+    
+    <decorator name="main" page="main.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>

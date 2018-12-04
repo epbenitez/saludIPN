@@ -1,0 +1,355 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="ajax"  namespace="/ajax" extends="default">
+        <!-- En los catalogos de direccion -->
+        <action name="getDireccion*" class="com.becasipn.actions.ajax.DireccionAjaxAction" method="get{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+
+        <action name="*InscripcionCursosAjax" class="com.becasipn.actions.ajax.CursoAjaxAction" method="{1}">
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+
+        <action name="getCSS" class="com.becasipn.actions.ajax.CentroSeguridadSocialAjaxAction" method="getCSS">
+            <result>/WEB-INF/jsp/ajaxDojo.jsp</result>
+        </action>
+
+        <!-- Para Upload -->
+        <action name="*Upload*" class="com.becasipn.actions.ajax.UploadAjaxAction" method="{1}">
+            <result>/WEB-INF/jsp/ajaxUpload{2}.jsp</result>
+        </action>
+
+        <!--Búsqueda de Tickets-->
+        <action name="getTicket" class="com.becasipn.actions.ajax.BusquedaTicketAjaxAction" method="getTickets">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+
+        <action name="getHistorialTicket" class="com.becasipn.actions.ajax.BusquedaTicketAjaxAction" method="getHistorialTickets">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+
+        <action name="*AjaxTicket" class="com.becasipn.actions.ajax.BusquedaTicketAjaxAction" method="{1}">
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+
+        <!-- Para busqueda de alumnos -->
+        <action name="*AjaxAlumno" class="com.becasipn.actions.ajax.AjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+
+
+        <!-- Validaciones del formulario de inscripcion de Personal Academico-->
+        <action name="*AjaxPersonalAcademico" class="com.becasipn.actions.ajax.PersonalAcademicoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajaxValidateForm.jsp</result>
+        </action>
+
+        <action name="*AjaxAlumno" class="com.becasipn.actions.ajax.AlumnoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="error_json">/WEB-INF/jsp/ajaxVALUE.jsp</result>
+            <result>/WEB-INF/jsp/ajaxValidateForm.jsp</result>
+        </action>
+        
+        
+        <!-- Carga del grid de la pantalla de catalogos de tipo d evento -->
+        <action name="*AjaxTipoEvento" class="com.becasipn.actions.ajax.TipoEventoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajaxValidateForm.jsp</result>
+        </action>
+        
+        <!-- Carga del grid de la pantalla de catalogos de periodos escolares -->
+        <action name="*AjaxCatalogoPeriodoEscolar" class="com.becasipn.actions.ajax.PeriodoEscolarAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajaxValidateForm.jsp</result>
+        </action>
+
+        <action name="*AjaxCalendarioEscolar" class="com.becasipn.actions.ajax.CalendarioEscolarAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="error">/WEB-INF/jsp/ajaxJSON-Error.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+
+        <!-- Carga del grid de la pantalla de catalogos de ciclos escolares -->
+        <action name="*AjaxCatalogoCicloEscolar" class="com.becasipn.actions.ajax.CicloEscolarAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajaxValidateForm.jsp</result>
+        </action>
+
+        <!-- Carga del grid de la pantalla de grupo de aseguradores de calidad -->
+        <action name="*AjaxGrupoAseguradorCalidad" class="com.becasipn.actions.ajax.GruposACAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <!-- Carga del grid de la pantalla de grupo de facilitadores -->
+        <action name="*AjaxGrupoFacilitador" class="com.becasipn.actions.ajax.GruposFacilitadorAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajax.jsp</result>
+            <result name="error">/WEB-INF/jsp/ajaxJSON-Error.jsp</result>
+        </action>
+        
+        <action name="*AjaxGruposEstudiantes" class="com.becasipn.actions.ajax.GruposEstudiantesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajax.jsp</result>
+            <result name="error">/WEB-INF/jsp/ajaxJSON-Error.jsp</result>
+        </action>
+
+        <action name="*AjaxGruposTutores" class="com.becasipn.actions.ajax.GruposTutoresAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+
+        <action name="*AjaxCalificaciones" class="com.becasipn.actions.ajax.CalificacionAlumnoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajaxVALUE.jsp</result>
+        </action>
+        
+        <action name="*AjaxReportes" class="com.becasipn.actions.ajax.ReportesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajaxVALUE.jsp</result>
+        </action>
+
+        <action name="*AjaxEncuestas" class="com.becasipn.actions.ajax.EncuestasAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajaxVALUE.jsp</result>
+        </action>
+
+        <action name="*AjaxAutomatizaciones" class="com.becasipn.actions.ajax.AutomatizacionesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success">/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*AjaxMoodleMobile" class="com.becasipn.actions.ajax.MoodleMobileAjaxAction" method="{1}">
+            <result name="success">/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*PresupuestoAjax" class="com.becasipn.actions.ajax.PresupuestoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="error_json">/WEB-INF/jsp/ajaxVALUE.jsp</result>
+        </action>     
+                      
+        <action name="*TipoProcesoAjax" class="com.becasipn.actions.ajax.TipoProcesoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action> 
+	
+        <action name="*ProcesoAjax" class="com.becasipn.actions.ajax.ProcesoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*TipoBecaPeriodoAjax" class="com.becasipn.actions.ajax.TipoBecaPeriodoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*PeriodoAjax" class="com.becasipn.actions.ajax.PeriodoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*TipoBecaAjax" class="com.becasipn.actions.ajax.TipoBecaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*UnidadAcademicaAjax" class="com.becasipn.actions.ajax.UnidadAcademicaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*ProcesAjax" class="com.becasipn.actions.ajax.ProcesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <!-- En los catalogos de direccion -->
+        <action name="getProcesos*" class="com.becasipn.actions.ajax.MovimientoAjaxAction" method="getProcesos">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*UsuarioAjax" class="com.becasipn.actions.ajax.UsuarioAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*AsignacionesAjax" class="com.becasipn.actions.ajax.AsignacionesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*CargaMasivaAjax" class="com.becasipn.actions.ajax.CargaMasivaAjaxAction" method="{1}">            
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>     
+
+        <action name="*BecasBajasDetalleAjax" class="com.becasipn.actions.ajax.BecasBajasDetalleAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*BecasBajasAjax" class="com.becasipn.actions.ajax.BecasBajasAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*EstatusSolicitudAjax" class="com.becasipn.actions.ajax.EstatusSolicitudAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*EnvioCorreosAjax" class="com.becasipn.actions.ajax.EnvioCorreosAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*PermisoCambioAjax" class="com.becasipn.actions.ajax.PermisoCambioAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+                
+        <action name="*ConfiguracionAjax" class="com.becasipn.actions.ajax.ConfiguracionAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*OrdenesDepositoAjax" class="com.becasipn.actions.ajax.OrdenesDepositoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*SolicitudCuentasAjax" class="com.becasipn.actions.ajax.CuentasAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="getNivel*" class="com.becasipn.actions.ajax.UnidadAcademicaAjaxAction" method="get{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+
+        <action name="getRecursos*" class="com.becasipn.actions.ajax.BecaAjaxAction" method="get{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*BecaAjax" class="com.becasipn.actions.ajax.BecaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*BitacoraAlumnoTarjetaAjax" class="com.becasipn.actions.ajax.BitacoraAlumnoTarjetaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*TarjetaAjax" class="com.becasipn.actions.ajax.TarjetaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*DepositoAjax" class="com.becasipn.actions.ajax.DepositoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*DepositoNoCoincideAjax" class="com.becasipn.actions.ajax.DepositoNoCoincideAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*ExcluirDepositoAlumnosAjax" class="com.becasipn.actions.ajax.ExcluirDepositoAlumnosAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*EstadisticasAjax" class="com.becasipn.actions.ajax.EstadisticasAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*BecasDisponiblesAjax" class="com.becasipn.actions.ajax.BecasDisponiblesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*VWPresupuestoUAAjax" class="com.becasipn.actions.ajax.VWPresupuestoUnidadAcademicaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*AlumnoAjax" class="com.becasipn.actions.ajax.AlumnoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*CuestionarioTransporteAjax" class="com.becasipn.actions.ajax.CuestionarioTransporteAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="getPeriodo*" class="com.becasipn.actions.ajax.TipoProcesoAjaxAction" method="get{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="getMes*" class="com.becasipn.actions.ajax.MesAjaxAction" method="get{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*Reporte" class="com.becasipn.actions.ajax.ReportesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*PreasignacionAjax" class="com.becasipn.actions.ajax.PreasignacionAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="getPrograma*" class="com.becasipn.actions.ajax.BecaAjaxAction" method="get{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result>/WEB-INF/jsp/ajax.jsp</result>
+        </action>
+        
+        <action name="*MontoMaximoIngresosAjax" class="com.becasipn.actions.ajax.MontoMaximoIngresosAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+                
+        <action name="*BancoAjax" class="com.becasipn.actions.ajax.AlumnoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+                
+        <action name="*ContraseñaAjax" class="com.becasipn.actions.ajax.AlumnoAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <action name="*CuentasAjaxAction" class="com.becasipn.actions.ajax.CuentasAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+		
+        <action name="*PadronAjax" class="com.becasipn.actions.ajax.CargaPadronAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+            <result name="success_paginated_json">/WEB-INF/jsp/ajaxJSONPaginated.jsp</result>
+        </action>
+        
+        <!-- Notificaciones Tabla-->
+        <action name="*Notificaciones" class="com.becasipn.actions.ajax.NotificacionesAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*TipoNotificacion" class="com.becasipn.actions.ajax.TipoNotificacionAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*BecaExterna" class="com.becasipn.actions.ajax.BecaExternaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*AccesoIndividualAjax" class="com.becasipn.actions.ajax.AccesoIndividualAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*AccesoUAcademicaAjax" class="com.becasipn.actions.ajax.AccesoUAcademicaAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*AccesoNivelAjax" class="com.becasipn.actions.ajax.AccesoNivelAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+        
+        <action name="*AccesosAjax" class="com.becasipn.actions.ajax.AccesosAjaxAction" method="{1}">
+            <result name="success_json">/WEB-INF/jsp/ajaxJSON.jsp</result>
+        </action>
+    </package>
+</struts>

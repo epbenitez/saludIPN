@@ -1,0 +1,93 @@
+<!-- Ejemplo de políticas de OpenSSO, export de OpenSSO / -->
+<?xml version="1.0" encoding="UTF-8"?>
+<Policy name="GeneralPolicy" createdby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" lastmodifiedby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" creationdate="1263507708308" lastmodifieddate="1263926236708" referralPolicy="false" active="true" >
+    <Rule name="MainAdmin">
+        <ServiceName name="iPlanetAMWebAgentService" />
+        <ResourceName name="http://servicios.abiertayadistancia.sep.gob.mx/admin/*" />
+        <AttributeValuePair>
+            <Attribute name="POST" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+        <AttributeValuePair>
+            <Attribute name="GET" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+    </Rule>
+    <Subjects name="Subjects:1263507710061rsjFb5E=" description="">
+        <Subject name="AllAdminUsers" type="AuthenticatedUsers" includeType="inclusive">
+        </Subject>
+    </Subjects>
+    <Conditions name="null" description="null">
+        <Condition name="Administrators" type="AMIdentityMembershipCondition">
+            <AttributeValuePair><Attribute name="amIdentityName"/><Value>id=ADMIN,ou=people,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx</Value>
+            </AttributeValuePair>
+        </Condition>
+    </Conditions>
+</Policy><!-- extracted from realm, / -->
+<?xml version="1.0" encoding="UTF-8"?>
+<Policy name="Protected" description="Policy Protected" createdby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" lastmodifiedby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" creationdate="1263428837346" lastmodifieddate="1263578549286" referralPolicy="false" active="true" >
+    <Rule name="testProtected">
+        <ServiceName name="iPlanetAMWebAgentService" />
+        <ResourceName name="http://sso.abiertayadistancia.sep.gob.mx/opensso/faces/protected*" />
+        <AttributeValuePair>
+            <Attribute name="POST" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+        <AttributeValuePair>
+            <Attribute name="GET" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+    </Rule>
+    <Subjects name="Subjects:1263428839220szDttmE=" description="">
+        <Subject name="RoleAutenticated" type="AMIdentitySubject" includeType="inclusive">
+            <AttributeValuePair><Attribute name="Values"/><Value>id=ROLE_AUTHENTICATED,ou=group,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx</Value>
+            </AttributeValuePair>
+        </Subject>
+    </Subjects>
+</Policy><!-- extracted from realm, / -->
+<?xml version="1.0" encoding="UTF-8"?>
+<Policy name="main_policy" createdby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" lastmodifiedby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" creationdate="1263431356669" lastmodifieddate="1263578529718" referralPolicy="false" active="true" >
+    <Rule name="Main to all">
+        <ServiceName name="iPlanetAMWebAgentService" />
+        <ResourceName name="http://sso.abiertayadistancia.sep.gob.mx/opensso/faces/main.jsp" />
+        <AttributeValuePair>
+            <Attribute name="POST" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+        <AttributeValuePair>
+            <Attribute name="GET" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+    </Rule>
+    <Subjects name="Subjects:1263431359333UApWFqE=" description="">
+        <Subject name="authusers" type="AuthenticatedUsers" includeType="inclusive">
+        </Subject>
+    </Subjects>
+</Policy><!-- extracted from realm, / -->
+<?xml version="1.0" encoding="UTF-8"?>
+<Policy name="staff access" createdby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" lastmodifiedby="id=amAdmin,ou=user,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx" creationdate="1263430987502" lastmodifieddate="1263926161961" referralPolicy="false" active="true" >
+    <Rule name="staff urls">
+        <ServiceName name="iPlanetAMWebAgentService" />
+        <ResourceName name="http://sso.abiertayadistancia.sep.gob.mx/opensso/faces/staff/*" />
+        <AttributeValuePair>
+            <Attribute name="POST" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+        <AttributeValuePair>
+            <Attribute name="GET" />
+            <Value>allow</Value>
+        </AttributeValuePair>
+    </Rule>
+    <Subjects name="Subjects:1263430989842ctQC+UE=" description="">
+        <Subject name="gerardo" type="AMIdentitySubject" includeType="inclusive">
+            <AttributeValuePair><Attribute name="Values"/><Value>id=gerardo.montiel,ou=user,dc=opensso,dc=fit,dc=com</Value>
+            </AttributeValuePair>
+        </Subject>
+    </Subjects>
+    <Conditions name="null" description="null">
+        <Condition name="StaffOnly" type="AMIdentityMembershipCondition">
+            <AttributeValuePair><Attribute name="amIdentityName"/><Value>id=STAFF,ou=group,dc=abiertayadistancia,dc=sep,dc=gob,dc=mx</Value>
+            </AttributeValuePair>
+        </Condition>
+    </Conditions>
+</Policy>

@@ -1,0 +1,234 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="procesos-resumen" namespace="/procesos/resumen" extends="default">
+        <action name="*Proceso" class="com.becasipn.actions.admin.AdministracionProcesosAction" method="{1}" >
+            <result name="reporte" type="jasper">
+                <param name="location">/WEB-INF/jasper/procesos/validacion/CuadroResumen.jasper</param>
+                <param name="dataSource">otorgamientoList</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumen</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="exReporte" type="jasper">
+                <param name="location">/WEB-INF/jasper/procesos/validacion/CuadroResumen_xls.jasper</param>
+                <param name="dataSource">otorgamientoList</param>
+                <param name="format">XLS</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumen</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="acumulado" type="jasper">
+                <param name="location">/WEB-INF/jasper/procesos/acumulado/CuadroResumenAcumulado.jasper</param>
+                <param name="dataSource">otorgamientoList</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumen</param>
+                <param name="reportParameters">parametros</param>
+            </result>  
+            <result name="exAcumulado" type="jasper">
+                <param name="location">/WEB-INF/jasper/procesos/acumulado/CuadroResumenAcumulado_xls.jasper</param>
+                <param name="dataSource">otorgamientoList</param>
+                <param name="format">XLS</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumen</param>
+                <param name="reportParameters">parametros</param>
+            </result>  
+            <result name="reportePeriodo" type="jasper">
+                <param name="location">/WEB-INF/jasper/periodo/CuadroResumenPeriodo_xls.jasper</param>
+                <param name="dataSource">listaCampos</param>
+                <param name="format">XLS</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">ReportePeriodo</param>
+                <param name="reportParameters">parametros</param>
+            </result> 
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>           
+        </action>
+    </package>
+
+    <package name="misdatos-descargar" namespace="/misdatos/descargar" extends="default">
+        <action name="*Documentos" class="com.becasipn.actions.alumno.AdministraDocumentosAction" method="{1}" >
+            <result name="carta" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/cartaCompromiso/cartaCompromiso.jasper</param>
+                <param name="dataSource">listAlumno</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">cartaCompromiso</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="cartaMenor" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/cartaCompromiso/cartaCompromisoMenor.jasper</param>
+                <param name="dataSource">listAlumno</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">cartaCompromiso</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="comprobante" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/reporteIngresosEgresos/reporteIngresosEgresos.jasper</param>
+                <param name="dataSource">tabla1</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">reporteIngresosEgresos</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="cartaBecalos" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/cartaBecalos/cartaBecalos.jasper</param>
+                <param name="dataSource">tabla1</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">cartaBecalos</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="cartaDerechosyObligaciones" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/cartaDerechosyObligaciones/cartaDerechosyObligaciones.jasper</param>
+                <param name="dataSource">listAlumno</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">cartaDerechosyObligaciones</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+        </action>
+        <action name="*EstudioSocioeconomico" class="com.becasipn.actions.alumno.AdministraCuestionarioAction" method="{1}" >
+            <result name="pdf" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/estudioSocioeconomico/estudoSocioeconomico.jasper</param>
+                <param name="dataSource">esePdfList1</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">estudioSocioeconomico</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="pdfMenor" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/estudioSocioeconomico/estudoSocioeconomicoMenor.jasper</param>
+                <param name="dataSource">esePdfList1</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">estudioSocioeconomico</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+        </action>
+        <action name="*RecursoReconsideracion" class="com.becasipn.actions.alumno.AdministraRecursoReconsideracionAction" method="{1}" >
+            <result name="pdf" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/recursoReconsideracion/recursoReconsideracion.jasper</param>
+                <param name="dataSource">esePdfList1</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">recursoReconsideracion</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+        </action>
+        <action name="*EstudioSocioeconomicoTransporte" class="com.becasipn.actions.alumno.AdministraBecaTransporteAction" method="{1}" >
+            <result name="pdf" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/estudioSocioeconomicoTransporte/estudioSocioeconomicoTransporte.jasper</param>
+                <param name="dataSource">listaPreguntas1</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">estudioSocioeconomicoTransporte</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+        </action>
+        <action name="*ReferenciaBancaria" class="com.becasipn.actions.alumno.PanelControlAction" method="{1}" >
+            <result name="pdf" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/referenciaBancaria/referenciaBancaria.jasper</param>
+                <param name="dataSource">deposito</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">referenciaBancaria</param>
+                <param name="reportParameters">parametros</param>
+            </result>            
+        </action>
+        <action name="*IngresosNoComprobables" class="com.becasipn.actions.alumno.AdministraDocumentosAction" method="{1}" >
+            <result name="cartaNoComprobables" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/cartaIngresosNoComprobables/cartaIngresosNoComprobables.jasper</param>
+                <param name="dataSource">deposito</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">cartaIngresosNoComprobables</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+        </action>
+        <action name="*BecaUniversal" class="com.becasipn.actions.alumno.AdministracionBecaUniversalAction" method="{1}" >
+            <result name="pdf" type="jasper">
+                <param name="location">/WEB-INF/jasper/alumno/becaUniversal/becaUniversal.jasper</param>
+                <param name="dataSource">deposito</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">becaUniversal</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/alumno/becaUniversal/becaUniversal.jsp</result>            
+            <result name="pdfMS" type="stream">
+                <param name="contentType">application/pdf</param>
+                <param name="inputName">universalStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+    </package>
+
+    <package name="tablero-solicitudes" namespace="/tablero/solicitudes" extends="default">
+        <action name="*ResumenSolicitudes" class="com.becasipn.actions.admin.AdministracionCuestionariosAction" method="{1}" >
+            <result name="asignados" type="jasper">
+                <param name="location">/WEB-INF/jasper/periodo/solicitudes/asignados.jasper</param>
+                <param name="dataSource">listaAx</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumenAsignados</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="rechazados" type="jasper">
+                <param name="location">/WEB-INF/jasper/periodo/solicitudes/rechazados.jasper</param>
+                <param name="dataSource">listaAx</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumenRechazados</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="espera" type="jasper">
+                <param name="location">/WEB-INF/jasper/periodo/solicitudes/espera.jasper</param>
+                <param name="dataSource">listaAx</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumenListaEspera</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="pendiente" type="jasper">
+                <param name="location">/WEB-INF/jasper/periodo/solicitudes/pendiente.jasper</param>
+                <param name="dataSource">listaAx</param>
+                <param name="format">PDF</param>
+                <param name="contentDisposition">inline</param>
+                <param name="documentName">CuadroResumenPendientes</param>
+                <param name="reportParameters">parametros</param>
+            </result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+    </package>
+
+    <package name="reporte-descargar" namespace="/admin/reportes" extends="default">
+        <action name="*Reportes" class="com.becasipn.actions.admin.AdministraReportesAction" method="{1}" >
+            <result name="archivoFundacion" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="error">/WEB-INF/jsp/admin/reporte/fundacion.jsp</result>
+            <result name="archivoSIIPPG" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+    </package>
+</struts>

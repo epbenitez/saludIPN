@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta Compromiso" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50862c93-38aa-4358-818e-782141c20f34">
+	<property name="ireport.zoom" value="1.7715610000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="897"/>
+	<parameter name="imagenPlaca" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="parrafoAlumno" class="java.lang.String"/>
+	<parameter name="fechaImpresion" class="java.lang.String"/>
+	<parameter name="nombreAlumno" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<image>
+				<reportElement x="59" y="1" width="448" height="67" uuid="9284b60f-4709-4644-9e6d-bb73cf810bb2"/>
+				<imageExpression><![CDATA[$P{imagenPlaca}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="-1" width="546" height="20" uuid="34049877-84b3-4f65-bb2b-6bffea56a441"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="12"/>
+				</textElement>
+				<text><![CDATA[CARTA COMPROMISO DEL/DE LA BENEFICIARIO(A)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="27" width="43" height="18" uuid="c125f436-17cc-4e45-8a1a-8284b01864b6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="27" width="100" height="18" uuid="34113fb7-beda-4552-ab5c-7d766e26e615"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="465" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="2" width="546" height="13" uuid="15704b1e-24cc-4d3b-bb42-50bf303d271b"/>
+				<textElement>
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<text><![CDATA[A QUIEN CORRESPONDA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="14" y="23" width="546" height="43" uuid="60ef3769-2fbb-4d23-8689-79783d9ebcda"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Arial Narrow"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parrafoAlumno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="310" width="546" height="22" uuid="5b83e7f5-fe85-4dcf-a850-06ad988df63f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[7) Me comprometo a presentarme en la oficina de becas del plantel siempre que sea convocado(a); asimismo, a presentar la documentación y/o información que me sea solicitada con motivo de la beca.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="229" width="546" height="32" uuid="4264e0a1-872f-4d19-82c4-5e84e6e04cd2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[5) Declaro que toda la información capturada en el sistema de becas, así como la documentación presentada es verídica y que en caso de comprobarse falsedad en ésta, no me será otorgada la beca o en su caso me será cancelada aún y cuando ya sea beneficiario(a) de la misma.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="369" width="546" height="13" uuid="a6cf0f83-2bdc-4eca-a46e-784057537e78"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[9) Me comprometo a participar en las actividades Institucionales que en mi calidad de beneficiario(a) sea convocado(a).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="390" width="546" height="21" uuid="786a1885-8249-4a3c-9617-73e763e508f6"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[10) Me comprometo a conocer y cumplir la normatividad federal e Institucional en materia de Becas así como la referente en mi calidad de alumno(a) del IPN.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="176" width="546" height="12" uuid="c0853489-8768-4c29-955b-a277e34330f4"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[3) Queda bajo mi responsabilidad, enterarme oportunamente, si fui favorecido(a) con la beca que he solicitado.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="127" width="546" height="22" uuid="6882bc89-1057-4131-8676-893894419486"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[1) Me doy por enterado que el hecho de haber aceptado mi solicitud y documentación, no compromete a la Institución a otorgarme la beca, sin embargo preguntaré si me encuentro en la lista de espera de alumnos(as) y daré seguimiento a mi petición.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="340" width="546" height="21" uuid="6d19c099-98f3-4312-a106-291abf7c28ef"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[8) Me comprometo a asistir a la reuniones que con motivo de la conformación y/o seguimiento del Comité de Contraloría Social sea convocado(a).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="157" width="546" height="11" uuid="5ec54c20-7c5e-45de-9bce-eff89b89972c"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[2) Me doy por enterado que el Subcomité de Becas de mi Unidad Académica sancionará mi documentación.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="197" width="546" height="23" uuid="93d4ebb3-8e59-411f-81ad-153073811750"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[4) De encontrar errores en los datos que no puedo corregir como son, N° de boleta, nombre con apellidos, RFC, CURP, promedio etc., solicitaré de inmediato ante la oficina de becas con documentos probatorios en mano, la modificación de éstos.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="270" width="546" height="32" uuid="45ab7bf3-871c-4bd0-bf3e-252dbae44696"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[6) Queda bajo mi responsabilidad, realizar los trámites a que haya lugar para proporcionar el número de cuenta o recoger la tarjeta bancaria que en mi calidad de becario me sea otorgada, en el plazo establecido en la convocatoria respectiva, para estar en posibilidad de recibir los depósitos por concepto de mi beca.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="440" width="546" height="24" uuid="5b371908-a136-48ac-9727-a8ac1b6e2fbc"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[12) Estoy de acuerdo que al no cumplir con todos los puntos marcados en esta carta compromiso, automáticamente se me dará de baja de la beca asignada.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="419" width="546" height="13" uuid="10cbe875-c78d-4e92-99b6-dac5e0f15bc8"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[11) De solicitar baja temporal o baja definitiva presentaré por escrito mi renuncia a mi condición de beneficiario(a).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="66" width="546" height="52" uuid="84aa8c32-db8b-40f3-add3-b00b4fecd5ea"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[Manifiesto que en esta fecha he entregado ante la oficina de becas de la Unidad Académica en que me encuentro inscrito, la solicitud del registro electrónico en el Sistema de Becas (formato de resumen de estudio socioeconómico), para concursar como aspirante a una beca en alguno de los programas que opera y administra el IPN, así como la documentación probatoria que hace constar que cubro íntegramente los requisitos que marcan las Reglas de Operación del Programa Nacional de Becas y sus Anexos correspondientes para el IPN.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="3" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="90" splitType="Stretch">
+			<line>
+				<reportElement x="14" y="61" width="164" height="1" uuid="fe315881-6c68-46fe-ae27-050ddf8bac58"/>
+			</line>
+			<line>
+				<reportElement x="208" y="59" width="164" height="1" uuid="e415f67b-7b65-4f23-8ee1-31ca62336d78"/>
+			</line>
+			<line>
+				<reportElement x="396" y="60" width="164" height="1" uuid="8ba7c3d3-e3cf-430a-8258-374de264e210"/>
+			</line>
+			<staticText>
+				<reportElement x="208" y="67" width="164" height="17" uuid="57349da1-16b4-43ee-81b9-dbbea8011e90"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Sello de la unidad académica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="67" width="164" height="17" uuid="c5a10ce4-da76-451d-b0f5-f91883449d6d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha de recepción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="63" width="164" height="20" uuid="b0060dc0-6f84-4b4e-a069-c72d171fba9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[Nombre y firma del solicitante]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="14" y="63" width="164" height="20" uuid="7e301ded-de15-4c80-afd1-b639efe6f2b2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreAlumno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="0" width="100" height="20" uuid="687b38e4-6a96-42cc-a0ab-1ca814e8c184"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="9"/>
+				</textElement>
+				<text><![CDATA[ATENTAMENTE]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="0" width="546" height="40" uuid="4f39b519-5e2b-43a9-9ad9-5a7835597b09"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Arial Narrow" size="8"/>
+				</textElement>
+				<text><![CDATA[De conformidad con lo establecido en el Artículo 113 de la Ley Federal de Transparencia y Acceso a la Información Pública, parte de la información descrita en la presente está clasificada como CONFIDENCIAL. Por ello, de acuerdo al 117 de la misma, doy mi CONSENTIMIENTO para que sea utilizada en los trámites inherentes al seguimiento de otorgamiento de beca a estudiantes: sin que esta pueda ser destinada para propósitos distintos a los aquí señalados.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="49" width="114" height="12" uuid="221c5b53-634d-4d99-9678-8b529b71d677"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Narrow" size="8" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fecha y hora de impresion: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="474" y="49" width="86" height="12" uuid="6f723eac-1d26-4044-a7be-717a87c75c5c"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaImpresion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="10" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,102 @@
+/* 
+    Created on : 7/10/2016, 05:11:34 PM
+    Author     : Gustavo A. Alamillo
+*/
+
+.table-footer{
+    padding: 15px 10px;
+    background-color: #F3F5F6;
+    border:1px solid #DEE4E8;
+    display: none;
+}
+
+#buttonsDiv{
+    padding:0px;
+    margin-top:5px;
+}
+
+#grupoBotones{
+    padding:0px;
+    display: block;
+}
+
+#divInfoPaginacion{
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.paginate_button,.paginate_of{
+    margin-right: 10px;
+}
+.paginate_button:hover{
+    cursor: pointer; cursor: hand;
+}
+
+.paginate_button{
+    color: #03A9F4;
+}
+
+.paginate_button.disabled{
+    cursor: no-drop;
+    color: #E84E40;
+}
+
+.paging_input{
+    float:right;
+}
+
+.paginate_input{
+    max-width: 50px;
+    display: inline-block;
+}
+
+@media (max-width: 767px) { 
+    #divInfoPaginacion{
+        margin-bottom: 20px;
+    }
+    #divInfoPaginacion{
+        text-align: center;
+    }
+    .paging_input{
+        float:none;
+        margin: auto;
+        width: 50%;
+        min-width: 300px;
+    }
+
+}
+
+.header-center{
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+table tr th {
+    font-weight: normal;
+}
+
+.header-center a{
+    /*color:#859EF0;*/
+}
+
+.loading-gif{
+    padding: 15px;
+}
+
+.buttons-pdf,.buttons-excel,.custom-button{
+    margin-right: 15px;
+    padding-left: 15px;
+    border-left: 2px solid #DEDFE0;
+}
+
+.custom-button {
+    font-family:'ITC Avant Garde Gothic LT Book';
+    font-weight:bold;
+    font-size:10pt;
+    text-transform: uppercase;
+}
+
+.custom-button span{
+    display:inline-block;
+}

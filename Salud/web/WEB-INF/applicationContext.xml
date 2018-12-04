@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd" xmlns:context="http://www.springframework.org/schema/context">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>WEB-INF/mail.properties</value>
+                <value>WEB-INF/jdbc.properties</value>
+                <value>WEB-INF/classes/AMConfig.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Correo usando sendmail del SO
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.host}" />
+    </bean>
+    -->
+
+    <!-- Correo usando JNDI Glassfish
+    <jee:jndi-lookup id="mailSession" jndi-name="${mail.jndi}" resource-ref="true"/>
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" p:session-ref="mailSession"/>
+    -->
+
+    <!-- Correo usando smtp sin JNDI -->
+    <bean id="mailSender" class="com.becasipn.util.AsyncMailSender">
+       <property name="host" value="${mail.host}" />
+        <property name="port" value="${mail.port}" />
+        <property name="username" value="${mail.username}" />
+        <property name="password" value="${mail.password}" />
+        <property name="taskExecutor" ref="mailTasksExecutor"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.from">sibec@ipn.mx</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+        <!-- -->
+    </bean>
+    
+    <!-- Correo usando smtp sin JNDI para envíos síncronos -->
+    <bean id="mailSenderSync" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+       <property name="host" value="${mail.host}" />
+        <property name="port" value="${mail.port}" />
+        <property name="protocol" value="smtp" />
+        <property name="username" value="${mail.username}" />
+        <property name="password" value="${mail.password}" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.from">sibec@ipn.mx</prop>
+            </props>
+        </property>
+        <!-- -->
+    </bean>
+    
+    <bean id="mailTasksExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
+          p:corePoolSize="5" 
+          p:maxPoolSize="20000" 
+          p:queueCapacity="100"
+          p:waitForTasksToCompleteOnShutdown="true">
+        <property name="threadGroup" ref="logErrorMailHandler"/>        
+    </bean>
+    
+    <bean id="logErrorMailHandler" class="com.becasipn.exception.LogErrorThreadGroupHandler"/>
+
+    <!-- Soporte JPA -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="BecasIPNPU" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect" />
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
+                <property name="database" value="ORACLE" />
+                <property name="databasePlatform" value="org.eclipse.persistence.platform.database.OraclePlatform" /> 
+                <property name="showSql" value="${jpa.showSql}" />
+                <property name="generateDdl" value="${jpa.generateDdl}" />
+                <!--<property name="databasePlatform" value="${jpa.databasePlatform}" />-->
+            </bean>
+        </property>
+        <property name="loadTimeWeaver">
+            <!--
+            To summarize:
+            1.) SimpleLoadtimeWeaver
+                - .war/ .ear - some stuff works. breaks when getJpaTemplate().find() called with the class argument
+            2.) InstrumentableLoadtimeWeaver
+                - works fine - only dislike is you have to use an agent as specified.
+            3.) GlassFishLoadTimeWeaver
+                - .ear works ok if you add the web-app into the .ear
+                - .war - gives EJBQLException
+            -->
+            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+        </property>
+    </bean>
+
+    <!--<bean id="dataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+    p:driverClassName="${jdbc.driverClassName}"
+    p:url="${jdbc.url}"
+    p:username="${jdbc.username}"
+    p:password="${jdbc.password}" />-->
+
+    <!-- DataBase Common Pooling (DBCP) de Glassfish. -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="becasipnJNDI" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" >
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="jpaTemplate" class="org.springframework.orm.jpa.JpaTemplate">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
+    
+    <!--    <bean id="loggerListener" 
+    class="org.springframework.security.event.authorization.LoggerListener"/>-->
+</beans>

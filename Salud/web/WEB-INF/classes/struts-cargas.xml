@@ -1,0 +1,30 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="carga"  namespace="/carga" extends="default">
+        <action name="*NumerosTarjetaBancaria*" class="com.becasipn.actions.cargas.NumerosTarjetaBancariaAction" method="{1}" >
+            <result name="input">/WEB-INF/jsp/cargas/numerostarjetabancaria/{1}.jsp</result>
+        </action>
+        
+        <action name="*RespuestaBancaria" class="com.becasipn.actions.cargas.CargaRespuestasBancariasAction" method="{1}" >
+            <result name="input">/WEB-INF/jsp/cargas/respuestabancaria/{1}.jsp</result>
+        </action>        
+        
+        <action name="*DatosAcademicos" class="com.becasipn.actions.cargas.CargaDatosAcademicosAction" method="{1}" >
+            <result name="input">/WEB-INF/jsp/cargas/datosacademicos/{1}.jsp</result>
+        </action>
+        
+        <action name="*RegistroSubes" class="com.becasipn.actions.cargas.RegistroSubesAction" method="{1}" >
+            <result name="input">/WEB-INF/jsp/cargas/registrosubes/{1}.jsp</result>
+            <result name="archivo" type="stream">
+                <param name="contentType">"application/vnd.ms-excel"</param>
+                <param name="inputName">excelStream</param>
+                <param name="contentDisposition">contentDisposition</param>
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+        
+        <action name="*IngresoPerCapita" class="com.becasipn.actions.cargas.CargaIngresoPerCapitaAction" method="{1}" >
+            <result name="input">/WEB-INF/jsp/cargas/ingresopercapita/{1}.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://148.204.52.168:8080/WSDae/DaoWebService?wsdl" uri="src/conf/xml-resources/web-service-references/DaoWebService/wsdl/148.204.52.168_8080/WSDae/DaoWebService.wsdl"/>
+    <system systemId="http://148.204.52.168:8080/WSDae/DaoWebService?xsd=1" uri="src/conf/xml-resources/web-service-references/DaoWebService/wsdl/148.204.52.168_8080/WSDae/DaoWebService.xsd_1.xsd"/>
+</catalog>

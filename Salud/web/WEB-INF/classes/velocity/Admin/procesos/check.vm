@@ -1,0 +1,4 @@
+<div class='checkbox-nice'>
+    <input type=checkbox ${checked} disabled class='solo-lectura'/>
+    <label></label>
+</div>

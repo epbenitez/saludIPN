@@ -1,0 +1,185 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="registro"  namespace="/registro" extends="default">
+        <action name="*Registro" class="com.becasipn.actions.alumno.AdministraAlumnoAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="login">/WEB-INF/jsp/security/login.jsp</result>
+            <result name="input">/WEB-INF/jsp/alumno/registro/inicio.jsp</result>
+            <result name="inputUniversal">/WEB-INF/jsp/alumno/registro/inicioBecaUniversal.jsp</result>
+            <result name="registro">/WEB-INF/jsp/alumno/registro/datosPersonales.jsp</result>
+            <result name="edicion">/WEB-INF/jsp/alumno/registro/datosPersonales_edicion.jsp</result>
+            <result name="success">/WEB-INF/jsp/alumno/registro/datosPersonales_success.jsp</result>
+            <result name="incorrecto"></result>
+        </action>
+    </package>
+    
+    <package name="tarjeta" namespace="/alumno" extends="default">
+        <action name="*Tarjeta" class="com.becasipn.actions.alumno.AdministraTarjetaAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/alumno/tarjeta/activarTarjeta.jsp</result>
+            <result name="error">/WEB-INF/jsp/alumno/tarjeta/activarTarjeta.jsp</result>
+            
+            <result name="success_report">/WEB-INF/jsp/alumno/tarjeta/reportarTarjeta.jsp</result>
+            <result name="error_report">/WEB-INF/jsp/alumno/tarjeta/reportarTarjeta.jsp</result>
+        </action>
+    </package>
+    
+    <package name="misdatos"  namespace="/misdatos" extends="default">
+        <action name="*Registro" class="com.becasipn.actions.alumno.AdministraAlumnoAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="success">/WEB-INF/jsp/alumno/registro/datosPersonales_success.jsp</result>
+            <result name="ver">/WEB-INF/jsp/alumno/registro/datosPersonales_ver.jsp</result>
+            <result name="edicion">/WEB-INF/jsp/alumno/registro/datosPersonales_edicion.jsp</result>
+            <result name="error">/WEB-INF/jsp/alumno/registro/datosPersonales_error.jsp</result>
+        </action>
+        
+        <action name="*EstudioSocioeconomico" class="com.becasipn.actions.alumno.AdministraCuestionarioAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="cuestionario">/WEB-INF/jsp/alumno/cuestionario/form.jsp</result>
+            <result name="success">/WEB-INF/jsp/alumno/cuestionario/resultado.jsp</result>
+            <result name="pdf">/WEB-INF/jsp/alumno/cuestionario/pdf.jsp</result>
+            <result name="carta">/WEB-INF/jsp/alumno/documentos/cartaCompromiso.jsp</result>
+            <result name="deshabilitado">/WEB-INF/jsp/alumno/cuestionario/deshabilitado.jsp</result>
+            <result name="error">/WEB-INF/jsp/alumno/registro/datosPersonales_error.jsp</result>
+        </action>
+        
+        <action name="*CuestionarioSalud" class="com.becasipn.actions.alumno.AdministraCuestionarioSaludAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="cuestionario">/WEB-INF/jsp/alumno/censoSalud/form.jsp</result>
+            <result name="success">/WEB-INF/jsp/alumno/censoSalud/resultado.jsp</result>
+            <result name="deshabilitado">/WEB-INF/jsp/alumno/censoSalud/deshabilitado.jsp</result>
+            <result name="error">/WEB-INF/jsp/alumno/registro/datosPersonales_error.jsp</result>
+        </action>
+        
+        <action name="*SeguimientoBecarios" class="com.becasipn.actions.alumno.AdministraSeguimientoBecariosAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="cuestionario">/WEB-INF/jsp/alumno/seguimientoBecarios/form.jsp</result>
+            <result name="success">/WEB-INF/jsp/alumno/seguimientoBecarios/resultado.jsp</result>
+            <result name="deshabilitado">/WEB-INF/jsp/alumno/seguimientoBecarios/deshabilitado.jsp</result>
+        </action>
+        
+        <action name="*CotejoDocumentos" class="com.becasipn.actions.alumno.AdministraCotejoDocumentosAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="success">/WEB-INF/jsp/alumno/cotejoDocumentos/form.jsp</result>
+        </action>
+        
+        <action name="*EstatusSolicitud" class="com.becasipn.actions.becas.AdministraEstatusSolicitudAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="success">/WEB-INF/jsp/becas/estatusSolicitud/form.jsp</result>
+        </action>
+        
+        <action name="*BecaTransporte" class="com.becasipn.actions.alumno.AdministraBecaTransporteAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="ese">/WEB-INF/jsp/alumno/becaTransporte/ese.jsp</result>
+            <result name="requisito">/WEB-INF/jsp/alumno/becaTransporte/requisito.jsp</result>
+            <result name="resultado">/WEB-INF/jsp/admin/cuestionarios/eset.jsp</result>
+            <result name="error">/WEB-INF/jsp/alumno/becaTransporte/error.jsp</result>
+        </action>
+        
+        <action name="*Documentos" class="com.becasipn.actions.alumno.AdministraDocumentosAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="ver">/WEB-INF/jsp/alumno/documentos/ver.jsp</result>
+            <result name="carta">/WEB-INF/jsp/alumno/documentos/cartaCompromiso.jsp</result>
+            <result name="comprobante">/WEB-INF/jsp/alumno/documentos/comprobante.jsp</result>
+        </action>
+        
+        <action name="*PermisoCambio" class="com.becasipn.actions.alumno.AdministraPermisoCambioAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/alumno/permisoCambio/{1}.jsp</result>
+            <result name="lista">/WEB-INF/jsp/alumno/permisoCambio/lista.jsp</result>
+            <result name="formulario">/WEB-INF/jsp/alumno/permisoCambio/form.jsp</result>
+            <result name="validacion">/WEB-INF/jsp/alumno/permisoCambio/validacion.jsp</result>
+            <result name="datosDAE">/WEB-INF/jsp/alumno/permisoCambio/datosDAE.jsp</result>
+            <result name="datosBancarios">/WEB-INF/jsp/alumno/monitoreoTarjeta/bitacora.jsp</result>    
+        </action>
+        
+        <action name="*HistorialBecas" class="com.becasipn.actions.becas.AdministracionBecasDisponiblesAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/alumno/historial/{1}.jsp</result>
+        </action>
+        
+        <action name="*CuentaBancaria" class="com.becasipn.actions.alumno.AdministraCuentaBancariaAction" method="{1}" >
+            <result name="success">/WEB-INF/jsp/alumno/cuentaBancaria/{1}.jsp</result>
+            <result name="solicitar">/WEB-INF/jsp/alumno/cuentaBancaria/solicitar.jsp</result>
+            <result name="renuncia">/WEB-INF/jsp/alumno/cuentaBancaria/renuncia.jsp</result>
+            <result name="configuracion">/WEB-INF/jsp/alumno/cuentaBancaria/configuracion.jsp</result>
+        </action>
+        
+        <action name="*DatosBancarios" class="com.becasipn.actions.alumno.AdministraDatosBancariosAction" method="{1}" >
+            <result name="mostrar">/WEB-INF/jsp/alumno/datosBancarios/mostrar.jsp</result>
+        </action>
+    </package>
+    
+    <package name="depositos"  namespace="/depositos" extends="default">
+        <action name="*AdministraDepositos" class="com.becasipn.actions.alumno.AdministraDepositosAction" method="{1}" >
+            <interceptor-ref name="scope">
+                <param name="session">alumno</param>
+                <param name="type">middle</param>
+                <param name="key">alumnoKey</param>
+            </interceptor-ref>
+            <interceptor-ref name="generalBecasIPN" />
+            <result name="success">/WEB-INF/jsp/alumno/depositos/lista.jsp</result>
+            <result name="error">/WEB-INF/jsp/alumno/depositos/error.jsp</result>
+            <result name="buscar">/WEB-INF/jsp/becas/depositos/lista.jsp</result>       
+            <result name="form">/WEB-INF/jsp/becas/depositos/form.jsp</result>            
+        </action>
+    </package>
+    
+    <package name="monitoreo" namespace="/tarjeta" extends="default">
+        <action name="*MonitoreoTarjetaBancaria" class="com.becasipn.actions.alumno.AdministracionMonitoreoTarjetas" method="{1}" >
+            <result name="ver">/WEB-INF/jsp/alumno/monitoreoTarjeta/ver.jsp</result>
+            <result name="detalle">/WEB-INF/jsp/alumno/monitoreoTarjeta/detalle.jsp</result>
+            <result name="error">/WEB-INF/jsp/alumno/monitoreoTarjeta/error.jsp</result>
+            <result name="buscar">/WEB-INF/jsp/alumno/monitoreoTarjeta/buscar.jsp</result>
+            <result name="bitacora">/WEB-INF/jsp/alumno/monitoreoTarjeta/bitacora.jsp</result>
+        </action>
+    </package>        
+    
+    <package name="panelControl" namespace="/panelcontrol" extends="default">
+        <action name="mostrar" class="com.becasipn.actions.alumno.PanelControlAction" method="mostrar">
+            <result name="succes">/WEB-INF/jsp/index.jsp</result>
+        </action>
+    </package>
+</struts>

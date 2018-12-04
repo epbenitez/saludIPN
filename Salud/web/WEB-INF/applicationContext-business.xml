@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <!-- DAO's -->
+    <bean id="bitacoraDao" class="com.becasipn.persistence.dao.jpa.BitacoraJpaDao" />
+    <bean id="usuarioDao" class="com.becasipn.persistence.dao.jpa.UsuarioJpaDao" />
+    <bean id="relacionMenuRolesDao" class="com.becasipn.persistence.dao.jpa.RelacionMenuRolesJpaDao" />
+    <bean id="entidadFederativaDao" class="com.becasipn.persistence.dao.jpa.EntidadFederativaJpaDao" />
+    <bean id="paisDao" class="com.becasipn.persistence.dao.jpa.PaisJpaDao" />
+    <bean id="localidadColoniaDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.LocalidadColonia" />
+    </bean>
+    <bean id="relacionGeograficaDao" class="com.becasipn.persistence.dao.jpa.RelacionGeograficaJpaDao" />
+    <bean id="nacionalidadDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.Nacionalidad" />
+    </bean>
+    <bean id="estadoCivilDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.EstadoCivil" />
+    </bean>
+    <!--<bean id="unidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.UnidadAcademica" />
+    </bean>-->
+    <bean id="carreraDao" class="com.becasipn.persistence.dao.jpa.CarreraJpaDao" />
+    <bean id="companiaCelularDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.CompaniaCelular" />
+    </bean>
+    <bean id="generoDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.Genero" />
+    </bean>
+    <bean id="configuracionDao" class="com.becasipn.persistence.dao.jpa.ConfiguracionJpaDao" />
+    <bean id="menuDao" class="com.becasipn.persistence.dao.jpa.MenuJpaDao" />
+    <bean id="alumnoDao" class="com.becasipn.persistence.dao.jpa.AlumnoJpaDao" />
+    <bean id="alumnoDAEDao" class="com.becasipn.persistence.dao.jpa.AlumnoDAEJpaDao" />
+    <bean id="periodoDao" class="com.becasipn.persistence.dao.jpa.PeriodoJpaDao" />
+    <bean id="tipoBecaPeriodoHistoricoDao" class="com.becasipn.persistence.dao.jpa.TipoBecaPeriodoHistoricoJpaDao" />
+    <bean id="bitacoraEstatusProcesoDao" class="com.becasipn.persistence.dao.jpa.BitacoraEstatusProcesoJpaDao" />
+    <bean id="tipoBecaPeriodoDao" class="com.becasipn.persistence.dao.jpa.TipoBecaPeriodoJpaDao" />
+    <bean id="tipoBecaDao" class="com.becasipn.persistence.dao.jpa.TipoBecaJpaDao" />
+    <bean id="tipoBajasDetalleDao" class="com.becasipn.persistence.dao.jpa.TipoBajasDetalleJpaDao" />
+    <bean id="unidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.UnidadAcademicaJpaDao" />
+    <bean id="movimientoDao" class="com.becasipn.persistence.dao.jpa.MovimientoJpaDao" />
+    <bean id="procesoDao" class="com.becasipn.persistence.dao.jpa.ProcesoJpaDao" />
+    <bean id="nivelDao" class="com.becasipn.persistence.dao.jpa.NivelJpaDao" />
+    <bean id="estatusDao" class="com.becasipn.persistence.dao.jpa.EstatusJpaDao" />
+    <bean id="estatusTarjetaBancariaDao" class="com.becasipn.persistence.dao.jpa.EstatusTarjetaBancariaJpaDao" />
+    <bean id="modalidadDao" class="com.becasipn.persistence.dao.jpa.ModalidadJpaDao" />
+    <bean id="becaDao" class="com.becasipn.persistence.dao.jpa.BecaJpaDao" />
+    <bean id="procesoEstatusDao" class="com.becasipn.persistence.dao.jpa.ProcesoEstatusJpaDao" />
+    <bean id="otorgamientoBajasDetalleDao" class="com.becasipn.persistence.dao.jpa.OtorgamientoBajasDetalleJpaDao" />
+    <bean id="otorgamientoDao" class="com.becasipn.persistence.dao.jpa.OtorgamientoJpaDao" />
+    <bean id="cargoDao" class="com.becasipn.persistence.dao.jpa.CargoJpaDao" />
+    <bean id="rolDao" class="com.becasipn.persistence.dao.jpa.RolJpaDao"/>
+    <bean id="personalAdministrativoDao" class="com.becasipn.persistence.dao.jpa.PersonalAdministrativoJpaDao" />
+    <bean id="documentosDao" class="com.becasipn.persistence.dao.jpa.DocumentosJpaDao" />
+    <bean id="areasConocimientoDao" class="com.becasipn.persistence.dao.jpa.AreasConocimientoJpaDao" />
+    <bean id="cuestionarioDao" class="com.becasipn.persistence.dao.jpa.CuestionarioJpaDao" />
+    <bean id="cuestionarioPreguntaRespuestaDao" class="com.becasipn.persistence.dao.jpa.CuestionarioPreguntaRespuestaJpaDao" />
+    <bean id="cuestionarioPreguntaTipoDao" class="com.becasipn.persistence.dao.jpa.CuestionarioPreguntaTipoJpaDao" />
+    <bean id="cuestionarioPreguntasDao" class="com.becasipn.persistence.dao.jpa.CuestionarioPreguntasJpaDao" />
+    <bean id="cuestionarioRespuestasDao" class="com.becasipn.persistence.dao.jpa.CuestionarioRespuestasJpaDao" />
+    <bean id="cuestionarioRespuestasUsuarioDao" class="com.becasipn.persistence.dao.jpa.CuestionarioRespuestasUsuarioJpaDao" />
+    <bean id="cuestionarioSeccionDao" class="com.becasipn.persistence.dao.jpa.CuestionarioSeccionJpaDao" />
+    <bean id="solicitudBecaDao" class="com.becasipn.persistence.dao.jpa.SolicitudBecaJpaDao" />
+    <bean id="presupuestoPeriodoDao" class="com.becasipn.persistence.dao.jpa.PresupuestoPeriodoJpaDao" />
+    <bean id="presupuestoTipoBecaPeriodoDao" class="com.becasipn.persistence.dao.jpa.PresupuestoTipoBecaPeriodoJpaDao" />
+    <bean id="presupuestoUnidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.PresupuestoUnidadAcademicaJpaDao" />
+    <bean id="alumnoTarjetaBancariaDao" class="com.becasipn.persistence.dao.jpa.AlumnoTarjetaBancariaJpaDao" />
+    <bean id="bitacoraTarjetaBancariaDao" class="com.becasipn.persistence.dao.jpa.BitacoraTarjetaBancariaJpaDao" />  
+    <bean id="vwPresupuestoUnidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoUnidadAcademicaJpaDao" />  
+    <bean id="vwPresupuestoPeriodoDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoPeriodoJpaDao" />  
+    <bean id="vwPresupuestoTipoBecaPeriodoDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoTipoBecaPeriodoJpaDao" />  
+    <bean id="depositosDao" class="com.becasipn.persistence.dao.jpa.DepositosJpaDao" />  
+    <bean id="tipoProcesoDao" class="com.becasipn.persistence.dao.jpa.TipoProcesoJpaDao" /> 
+    <bean id="ordenDepositoDao" class="com.becasipn.persistence.dao.jpa.OrdenDepositoJpaDao" /> 
+    <bean id="vwOrdenDepositoDao" class="com.becasipn.persistence.dao.jpa.VWOrdenDepositoJpaDao" /> 
+    <bean id="estatusDepositoDao" class="com.becasipn.persistence.dao.jpa.EstatusDepositoJpaDao" /> 
+    <bean id="tarjetaBancariaDao" class="com.becasipn.persistence.dao.jpa.TarjetaBancariaJpaDao" /> 
+    <bean id="depositoUnidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.DepositoUnidadAcademicaJpaDao" />
+    <bean id="usuarioPrivilegioDao" class="com.becasipn.persistence.dao.jpa.UsuarioPrivilegioJpaDao" />
+    <bean id="tipoDepositoDao" class="com.becasipn.persistence.dao.jpa.TipoDepositoJpaDao" />
+    <bean id="depositoNoCoincideDao" class="com.becasipn.persistence.dao.jpa.DepositoNoCoincideJpaDao" />
+    <bean id="bitacoraAlumnoDao" class="com.becasipn.persistence.dao.jpa.BitacoraAlumnoJpaDao"/>
+    <bean id="direccionDao" class="com.becasipn.persistence.dao.jpa.DireccionJpaDao" />
+    <bean id="bitacoraOtorgamientosDao" class="com.becasipn.persistence.dao.jpa.BitacoraOtorgamientosJpaDao" />
+    <bean id="trayectoDao" class="com.becasipn.persistence.dao.jpa.TrayectoJpaDao" />
+    <bean id="transporteDao" class="com.becasipn.persistence.dao.jpa.TransporteJpaDao" />
+    <bean id="parentescoDao" class="com.becasipn.persistence.dao.jpa.ParentescoJpaDao" />
+    <bean id="enteroBecaDao" class="com.becasipn.persistence.dao.jpa.EnteroBecaJpaDao" />
+    <bean id="discapacidadDao" class="com.becasipn.persistence.dao.jpa.DiscapacidadJpaDao" />
+    <bean id="cuestionarioTransporteDao" class="com.becasipn.persistence.dao.jpa.CuestionarioTransporteJpaDao" />
+    <bean id="transporteTrasladoDao" class="com.becasipn.persistence.dao.jpa.TransporteTrasladoJpaDao" />
+    <bean id="transporteDatosFamiliaresDao" class="com.becasipn.persistence.dao.jpa.TransporteDatosFamiliaresJpaDao" />
+    <bean id="bitacoraPermisoCambioDao" class="com.becasipn.persistence.dao.jpa.BitacoraPermisoCambioJpaDao" />
+    <bean id="tipoPermisoCambioDao" class="com.becasipn.persistence.dao.jpa.TipoPermisoCambioJpaDao" />
+    <bean id="presupuestoUnidadAcademicaPreJpaDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoUnidadAcademicaPreJpaDao" />
+    <bean id="vwConteoDepositosJpaDao" class="com.becasipn.persistence.dao.jpa.VWConteoDepositosJpaDao" />
+    <bean id="padronSubesDao" class="com.becasipn.persistence.dao.jpa.PadronSubesJpaDao" />
+    <bean id="convocatoriaSubesDao" class="com.becasipn.persistence.dao.jpa.ConvocatoriaSubesJpaDao" />
+    <bean id="identificadorOtorgamientoDao" class="com.becasipn.persistence.dao.jpa.IdentificadorOtorgamientoJpaDao" />
+    <bean id="becaMontoVariableDao" class="com.becasipn.persistence.dao.jpa.BecaMontoVariableJpaDao" />
+    <bean id="procesoProgramaBecaDao" class="com.becasipn.persistence.dao.jpa.ProcesoProgramaBecaJpaDao" />
+    <bean id="alumnoDatosBancariosDao" class="com.becasipn.persistence.dao.jpa.AlumnoDatosBancariosJpaDao" />
+    <bean id="solicitudCuentasDao" class="com.becasipn.persistence.dao.jpa.SolicitudCuentasJpaDao" />
+    <bean id="padronProsperaDao" class="com.becasipn.persistence.dao.jpa.PadronProsperaJpaDao" />
+    <bean id="clasificacionSolicitudDao" class="com.becasipn.persistence.dao.jpa.ClasificacionSolicitudJpaDao" />
+    <bean id="motivoRechazoSolicitudDao" class="com.becasipn.persistence.dao.jpa.MotivoRechazoSolicitudJpaDao" />
+    <bean id="ListaEsperaDao" class="com.becasipn.persistence.dao.jpa.ListaEsperaJpaDao" />
+    <bean id="datosAcademicosDao" class="com.becasipn.persistence.dao.jpa.DatosAcademicosJpaDao" />
+    <bean id="becaUniversalDao" class="com.becasipn.persistence.dao.jpa.BecaUniversalJpaDao" />
+    <bean id="inegiLocalidadDao" class="com.becasipn.persistence.dao.jpa.InegiLocalidadJpaDao" />
+    <bean id="inegiTipoAsentamientoDao" class="com.becasipn.persistence.dao.jpa.InegiTipoAsentamientoJpaDao" />
+    <bean id="inegiTipoVialidadDao" class="com.becasipn.persistence.dao.jpa.InegiTipoVialidadJpaDao" />
+    <bean id="montoMaximoIngresosDao" class="com.becasipn.persistence.dao.jpa.MontoMaximoIngresosJpaDao" />
+    <bean id="bancosDao" class="com.becasipn.persistence.dao.jpa.BancosJpaDao" />
+    <bean id="notificacionesDao" class="com.becasipn.persistence.dao.jpa.NotificacionesJpaDao" />
+    <bean id="tipoNotificacionDao" class="com.becasipn.persistence.dao.jpa.TipoNotificacionJpaDao" />
+    <bean id="notificacionRolDao" class="com.becasipn.persistence.dao.jpa.NotificacionesRolJpaDao" />
+    <bean id="solicitudBecaUADao" class="com.becasipn.persistence.dao.jpa.SolicitudBecaUAJpaDao"/>
+    <bean id="solicitudBecaNivelDao" class="com.becasipn.persistence.dao.jpa.SolicitudBecaNivelJpaDao"/>
+    <bean id="solicitudBecaIndividualDao" class="com.becasipn.persistence.dao.jpa.SolicitudBecaIndividualJpaDao"/>
+    
+    <bean id="erroresBanamexDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.ErroresBanamex" />
+    </bean>
+    <bean id="becaExternaDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.BecaExterna" />
+    </bean>
+    <bean id="bitacoraOtorgamientoExternoDao" class="com.becasipn.persistence.dao.jpa.BitacoraOtorgamientoExternoJpaDao" />
+    <bean id="otorgamientoExternoDao" class="com.becasipn.persistence.dao.jpa.OtorgamientoExternoJpaDao" />
+    <bean id="cicloEscolarDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
+        <constructor-arg value="com.becasipn.persistence.model.CicloEscolar" />
+    </bean>
+    <bean id="censoSaludDao" class="com.becasipn.persistence.dao.jpa.CensoSaludJpaDao" />
+    <bean id="seguimientoBecariosDao" class="com.becasipn.persistence.dao.jpa.SeguimientoBecariosJpaDao" />
+    
+    <!-- Recurso de Consideracion --> 
+    <bean id="solicitudReconsideracionDao" class="com.becasipn.persistence.dao.jpa.SolicitudReconsideracionJpaDao" />
+    <bean id="estatusReconsideracionDao" class="com.becasipn.persistence.dao.jpa.EstatusReconsideracionJpaDao" />
+    <bean id="tipoInconformidadReconsideracionDao" class="com.becasipn.persistence.dao.jpa.TipoInconformidadReconsideracionJpaDao" />
+    
+    <!-- Service -->
+    <bean id="service" class="com.becasipn.service.Service"
+          p:bitacoraDao-ref="bitacoraDao"
+          p:usuarioDao-ref="usuarioDao"
+          p:relacionMenuRolesDao-ref="relacionMenuRolesDao"
+          p:entidadFederativaDao-ref="entidadFederativaDao"
+          p:paisDao-ref="paisDao"
+          p:localidadColoniaDao-ref="localidadColoniaDao"
+          p:relacionGeograficaDao-ref="relacionGeograficaDao"
+          p:nacionalidadDao-ref="nacionalidadDao"
+          p:estadoCivilDao-ref="estadoCivilDao"
+          p:unidadAcademicaDao-ref="unidadAcademicaDao"
+          p:carreraDao-ref="carreraDao"
+          p:companiaCelularDao-ref="companiaCelularDao"
+          p:generoDao-ref="generoDao"
+          p:configuracionDao-ref="configuracionDao"
+          p:menuDao-ref="menuDao"
+          p:alumnoDao-ref="alumnoDao"
+          p:alumnoDAEDao-ref="alumnoDAEDao"
+          p:periodoDao-ref="periodoDao"
+          p:procesoDao-ref="procesoDao"
+          p:tipoBajasDetalleDao-ref="tipoBajasDetalleDao"
+          p:tipoBecaDao-ref="tipoBecaDao"
+          p:tipoBecaPeriodoDao-ref="tipoBecaPeriodoDao"
+          p:tipoBecaPeriodoHistoricoDao-ref="tipoBecaPeriodoHistoricoDao"
+          p:bitacoraEstatusProcesoDao-ref="bitacoraEstatusProcesoDao"
+          p:nivelDao-ref="nivelDao"
+          p:estatusDao-ref="estatusDao"
+          p:estatusTarjetaBancariaDao-ref="estatusTarjetaBancariaDao"
+          p:modalidadDao-ref="modalidadDao"
+          p:movimientoDao-ref="movimientoDao"
+          p:becaDao-ref="becaDao"
+          p:procesoEstatusDao-ref="procesoEstatusDao"
+          p:otorgamientoBajasDetalleDao-ref="otorgamientoBajasDetalleDao"
+          p:otorgamientoDao-ref="otorgamientoDao"
+          p:cargoDao-ref="cargoDao"
+          p:rolDao-ref="rolDao"
+          p:personalAdministrativoDao-ref="personalAdministrativoDao"
+          p:documentosDao-ref="documentosDao"
+          p:areasConocimientoDao-ref="areasConocimientoDao"
+          p:cuestionarioDao-ref="cuestionarioDao"
+          p:cuestionarioPreguntaRespuestaDao-ref="cuestionarioPreguntaRespuestaDao"
+          p:cuestionarioPreguntaTipoDao-ref="cuestionarioPreguntaTipoDao"
+          p:cuestionarioPreguntasDao-ref="cuestionarioPreguntasDao"
+          p:cuestionarioRespuestasDao-ref="cuestionarioRespuestasDao"
+          p:cuestionarioRespuestasUsuarioDao-ref="cuestionarioRespuestasUsuarioDao"
+          p:cuestionarioSeccionDao-ref="cuestionarioSeccionDao"
+          p:solicitudBecaDao-ref="solicitudBecaDao"
+          p:presupuestoPeriodoDao-ref="presupuestoPeriodoDao"
+          p:presupuestoTipoBecaPeriodoDao-ref="presupuestoTipoBecaPeriodoDao"
+          p:presupuestoUnidadAcademicaDao-ref="presupuestoUnidadAcademicaDao"
+          p:alumnoTarjetaDao-ref="alumnoTarjetaBancariaDao"
+          p:bitacoraTarjetaBancariaDao-ref="bitacoraTarjetaBancariaDao"
+          p:vwPresupuestoUnidadAcademicaDao-ref="vwPresupuestoUnidadAcademicaDao"
+          p:vwPresupuestoPeriodoDao-ref="vwPresupuestoPeriodoDao"
+          p:vwPresupuestoTipoBecaPeriodoDao-ref="vwPresupuestoTipoBecaPeriodoDao"
+          p:depositosDao-ref="depositosDao"
+          p:tipoProcesoDao-ref="tipoProcesoDao"
+          p:ordenDepositoDao-ref="ordenDepositoDao"
+          p:vwOrdenDepositoDao-ref="vwOrdenDepositoDao"
+          p:estatusDepositoDao-ref="estatusDepositoDao"
+          p:tarjetaBancariaDao-ref="tarjetaBancariaDao"
+          p:depositoUnidadAcademicaDao-ref="depositoUnidadAcademicaDao"
+          p:usuarioPrivilegioDao-ref="usuarioPrivilegioDao"
+          p:tipoDepositoDao-ref="tipoDepositoDao"
+          p:depositoNoCoincideDao-ref="depositoNoCoincideDao"
+          p:bitacoraAlumnoDao-ref="bitacoraAlumnoDao"
+          p:direccionDao-ref="direccionDao"
+          p:bitacoraOtorgamientosDao-ref="bitacoraOtorgamientosDao"
+          p:trayectoDao-ref="trayectoDao"
+          p:transporteDao-ref="transporteDao"
+          p:parentescoDao-ref="parentescoDao"
+          p:enteroBecaDao-ref="enteroBecaDao"
+          p:discapacidadDao-ref="discapacidadDao"
+          p:cuestionarioTransporteDao-ref="cuestionarioTransporteDao"
+          p:transporteTrasladoDao-ref="transporteTrasladoDao"
+          p:transporteDatosFamiliaresDao-ref="transporteDatosFamiliaresDao"
+          p:bitacoraPermisoCambioDao-ref="bitacoraPermisoCambioDao"
+          p:tipoPermisoCambioDao-ref="tipoPermisoCambioDao"
+          p:vWPresupuestoUnidadAcademicaPreDao-ref="presupuestoUnidadAcademicaPreJpaDao"
+          p:vwConteoDepositosDao-ref="vwConteoDepositosJpaDao"
+          p:padronSubesDao-ref="padronSubesDao"
+          p:convocatoriaSubesDao-ref="convocatoriaSubesDao"
+          p:identificadorOtorgamientoDao-ref="identificadorOtorgamientoDao"
+          p:becaMontoVariableDao-ref="becaMontoVariableDao"
+          p:procesoProgramaBecaDao-ref="procesoProgramaBecaDao"
+          p:alumnoDatosBancariosDao-ref="alumnoDatosBancariosDao"
+          p:solicitudCuentasDao-ref="solicitudCuentasDao"
+          p:padronProsperaDao-ref="padronProsperaDao"
+          p:motivoRechazoSolicitudDao-ref="motivoRechazoSolicitudDao"
+          p:clasificacionSolicitudDao-ref="clasificacionSolicitudDao"
+          p:listaEsperaDao-ref="ListaEsperaDao"
+          p:datosAcademicosDao-ref="datosAcademicosDao"
+          p:inegiLocalidadDao-ref="inegiLocalidadDao"
+          p:inegiTipoAsentamientoDao-ref="inegiTipoAsentamientoDao"
+          p:inegiTipoVialidadDao-ref="inegiTipoVialidadDao"
+          p:montoMaximoIngresosDao-ref="montoMaximoIngresosDao"
+          p:becaUniversalDao-ref="becaUniversalDao"
+          p:bancosDao-ref="bancosDao"
+          p:notificacionesDao-ref="notificacionesDao"
+          p:tipoNotificacionDao-ref="tipoNotificacionDao"
+          p:notificacionRolDao-ref="notificacionRolDao"
+          p:erroresBanamexDao-ref="erroresBanamexDao"
+          p:becaExternaDao-ref="becaExternaDao"
+          p:bitacoraOtorgamientoExternoDao-ref="bitacoraOtorgamientoExternoDao"
+          p:otorgamientoExternoDao-ref="otorgamientoExternoDao"
+          p:cicloEscolarDao-ref="cicloEscolarDao"
+          p:solicitudBecaUADao-ref="solicitudBecaUADao"
+          p:solicitudBecaNivelDao-ref="solicitudBecaNivelDao"
+          p:solicitudBecaIndividualDao-ref="solicitudBecaIndividualDao"
+          p:censoSaludDao-ref="censoSaludDao"
+          p:seguimientoBecariosDao-ref="seguimientoBecariosDao"
+          p:solicitudReconsideracionDao-ref="solicitudReconsideracionDao"
+          p:estatusReconsideracionDao-ref="estatusReconsideracionDao"
+          p:tipoInconformidadReconsideracionDao-ref="tipoInconformidadReconsideracionDao"          
+    />
+
+    <!-- Ambiente -->
+    <bean id="ambiente" class="com.becasipn.util.Ambiente" p:service-ref="service" />
+</beans>

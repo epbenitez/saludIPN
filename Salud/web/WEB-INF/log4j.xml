@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    
+    <!-- CONSOLE APPENDER -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender"> 
+        <param name="Target" value="System.out"/> 
+        <layout class="org.apache.log4j.PatternLayout"> 
+            <param name="ConversionPattern" value="[%p][%c{1}] - %m%n"/> 
+        </layout> 
+    </appender> 
+    
+    <!-- FILE APPENDER -->
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <!-- Keep one backup file -->
+        <param name="MaxBackupIndex" value="1"/>
+        <param name="Append" value="true" />
+        <param name="maxFileSize" value="10MB" />
+        <param name="file" value="C:\\logs\\bd.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}][%p][%c{1}] - %m%n"/> 
+        </layout>
+    </appender>
+    
+    <!-- FILE APPENDER RESUMEN Otorgamientos -->
+    <appender name="fileOtorgamientos" class="org.apache.log4j.RollingFileAppender">
+        <!-- Keep one backup file -->
+        <param name="MaxBackupIndex" value="1"/>
+        <param name="Append" value="true" />
+        <param name="maxFileSize" value="10MB" />
+        <param name="file" value="C:\\Reportes\\reporte.csv" />
+        <param name="Encoding" value="UTF-8" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m%n"/> 
+        </layout>
+    </appender>
+
+    <!-- STACKIFY -->
+    <appender name="STACKIFY" class="com.stackify.log.log4j12.StackifyLogAppender">
+        <param name="apiKey" value="7Tb8Ol9Lu8Qy0Xz0Tj7Ul5Sf1Ld8Ie6Ss1Tl7Dh" />
+        <param name="application" value="BECASIPN" />
+    </appender>
+    
+    <logger name="com.becasipn.persistence.dao.jpa" additivity="false">
+        <level value="off"/>
+        <appender-ref ref="file"/>
+    </logger>
+    
+     <logger name="com.becasipn.business.OtorgamientoBO" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="fileOtorgamientos"/>
+    </logger>
+
+    <!-- debug|info|warn|error|fatal|off -->
+    <root> 
+        <priority value ="ERROR" /> 
+        <!--<appender-ref ref="console" />    Comentar en producción  -->
+        <!-- <appender-ref ref="STACKIFY" />    Para log externo(En etapa de pruebas)     -->
+        <!-- <appender-ref ref="file" />  Configurar archivo en el servidor -->
+    </root>
+    
+    <!-- Los logs para base de datos, mostrar queries, etc ..
+    se sobreescribe la configuración en persistence.xml -->
+  
+</log4j:configuration>

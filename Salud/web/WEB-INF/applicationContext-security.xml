@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+             http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+    <!-- Spring Security 3.0 -->
+    <http auto-config="true">
+
+        <!-- <concurrent-session-control max-sessions="1" exception-if-maximum-exceeded="true" />-->
+        <form-login login-page="/login.action" authentication-failure-url="/login.action?login_error=true" default-target-url="/index.action" />
+
+        <!-- <logout logout-url="/logout" logout-success-url="/logout.jsp"/>-->
+        <logout logout-success-url="/login.action"/>
+        
+        <intercept-url pattern="/reporteGlobal.action*" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA"/>
+        <intercept-url pattern="/reporteRendimiento.action*" access="ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/*Solicitudes.action*" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS"/>
+        <intercept-url pattern="/reporteCuentas.action*" access="ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/*EstadisticaDepositos.action*" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS"/>
+        <intercept-url pattern="/tableroControl.action" access="ROLE_CONSULTA,ROLE_ESTADISTICAS,ROLE_ADMIN,ROLE_JEFEBECAS,ROLE_ANALISTABECAS,ROLE_RESPONSABLE_UA,ROLE_FUNCIONARIO_UA,ROLE_JEFEADMINISTRATIVO,ROLE_ANALISTAADMINISTRATIVO,ROLE_EJECUTIVO"/>
+        <intercept-url pattern="/panelcontrol/mostrar.action" access="ROLE_ALUMNO" />
+        <intercept-url pattern="/*EstadisticaBecaExterna.action*" access="ROLE_JEFEBECAS"/>
+        
+        <intercept-url pattern="/admin/buscarCuentaConfiguracionCuentasExternas.action*" access="ROLE_ANALISTABECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/*CuentaBancaria.action*" access="ROLE_ANALISTABECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/listaEstadisticas.action*" access="ROLE_JEFEBECAS,ROLE_ANALISTABECAS,ROLE_EJECUTIVO"/>
+        <intercept-url pattern="/admin/*EnvioCorreos.action*" access="ROLE_JEFEBECAS,ROLE_ANALISTABECAS"/>
+        <intercept-url pattern="/admin/descargarEstadisticas.action*" access="ROLE_JEFEBECAS,ROLE_CONSULTA"/>
+        <intercept-url pattern="/admin/*Estadisticas.action*" access="ROLE_JEFEBECAS,ROLE_FUNCIONARIO_UA,ROLE_EJECUTIVO"/>
+        <intercept-url pattern="/admin/bitacoraProceso.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/listaConfiguracion.action" access="ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/formValidacionInscripcion.action" access="ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/resumenProceso.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/resumenesProceso.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/resumenAcumuladoProceso.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/validacionProceso.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/cambiarEstatusTarjeta.action*" access="ROLE_RESPONSABLE_UA,ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO"/>
+        <intercept-url pattern="/admin/cambioEstatusTarjeta.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO"/>
+        <intercept-url pattern="/admin/personalizacionTarjeta.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO"/>
+        <intercept-url pattern="/admin/*Tarjeta.action*" access="ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO"/>
+        <intercept-url pattern="/admin/*AsignacionAutomatica.action" access="ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/*Cuestionario.action" access="ROLE_JEFEBECAS,ROLE_ANALISTABECAS,ROLE_RESPONSABLE_UA"/>
+        <intercept-url pattern="/admin/*OrdenesDeposito.action" access="ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/resumenPeriodoProceso.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/listadoBanamex.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/descargarListadoBanamex.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/*CuentasExternas.action" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA"/>
+        <intercept-url pattern="/admin/*Notificacion*" access="ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/admin/*Datos*" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA"/>
+
+        <intercept-url pattern="/tablero/solicitudes/detalleSolicitudesResumenSolicitudes.action*" access="ROLE_JEFEBECAS,ROLE_ANALISTABECAS,ROLE_RESPONSABLE_UA,ROLE_FUNCIONARIO_UA"/>
+	
+        <intercept-url pattern="/admin/*" access="ROLE_JEFEBECAS" />
+                
+        <intercept-url pattern="/alumno/*" access="ROLE_ALUMNO" />
+       
+        <intercept-url pattern="/becas/*Asignaciones.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/becas/*BajaBecas.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS" />
+        <intercept-url pattern="/becas/*ExcluirAlumnosDeposito.action" access="ROLE_JEFEBECAS" />
+        <intercept-url pattern="/becas/*OrdenesDeposito.action" access="ROLE_JEFEBECAS,ROLE_JEFEADMINISTRATIVO,ROLE_ANALISTAADMINISTRATIVO"/>
+        <intercept-url pattern="/becas/listaEstatusSolicitud.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_FUNCIONARIO_UA,ROLE_EJECUTIVO"/>
+        <intercept-url pattern="/becas/verEstatusSolicitud.action" access="ROLE_ALUMNO,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_FUNCIONARIO_UA,ROLE_EJECUTIVO"/>
+        <intercept-url pattern="/becas/listaBecasDisponibles.action" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_EJECUTIVO"/>
+        <intercept-url pattern="/becas/verBecasDisponibles.action" access="ROLE_ALUMNO,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_EJECUTIVO"/>
+        <intercept-url pattern="/becas/*ResumenBecalos.action*" access="ROLE_JEFEBECAS" />
+        
+        <intercept-url pattern="/busca*" access="ROLE_ADMIN,ROLE_ALUMNO,ROLE_JEFEBECAS,ROLE_ANALISTABECAS,ROLE_RESPONSABLE_UA,ROLE_FUNCIONARIO_UA,ROLE_JEFEADMINISTRATIVO,ROLE_ANALISTAADMINISTRATIVO,ROLE_EJECUTIVO" />
+
+        <intercept-url pattern="/carga/*NumerosTarjetaBancaria.action*" access="ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_JEFEADMINISTRATIVO,ROLE_CONSULTA"/>
+        <intercept-url pattern="/carga/*DatosAcademicos.action*" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA"/>
+        <intercept-url pattern="/carga/*RespuestaBancaria.action" access="ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_JEFEADMINISTRATIVO" />
+        <intercept-url pattern="/carga/*RegistroSubes.action" access="ROLE_JEFEBECAS" />
+        <intercept-url pattern="/carga/*IngresoPerCapita.action" access="ROLE_JEFEBECAS,ROLE_ANALISTABECAS" />
+        
+        <intercept-url pattern="/catalogos/*" access="ROLE_JEFEBECAS" />
+        <intercept-url pattern="/catalogos/*Periodo.action" access="ROLE_JEFEBECAS" />
+        <intercept-url pattern="/catalogos/*UnidadAcademica.action" access="ROLE_JEFEBECAS" />
+
+        <intercept-url pattern="/*Contrasenia*" access="ROLE_ESTADISTICAS,ROLE_ADMIN,ROLE_ALUMNO,ROLE_JEFEBECAS,ROLE_ANALISTABECAS,ROLE_RESPONSABLE_UA,ROLE_FUNCIONARIO_UA,ROLE_JEFEADMINISTRATIVO,ROLE_ANALISTAADMINISTRATIVO,ROLE_EJECUTIVO" />
+
+        <intercept-url pattern="/misdatos/*PermisoCambio.action" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_ANALISTAADMINISTRATIVO"/>
+        <intercept-url pattern="/misdatos/mostrarHistorialBecas.action*" access="ROLE_ALUMNO"/>
+        <intercept-url pattern="/misdatos/*HistorialBecas.action*" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_CONSULTA"/>
+        <intercept-url pattern="/misdatos/descargar/*Documentos.action*" access="ROLE_ALUMNO,ROLE_JEFEBECAS" />
+        <intercept-url pattern="/misdatos/descargar/*EstudioSocioeconomico.action*" access="ROLE_ALUMNO,ROLE_JEFEBECAS,ROLE_ANALISTABECAS" />
+        <intercept-url pattern="/misdatos/descargar/*EstudioSocioeconomicoTransporte.action*" access="ROLE_ALUMNO,ROLE_JEFEBECAS,ROLE_ANALISTABECAS" />
+        <intercept-url pattern="/misdatos/**" access="ROLE_JEFEBECAS,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_ALUMNO" />
+        
+        <intercept-url pattern="/tarjeta/*MonitoreoTarjetaBancaria.action" access="ROLE_ALUMNO,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_FUNCIONARIO_UA,ROLE_EJECUTIVO,ROLE_CONSULTA" />
+        
+        <intercept-url pattern="/depositos/verAdministraDepositos.action" access="ROLE_ALUMNO,ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_ANALISTAADMINISTRATIVO,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS,ROLE_EJECUTIVO,ROLE_CONSULTA"/>
+        
+        <intercept-url pattern="/procesos/bajas/*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_JEFEBECAS" />
+        <intercept-url pattern="/procesos/resumen/cuadroResumenProceso.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/procesos/resumen/cuadroResumenAcumuladoProceso.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS"/>
+        <intercept-url pattern="/procesos/resumen/descargarProceso.action*" access="ROLE_RESPONSABLE_UA,ROLE_ANALISTABECAS,ROLE_FUNCIONARIO_UA,ROLE_JEFEBECAS,ROLE_CONSULTA,ROLE_ANALISTAADMINISTRATIVO,ROLE_EJECUTIVO"/>
+
+        <intercept-url pattern="/becasexternas/*" access="ROLE_JEFEBECAS"/>
+        
+        <intercept-url pattern="/recursoReconsideracion/*" access="ROLE_ALUMNO" />
+        <!-- Cualquier persona -->
+        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    </http>
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="
+		      select usuario, contrasenia, activo
+		      from ent_usuario where usuario=?"
+
+                               authorities-by-username-query="
+		      select u.usuario, r.descripcion from ent_usuario u, rmm_rol_usuario ru, cat_rol r
+                      where u.id = ru.usuario_id and ru.rol_id = r.id and u.usuario = ?"
+            />
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
