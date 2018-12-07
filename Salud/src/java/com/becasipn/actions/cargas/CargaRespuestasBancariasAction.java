@@ -8,7 +8,6 @@ import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.AlumnoTarjetaBancaria;
 import com.becasipn.persistence.model.Depositos;
 import com.becasipn.persistence.model.EstatusDeposito;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.SolicitudCuentas;
 import com.becasipn.persistence.model.TarjetaBancaria;
 import com.becasipn.persistence.model.Usuario;
@@ -55,12 +54,6 @@ public class CargaRespuestasBancariasAction extends JSONAjaxAction implements Me
     private List<Depositos> depositosRechazados;
 
     public String form() {
-        OrdenDeposito ordenDeposito = getDaos().getOrdenDepositoDao().findById(ordenId);
-        if (ordenDeposito != null) {
-            nombreOrden = ordenDeposito.getNombreOrdenDeposito();
-        } else {
-            referencia = true;
-        }
         return INPUT;
     }
 

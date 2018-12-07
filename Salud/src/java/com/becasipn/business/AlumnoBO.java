@@ -1613,13 +1613,11 @@ public class AlumnoBO extends XlsLoaderBO {
         switch (id) {
             case 2:
                 mensaje.append(" Haz recibido un depósito (");
-                mensaje.append(EstadisticasBO.getMes(String.valueOf(deposito.getOrdenDeposito().getMes())));
                 mensaje.append(") por una cantidad de $ ").append(deposito.getMonto());
                 notificacion.setTipo(Notificacion.Tipo.DEPOSITO);
                 break;
             case 4:
                 mensaje.append(" Hubo un problema al intentar hacer el depósito correspondiente al mes de ");
-                mensaje.append(EstadisticasBO.getMes(String.valueOf(deposito.getOrdenDeposito().getMes())));
                 mensaje.append(" revisa tu historial de depósitos");
                 notificacion.setTipo(Notificacion.Tipo.ERRORDEPOSITO);
                 break;
@@ -1630,7 +1628,6 @@ public class AlumnoBO extends XlsLoaderBO {
                 break;
             default:
                 mensaje.append(" Depósito con estatus desconocido correspondiente al mes de ");
-                mensaje.append(EstadisticasBO.getMes(String.valueOf(deposito.getOrdenDeposito().getMes())));
                 notificacion.setTipo(Notificacion.Tipo.ERRORCONFIG);
                 break;
         }

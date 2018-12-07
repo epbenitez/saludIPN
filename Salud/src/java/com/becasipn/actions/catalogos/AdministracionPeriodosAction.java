@@ -143,7 +143,7 @@ public class AdministracionPeriodosAction extends BaseAction implements Mensajes
             addActionError(getText("catalogo.eliminado.error.tipo.beca.asociados"));
             return LISTA;
         } //Validamos que no existan ordenes de deposito asociados.
-        else if (periodo != null && periodo.getId() != null && bo.existenOrdenesDepositoAsociados(periodo.getId())) {
+        else if (periodo != null && periodo.getId() != null) {
             addActionError(getText("catalogo.eliminado.error.deposito.asociados"));
             return LISTA;
         } //Validamos que no existan otorgamientos asociados.

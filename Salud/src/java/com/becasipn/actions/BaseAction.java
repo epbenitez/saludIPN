@@ -4,7 +4,6 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.util.logging.commons.CommonsLogger;
 import com.becasipn.business.BaseBO;
-import com.becasipn.business.OrdenDepositoBO;
 import com.becasipn.business.PeriodoBO;
 import com.becasipn.business.NotificacionesBO;
 import com.becasipn.exception.LoginException;
@@ -12,7 +11,6 @@ import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.Configuracion;
 import com.becasipn.persistence.model.DatosAcademicos;
 import com.becasipn.persistence.model.Notificaciones;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.Otorgamiento;
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.PersonalAdministrativo;
@@ -58,7 +56,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
     private Service daos = null;
     private AsyncMailSender mailSender;
     private String ubicacion;
-    private List<OrdenDeposito> odList = new ArrayList<OrdenDeposito>();
     private List<Notificaciones> notificacionesRol = new ArrayList<Notificaciones>();
     private Boolean ese = Boolean.FALSE;
     private Boolean estatusAlumno = Boolean.FALSE;
@@ -111,8 +108,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
 
             if (isJefeAdministrativo() || isJefe()) {
                 //Establece alertas de ordenes de deposito pendientes de revisar
-                OrdenDepositoBO boOD = new OrdenDepositoBO(getDaos());
-                odList = boOD.obtieneOrdenesDepositoPorEstatus(new BigDecimal(1));
             }
 
             if (action.indexOf("ajax") <= 0) {
@@ -678,14 +673,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
-    }
-
-    public List<OrdenDeposito> getOdList() {
-        return odList;
-    }
-
-    public void setOdList(List<OrdenDeposito> odList) {
-        this.odList = odList;
     }
 
     public Boolean getEse() {

@@ -44,7 +44,6 @@ import com.becasipn.persistence.dao.MenuDao;
 import com.becasipn.persistence.dao.ModalidadDao;
 import com.becasipn.persistence.dao.NivelDao;
 import com.becasipn.persistence.dao.MovimientoDao;
-import com.becasipn.persistence.dao.OrdenDepositoDao;
 import com.becasipn.persistence.dao.OtorgamientoBajasDetalleDao;
 import com.becasipn.persistence.dao.OtorgamientoDao;
 import com.becasipn.persistence.dao.PaisDao;
@@ -83,7 +82,6 @@ import com.becasipn.persistence.dao.UnidadAcademicaDao;
 import com.becasipn.persistence.dao.UsuarioDao;
 import com.becasipn.persistence.dao.UsuarioPrivilegioDao;
 import com.becasipn.persistence.dao.VWConteoDepositosDao;
-import com.becasipn.persistence.dao.VWOrdenDepositoDao;
 import com.becasipn.persistence.dao.VWPresupuestoPeriodoDao;
 import com.becasipn.persistence.dao.VWPresupuestoTipoBecaPeriodoDao;
 import com.becasipn.persistence.dao.VWPresupuestoUnidadAcademicaDao;
@@ -192,8 +190,6 @@ public class Service {
     private VWPresupuestoTipoBecaPeriodoDao vwPresupuestoTipoBecaPeriodoDao;
     private TipoProcesoDao tipoProcesoDao;
     private DepositosDao depositosDao;
-    private OrdenDepositoDao ordenDepositoDao;
-    private VWOrdenDepositoDao vwOrdenDepositoDao;
     private EstatusDepositoDao estatusDepositoDao;
     private TarjetaBancariaDao tarjetaBancariaDao;
     private EstatusTarjetaBancariaDao estatusTarjetaBancariaDao;
@@ -746,22 +742,6 @@ public class Service {
 
     public void setTipoProcesoDao(TipoProcesoDao tipoProcesoDao) {
         this.tipoProcesoDao = tipoProcesoDao;
-    }
-
-    public OrdenDepositoDao getOrdenDepositoDao() {
-        return ordenDepositoDao;
-    }
-
-    public void setOrdenDepositoDao(OrdenDepositoDao ordenDepositoDao) {
-        this.ordenDepositoDao = ordenDepositoDao;
-    }
-
-    public VWOrdenDepositoDao getVwOrdenDepositoDao() {
-        return vwOrdenDepositoDao;
-    }
-
-    public void setVwOrdenDepositoDao(VWOrdenDepositoDao vwOrdenDepositoDao) {
-        this.vwOrdenDepositoDao = vwOrdenDepositoDao;
     }
 
     public EstatusDepositoDao getEstatusDepositoDao() {

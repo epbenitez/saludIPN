@@ -19,7 +19,6 @@ import com.becasipn.persistence.model.Depositos;
 import com.becasipn.persistence.model.EstatusDeposito;
 import com.becasipn.persistence.model.EstatusTarjetaBancaria;
 import com.becasipn.persistence.model.IdentificadorOtorgamiento;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.Otorgamiento;
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.Proceso;

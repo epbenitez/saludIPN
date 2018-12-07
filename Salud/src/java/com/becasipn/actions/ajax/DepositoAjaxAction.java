@@ -31,7 +31,7 @@ public class DepositoAjaxAction extends JSONAjaxAction {
         Otorgamiento o = new Otorgamiento();
         for (Depositos d : lista) {
             Alumno alumno = d.getAlumno();
-            o = getDaos().getOtorgamientoDao().getOtorgamientoAlumno(alumno.getId(), d.getOrdenDeposito().getPeriodo().getId());
+            o = null;
             DatosAcademicos datosAcademicos = alumno.getListaDatosAcademicos().get(0);
             getJsonResult().add("[\"" + datosAcademicos.getUnidadAcademica().getNombreCorto()
                     + "\", \"" + d.getAlumno().getBoleta()

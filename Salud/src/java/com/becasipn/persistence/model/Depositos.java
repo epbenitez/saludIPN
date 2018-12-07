@@ -30,8 +30,6 @@ public class Depositos implements Serializable, BaseEntity {
     private BigDecimal id;
     @ManyToOne(fetch = FetchType.LAZY)
     private Alumno alumno;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private OrdenDeposito ordenDeposito;
     private BigDecimal monto;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaDeposito;
@@ -70,14 +68,6 @@ public class Depositos implements Serializable, BaseEntity {
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
-    }
-
-    public OrdenDeposito getOrdenDeposito() {
-        return ordenDeposito;
-    }
-
-    public void setOrdenDeposito(OrdenDeposito ordenDeposito) {
-        this.ordenDeposito = ordenDeposito;
     }
 
     public BigDecimal getMonto() {
@@ -168,10 +158,5 @@ public class Depositos implements Serializable, BaseEntity {
 
     public void setFechaEnvioNotificacion(Date fechaEnvioNotificacion) {
         this.fechaEnvioNotificacion = fechaEnvioNotificacion;
-    }
-
-    @Override
-    public String toString() {
-        return "Depositos{" + "id=" + id + ", alumno=" + alumno + ", ordenDeposito=" + ordenDeposito + ", monto=" + monto + ", fechaDeposito=" + fechaDeposito + ", usuarioModifico=" + usuarioModifico + ", fechaModificacion=" + fechaModificacion + ", estatusDeposito=" + estatusDeposito + ", observaciones=" + observaciones + ", TarjetaBancaria=" + TarjetaBancaria + ", otorgamiento=" + otorgamiento + ", errorBanamex=" + errorBanamex + ", fechaEnvioNotificacion=" + fechaEnvioNotificacion + '}';
     }
 }

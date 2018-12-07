@@ -86,7 +86,7 @@ public class AdministracionUnidadAcademicaAction extends BaseAction implements M
             return LISTA;
         }
         //Validamos que no sea utilizada por la tabla OrdenDeposito.
-        if (unidadAcademica.getId() != null && bo.asociadaUnidadAcademicaOrdenDeposito(unidadAcademica.getId())) {
+        if (unidadAcademica.getId() != null) {
             addActionError(getText("catalogo.eliminado.error.unidadAcademica.usada"));
             return LISTA;
         }

@@ -4,7 +4,6 @@ import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.Depositos;
 import com.becasipn.persistence.model.ErroresBanamex;
 import com.becasipn.persistence.model.EstatusDeposito;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.Otorgamiento;
 import com.becasipn.persistence.model.TarjetaBancaria;
 import com.becasipn.persistence.model.Usuario;
@@ -58,14 +57,13 @@ public class DepositosBO extends BaseBO {
      * @param ordenDeposito
      * @param usuario
      */
-    public Boolean insertaDeposito(List<Alumno> alumnosLista, BigDecimal periodoId, OrdenDeposito ordenDeposito, Usuario usuario) {
+    public Boolean insertaDeposito(List<Alumno> alumnosLista, BigDecimal periodoId, Usuario usuario) {
         if (alumnosLista == null) {
             return Boolean.FALSE;
         }
         for (Alumno a : alumnosLista) {
             Depositos deposito = new Depositos();
             deposito.setAlumno(a);
-            deposito.setOrdenDeposito(ordenDeposito);
             deposito.setMonto(a.getMonto());
             deposito.setFechaDeposito(new Date());
             deposito.setUsuarioModifico(usuario);
@@ -153,9 +151,7 @@ public class DepositosBO extends BaseBO {
             String s = o == null ? "-" : o.getTipoBecaPeriodo().getTipoBeca().getNombre();
 
             JsonArrayBuilder jArrayBInner = Json.createArrayBuilder()
-                    .add(deposito.getOrdenDeposito().getPeriodo().getClave())
                     .add(s)
-                    .add(deposito.getOrdenDeposito().getMes())
                     .add(formato.format(deposito.getFechaDeposito()))
                     .add(deposito.getMonto())
                     .add(TarjetaBO.aplicaFormatoNumeroTarjeta(deposito.getTarjetaBancaria()))

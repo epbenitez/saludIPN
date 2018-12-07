@@ -22,7 +22,6 @@ import com.becasipn.persistence.model.Modalidad;
 import com.becasipn.persistence.model.Movimiento;
 import com.becasipn.persistence.model.Nacionalidad;
 import com.becasipn.persistence.model.Nivel;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.Pais;
 import com.becasipn.persistence.model.Parentesco;
 import com.becasipn.persistence.model.Periodo;
@@ -136,7 +135,6 @@ public class Ambiente {
 //        }
 //        return tipoInconformidadReconsideracionList;
 //    }
-
     List<Nacionalidad> nacionalidadList = new ArrayList<>();
 
     public List<Nacionalidad> getNacionalidadList() {
@@ -390,15 +388,6 @@ public class Ambiente {
             tipoProcesoList = service.getTipoProcesoDao().findAll();
         }
         return tipoProcesoList;
-    }
-
-    private List<OrdenDeposito> ordenDepositoList = new ArrayList<>();
-
-    public List<OrdenDeposito> getOrdenDepositoList() {
-        if (ordenDepositoList == null || ordenDepositoList.isEmpty()) {
-            ordenDepositoList = service.getOrdenDepositoDao().findAll();
-        }
-        return ordenDepositoList;
     }
 
     private List<TipoProceso> tipoProcesosActivosList = new ArrayList<>();

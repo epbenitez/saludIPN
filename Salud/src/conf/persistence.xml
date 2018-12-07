@@ -49,7 +49,6 @@
     <class>com.becasipn.persistence.model.MunicipioDelegacion</class>
     <class>com.becasipn.persistence.model.Nacionalidad</class>
     <class>com.becasipn.persistence.model.Nivel</class>
-    <class>com.becasipn.persistence.model.OrdenDeposito</class>
     <class>com.becasipn.persistence.model.Otorgamiento</class>
     <class>com.becasipn.persistence.model.OtorgamientoBajasDetalle</class>
     <class>com.becasipn.persistence.model.Pais</class>
@@ -80,7 +79,6 @@
     <class>com.becasipn.persistence.model.UnidadAcademica</class>
     <class>com.becasipn.persistence.model.Usuario</class>
     <class>com.becasipn.persistence.model.UsuarioPrivilegio</class>
-    <class>com.becasipn.persistence.model.VWOrdenDeposito</class>
     <class>com.becasipn.persistence.model.VWPresupuestoPeriodo</class>
     <class>com.becasipn.persistence.model.VWPresupuestoTipoBecaPeriodo</class>
     <class>com.becasipn.persistence.model.VWPresupuestoUnidadAcademica</class>

@@ -83,8 +83,6 @@ public interface OtorgamientoDao extends DaoBase<Otorgamiento, BigDecimal> {
 
     public List<BecaPeriodoCount> otorgamientosBecariosCountP(BigDecimal procesoId, String procesos);
 
-    public List<Otorgamiento> detalleByOrdenDeposito(BigDecimal ordenId);
-
     public List<Otorgamiento> alumnosExcluidosPeriodo(BigDecimal periodo);
 
     public Boolean alumnoExcluidoPeriodo(BigDecimal periodo, BigDecimal alumnoId);

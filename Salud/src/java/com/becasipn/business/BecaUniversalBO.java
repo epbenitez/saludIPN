@@ -10,7 +10,6 @@ import com.becasipn.persistence.model.Depositos;
 import com.becasipn.persistence.model.EstatusDeposito;
 import com.becasipn.persistence.model.EstatusTarjetaBancaria;
 import com.becasipn.persistence.model.IdentificadorOtorgamiento;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.Otorgamiento;
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.Proceso;
@@ -85,14 +84,12 @@ public class BecaUniversalBO extends BaseBO {
         Depositos deposit = new Depositos();
         EstatusDeposito stsDeposit = creaEstatusDeposito();
         TarjetaBancaria cc = creaCC();
-        OrdenDeposito dOrder = creaOrdenDeposito();
         Usuario usr = creaUsuario();
         Otorgamiento o = creaOtorgamiento();
         
-        if (stsDeposit != null && cc != null && dOrder != null && usr != null && o != null) {
+        if (stsDeposit != null && cc != null && usr != null && o != null) {
             deposit.setEstatusDeposito(stsDeposit);
             deposit.setTarjetaBancaria(cc);
-            deposit.setOrdenDeposito(dOrder);
             deposit.setUsuarioModifico(usr);
             deposit.setOtorgamiento(o);
         } else {
@@ -118,12 +115,6 @@ public class BecaUniversalBO extends BaseBO {
         Otorgamiento o = service.getOtorgamientoDao().getOtorgamientoBkUniversalAlumno(alumno.getId(), periodoActivo.getId());
         
         return o;
-    }
-    
-    private OrdenDeposito creaOrdenDeposito() {
-        BigDecimal nivelId = datosA.getUnidadAcademica().getNivel().getId();
-        OrdenDeposito dOrder = service.getOrdenDepositoDao().getOrdenDepositoBkUniversal(periodoActivo.getId(), nivelId);
-        return dOrder;
     }
     
     private EstatusDeposito creaEstatusDeposito() {

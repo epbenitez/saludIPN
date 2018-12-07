@@ -26,8 +26,6 @@ public class VWDepositosEstatus implements Serializable, BaseEntity {
     private Alumno alumno;
     @ManyToOne(fetch = FetchType.LAZY)
     private Periodo periodo;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private OrdenDeposito ordenDeposito;
     private Integer mes;
     @ManyToOne(fetch = FetchType.LAZY)
     private  EstatusDeposito estatusDeposito;
@@ -64,14 +62,6 @@ public class VWDepositosEstatus implements Serializable, BaseEntity {
 
     public void setPeriodo(Periodo periodo) {
         this.periodo = periodo;
-    }
-
-    public OrdenDeposito getOrdenDeposito() {
-        return ordenDeposito;
-    }
-
-    public void setOrdenDeposito(OrdenDeposito ordenDeposito) {
-        this.ordenDeposito = ordenDeposito;
     }
 
     public Integer getMes() {

@@ -2,7 +2,6 @@ package com.becasipn.business;
 
 import com.becasipn.persistence.model.DatosAcademicos;
 import com.becasipn.persistence.model.Proceso;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.PersonalAdministrativo;
 import com.becasipn.persistence.model.PresupuestoUnidadAcademica;
 import com.becasipn.persistence.model.UnidadAcademica;
@@ -47,11 +46,6 @@ public class UnidadAcademicaBO extends BaseBO {
 
     public Boolean asociadaAlumno(BigDecimal unidadAcademicaId) {
         List<DatosAcademicos> lista = service.getDatosAcademicosDao().asociadaAlumno(unidadAcademicaId);
-        return lista == null || lista.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
-    }
-
-    public Boolean asociadaUnidadAcademicaOrdenDeposito(BigDecimal unidadAcademicaId) {
-        List<OrdenDeposito> lista = service.getOrdenDepositoDao().asociadaUnidadAcademicaOrdenDeposito(unidadAcademicaId);
         return lista == null || lista.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
     }
 

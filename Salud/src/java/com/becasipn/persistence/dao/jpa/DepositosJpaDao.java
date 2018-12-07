@@ -3,7 +3,6 @@ package com.becasipn.persistence.dao.jpa;
 import com.becasipn.persistence.dao.DepositosDao;
 import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.Depositos;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.Otorgamiento;
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.TarjetaBancaria;

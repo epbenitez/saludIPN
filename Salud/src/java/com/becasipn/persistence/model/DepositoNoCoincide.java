@@ -28,8 +28,6 @@ public class DepositoNoCoincide implements Serializable, BaseEntity {
     private String boleta;
     private Float monto;
     @ManyToOne(fetch = FetchType.LAZY)
-    private OrdenDeposito ordenDeposito;
-    @ManyToOne(fetch = FetchType.LAZY)
     private EstatusDeposito estatusDeposito;
 
     @Override
@@ -64,14 +62,6 @@ public class DepositoNoCoincide implements Serializable, BaseEntity {
 
     public void setMonto(Float monto) {
         this.monto = monto;
-    }
-
-    public OrdenDeposito getOrdenDeposito() {
-        return ordenDeposito;
-    }
-
-    public void setOrdenDeposito(OrdenDeposito ordenDeposito) {
-        this.ordenDeposito = ordenDeposito;
     }
 
     public EstatusDeposito getEstatusDeposito() {

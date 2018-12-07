@@ -12,7 +12,6 @@ import com.becasipn.persistence.model.Proceso;
 import com.becasipn.persistence.model.Estadistica;
 import com.becasipn.persistence.model.Movimiento;
 import com.becasipn.persistence.model.Nivel;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.SolicitudBeca;
@@ -1906,50 +1905,6 @@ public class OtorgamientoJpaDao extends JpaDaoBase<Otorgamiento, BigDecimal> imp
             bl.add(b);
         }
         return bl;
-    }
-
-    /**
-     * Devuelve el detalle de una orden de desposito
-     *
-     * @param ordenId
-     * @return lo
-     */
-    @Override
-    public List<Otorgamiento> detalleByOrdenDeposito(BigDecimal ordenId) {
-        OrdenDeposito orden = getDaos().getOrdenDepositoDao().findById(ordenId);
-        String sql = "select od.nivel_id, da.unidadacademica_id, o.tipobecaperiodo_id, count(*), SUM(d.monto), ua.nombreCorto"
-                + " from ent_deposito d "
-                + "   join ent_orden_deposito od on od.id = d.ordendeposito_id"
-                + "   join ent_alumno a on a.id = d.alumno_id"
-                + "   join ent_alumno_datos_academicos da on a.id = da.alumno_id and da.periodo_id = od.periodo_id"
-                + "   join ent_otorgamientos o on o.id = d.otorgamiento_id"
-                + "   join cat_unidad_academica ua on ua.id = da.unidadacademica_id "
-                + " where od.id = ?1 and o.periodo_id = ?2"
-                + " group by od.nivel_id, da.unidadacademica_id, o.tipobecaperiodo_id, ua.nombreCorto "
-                + " order by da.unidadacademica_id";
-        List<Object[]> lista = executeNativeQuery(sql, ordenId, orden.getPeriodo().getId());
-        List<Otorgamiento> lo = new ArrayList<>();
-        for (Object[] res : lista) {
-            Otorgamiento o = new Otorgamiento();
-            //UnidadAcademica
-            UnidadAcademica unidadAcademica = new UnidadAcademica();
-            unidadAcademica.setId((BigDecimal) res[1]);
-            unidadAcademica.setNombreCorto(res[5] == null ? "" : res[5].toString());
-            //Alumno
-            Alumno alumno = new Alumno();
-            DatosAcademicos datosAcademicos = new DatosAcademicos();
-            datosAcademicos.setAlumno(alumno);
-            datosAcademicos.setUnidadAcademica(unidadAcademica);
-            o.setAlumno(alumno);
-            //TipoBecaPeriodo
-            TipoBecaPeriodo tipoBecaPeriodo = getDaos().getTipoBecaPeriodoDao().findById((BigDecimal) res[2]);
-            o.setTipoBecaPeriodo(tipoBecaPeriodo);
-            //Total de Alumnos
-            o.setAlumnosTotal(((BigDecimal) res[3]).longValue());
-            o.setSumaMonto(((BigDecimal) res[4]).doubleValue());
-            lo.add(o);
-        }
-        return lo;
     }
 
     @Override

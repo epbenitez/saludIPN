@@ -78,8 +78,6 @@
     <bean id="vwPresupuestoTipoBecaPeriodoDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoTipoBecaPeriodoJpaDao" />  
     <bean id="depositosDao" class="com.becasipn.persistence.dao.jpa.DepositosJpaDao" />  
     <bean id="tipoProcesoDao" class="com.becasipn.persistence.dao.jpa.TipoProcesoJpaDao" /> 
-    <bean id="ordenDepositoDao" class="com.becasipn.persistence.dao.jpa.OrdenDepositoJpaDao" /> 
-    <bean id="vwOrdenDepositoDao" class="com.becasipn.persistence.dao.jpa.VWOrdenDepositoJpaDao" /> 
     <bean id="estatusDepositoDao" class="com.becasipn.persistence.dao.jpa.EstatusDepositoJpaDao" /> 
     <bean id="tarjetaBancariaDao" class="com.becasipn.persistence.dao.jpa.TarjetaBancariaJpaDao" /> 
     <bean id="depositoUnidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.DepositoUnidadAcademicaJpaDao" />
@@ -203,8 +201,6 @@
           p:vwPresupuestoTipoBecaPeriodoDao-ref="vwPresupuestoTipoBecaPeriodoDao"
           p:depositosDao-ref="depositosDao"
           p:tipoProcesoDao-ref="tipoProcesoDao"
-          p:ordenDepositoDao-ref="ordenDepositoDao"
-          p:vwOrdenDepositoDao-ref="vwOrdenDepositoDao"
           p:estatusDepositoDao-ref="estatusDepositoDao"
           p:tarjetaBancariaDao-ref="tarjetaBancariaDao"
           p:depositoUnidadAcademicaDao-ref="depositoUnidadAcademicaDao"

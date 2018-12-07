@@ -3,7 +3,6 @@ package com.becasipn.business;
 import com.becasipn.persistence.model.Depositos;
 import com.becasipn.persistence.model.ErroresBanamex;
 import com.becasipn.persistence.model.EstatusDeposito;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.service.Service;
 import com.opensymphony.xwork2.ActionContext;
 import java.io.BufferedReader;
@@ -91,7 +90,6 @@ public class CargaRespuestasBancariasBO {
     }
 
     public void procesaInfo(List<String> lineas) throws ParseException {
-        OrdenDeposito ordenDeposito = new OrdenDeposito();
 
         List<Depositos> depositosLista = new ArrayList<>();
         Date fecha = new Date();
@@ -130,9 +128,6 @@ public class CargaRespuestasBancariasBO {
                             fileDesc = line.substring(71, 91).replaceAll("\\s", "");
                         }
                         String nomOrden = fileDesc + "_" + strDate;
-                        ordenDeposito = service.getOrdenDepositoDao().findById(ordenId);
-                        ordenDeposito.setNombreRespuestaBancaria(nomOrden);
-                        ordenDeposito.setFechaEjecucion(fecha);
                         break;
                     case "3":
                         Float importe;
@@ -156,8 +151,7 @@ public class CargaRespuestasBancariasBO {
                             rfrnc = line.substring(121, 136);
                         }
 
-                        Depositos depositos = service.getDepositosDao().depositoCargaRespuesta(
-                                ordenDeposito.getId(), rfrnc, tarjeta, importe);
+                        Depositos depositos = null;
                         if (depositos == null) {
                             error = true;
                             mensajeError += " Verifique la línea: <br> " + line + "<br>";
@@ -243,9 +237,7 @@ public class CargaRespuestasBancariasBO {
             if (!service.getDepositosDao().ordenConDepositosEnEspera(ordenId)) {
                 EstatusDeposito estatusDeposito = new EstatusDeposito();
                 estatusDeposito.setId(new BigDecimal(2));
-                ordenDeposito.setEstatusDeposito(estatusDeposito);
             }
-            service.getOrdenDepositoDao().update(ordenDeposito);
         }
     }
 
@@ -267,9 +259,6 @@ public class CargaRespuestasBancariasBO {
         //Rechazado
         if (deposito.getEstatusDeposito().getId().compareTo(new BigDecimal("4")) == 0) {
             ErroresBanamex eb = service.getErroresBanamexDao().findById(deposito.getErrorBanamex().getId());
-            mensaje = MENSAJERECHAZADO.replace("{0}", getMes(deposito.getOrdenDeposito().getMes())).replace("{1}", eb.getDescripcion());
-        } else {
-            mensaje = MENSAJEAPLICADO.replace("{0}", getMes(deposito.getOrdenDeposito().getMes()));
         }
 //        System.out.println("mensaje: " + mensaje);
         Map info = bo.infoCorreo(deposito.getAlumno(), ASUNTO, ATENTAMENTE, mensaje, null, null);

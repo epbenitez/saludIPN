@@ -2,7 +2,6 @@ package com.becasipn.business;
 
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.Proceso;
-import com.becasipn.persistence.model.OrdenDeposito;
 import com.becasipn.persistence.model.Otorgamiento;
 import com.becasipn.persistence.model.PresupuestoPeriodo;
 import com.becasipn.persistence.model.TipoBecaPeriodo;
@@ -64,11 +63,6 @@ public class PeriodoBO extends BaseBO {
     
     public Boolean existenTiposBecaAsociados(BigDecimal periodoId) {
         List<TipoBecaPeriodo> lista = service.getTipoBecaPeriodoDao().existenTiposBecaAsociados(periodoId);
-        return lista == null || lista.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
-    }
-    
-    public Boolean existenOrdenesDepositoAsociados(BigDecimal periodoId) {
-        List<OrdenDeposito> lista = service.getOrdenDepositoDao().existenOrdenesDepositoAsociados(periodoId);
         return lista == null || lista.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
     }
     
