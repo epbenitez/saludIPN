@@ -23,7 +23,6 @@ import com.becasipn.persistence.model.TipoBeca;
 import com.becasipn.persistence.model.TipoBecaPeriodo;
 import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Usuario;
-import com.becasipn.persistence.model.VWPresupuestoUnidadAcademica;
 import com.becasipn.service.Service;
 import com.becasipn.util.ExcelExport;
 import com.becasipn.util.ExcelTitulo;
@@ -1132,10 +1131,6 @@ public class OtorgamientoBO extends XlsLoaderBO {
             return false;
         }
 
-        if (!validarPresupuesto(beca, alumno)) {
-            return false;
-        }
-
         if (!validarOtorgamientosActuales(alumno, beca, periodoActivo)) {
             return false;
         }
@@ -1219,9 +1214,7 @@ public class OtorgamientoBO extends XlsLoaderBO {
 //            mensajesAsignaciones(false, alumno, "El semestre del alumno es invalido.");
 //            return false;
 //        }
-        if (!validarPresupuesto(beca, alumno)) {
-            return false;
-        }
+
 
         if (!validarOtorgamientosActuales(alumno, beca, periodoActivo)) {
             return false;
@@ -1507,22 +1500,6 @@ public class OtorgamientoBO extends XlsLoaderBO {
 
     private Boolean validaProcesoPrograma(TipoBecaPeriodo tbp, Proceso proceso) {
         return service.getProcesoProgramaBecaDao().existe(tbp.getTipoBeca().getBeca().getId(), proceso.getId());
-    }
-
-    public Boolean validarPresupuesto(TipoBecaPeriodo beca, Alumno alumno) {
-        Periodo periodo = beca.getPeriodo();
-        DatosAcademicos datosAcademicos = service.getDatosAcademicosDao().datosPorPeriodo(alumno.getId(), periodo.getId());
-        VWPresupuestoUnidadAcademica presupuestoAsignado = service.getVwPresupuestoUnidadAcademicaDao().getPresupuestoUnidadAcademicaTipoBeca(datosAcademicos.getUnidadAcademica().getId(), beca.getId());
-
-        if (presupuestoAsignado == null) {
-            mensajesAsignaciones(false, alumno, "No se ha asignado presupuesto para su Unidad Académica.");
-            return false;
-        }
-        if (presupuestoAsignado.getBecasDisponibles() == null || presupuestoAsignado.getBecasDisponibles() <= 0) {
-            mensajesAsignaciones(false, alumno, "No alcanza el presupuesto para su Unidad Académica.");
-            return false;
-        }
-        return true;
     }
 
     private Boolean validarMateriasReprobadas(TipoBecaPeriodo beca, DatosAcademicos datosAcademicos) {

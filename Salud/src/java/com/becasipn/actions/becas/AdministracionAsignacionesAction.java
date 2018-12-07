@@ -21,7 +21,6 @@ import com.becasipn.persistence.model.SolicitudBeca;
 import com.becasipn.persistence.model.TipoBecaPeriodo;
 import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Usuario;
-import com.becasipn.persistence.model.VWPresupuestoUnidadAcademica;
 import com.opensymphony.xwork2.ActionContext;
 import java.math.BigDecimal;
 import java.text.MessageFormat;
@@ -47,7 +46,6 @@ public class AdministracionAsignacionesAction extends BaseAction implements Mens
     private Alumno alumno = new Alumno();
     private Documentos documentos = new Documentos();
     private Otorgamiento otorgamiento = new Otorgamiento();
-    private List<VWPresupuestoUnidadAcademica> presupuesto = new ArrayList<>();
     private String periodo;
     private String egresado;
     private UnidadAcademica UA;
@@ -307,13 +305,6 @@ public class AdministracionAsignacionesAction extends BaseAction implements Mens
                 }
             }
         }
-
-        presupuesto = getDaos().getVwPresupuestoUnidadAcademicaDao().getPresupuestosPorUA(unidadAcademicaId);
-        if (presupuesto.isEmpty() || presupuesto == null) {
-            addActionError(getText("becas.error.no.presupuesto"));
-            return SUCCESS;
-        }
-        periodo = presupuesto.get(0).getPeriodo().getDescripcion();
         return SUCCESS;
     }
 
@@ -719,13 +710,6 @@ public class AdministracionAsignacionesAction extends BaseAction implements Mens
         this.otorgamiento = otorgamiento;
     }
 
-    public List<VWPresupuestoUnidadAcademica> getPresupuesto() {
-        return presupuesto;
-    }
-
-    public void setPresupuesto(List<VWPresupuestoUnidadAcademica> presupuesto) {
-        this.presupuesto = presupuesto;
-    }
 
     public String getPeriodo() {
         return periodo;

@@ -83,7 +83,6 @@ import com.becasipn.persistence.dao.UsuarioDao;
 import com.becasipn.persistence.dao.UsuarioPrivilegioDao;
 import com.becasipn.persistence.dao.VWPresupuestoPeriodoDao;
 import com.becasipn.persistence.dao.VWPresupuestoTipoBecaPeriodoDao;
-import com.becasipn.persistence.dao.VWPresupuestoUnidadAcademicaDao;
 import com.becasipn.persistence.dao.PadronProsperaDao;
 import com.becasipn.persistence.model.CompaniaCelular;
 import com.becasipn.persistence.model.EstadoCivil;
@@ -182,7 +181,6 @@ public class Service {
     private PresupuestoUnidadAcademicaDao PresupuestoUnidadAcademicaDao;
     private AlumnoTarjetaBancariaDao alumnoTarjetaDao;
     private BitacoraTarjetaBancariaDao bitacoraTarjetaBancariaDao;
-    private VWPresupuestoUnidadAcademicaDao vwPresupuestoUnidadAcademicaDao;
     private VWPresupuestoPeriodoDao vwPresupuestoPeriodoDao;
     private VWPresupuestoTipoBecaPeriodoDao vwPresupuestoTipoBecaPeriodoDao;
     private TipoProcesoDao tipoProcesoDao;
@@ -690,14 +688,6 @@ public class Service {
 
     public void setBitacoraTarjetaBancariaDao(BitacoraTarjetaBancariaDao bitacoraTarjetaBancariaDao) {
         this.bitacoraTarjetaBancariaDao = bitacoraTarjetaBancariaDao;
-    }
-
-    public VWPresupuestoUnidadAcademicaDao getVwPresupuestoUnidadAcademicaDao() {
-        return vwPresupuestoUnidadAcademicaDao;
-    }
-
-    public void setVwPresupuestoUnidadAcademicaDao(VWPresupuestoUnidadAcademicaDao vwPresupuestoUnidadAcademicaDao) {
-        this.vwPresupuestoUnidadAcademicaDao = vwPresupuestoUnidadAcademicaDao;
     }
 
     public VWPresupuestoPeriodoDao getVwPresupuestoPeriodoDao() {

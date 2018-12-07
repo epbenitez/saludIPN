@@ -73,7 +73,6 @@
     <bean id="presupuestoUnidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.PresupuestoUnidadAcademicaJpaDao" />
     <bean id="alumnoTarjetaBancariaDao" class="com.becasipn.persistence.dao.jpa.AlumnoTarjetaBancariaJpaDao" />
     <bean id="bitacoraTarjetaBancariaDao" class="com.becasipn.persistence.dao.jpa.BitacoraTarjetaBancariaJpaDao" />  
-    <bean id="vwPresupuestoUnidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoUnidadAcademicaJpaDao" />  
     <bean id="vwPresupuestoPeriodoDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoPeriodoJpaDao" />  
     <bean id="vwPresupuestoTipoBecaPeriodoDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoTipoBecaPeriodoJpaDao" />  
     <bean id="depositosDao" class="com.becasipn.persistence.dao.jpa.DepositosJpaDao" />  
@@ -194,7 +193,6 @@
           p:presupuestoUnidadAcademicaDao-ref="presupuestoUnidadAcademicaDao"
           p:alumnoTarjetaDao-ref="alumnoTarjetaBancariaDao"
           p:bitacoraTarjetaBancariaDao-ref="bitacoraTarjetaBancariaDao"
-          p:vwPresupuestoUnidadAcademicaDao-ref="vwPresupuestoUnidadAcademicaDao"
           p:vwPresupuestoPeriodoDao-ref="vwPresupuestoPeriodoDao"
           p:vwPresupuestoTipoBecaPeriodoDao-ref="vwPresupuestoTipoBecaPeriodoDao"
           p:depositosDao-ref="depositosDao"
