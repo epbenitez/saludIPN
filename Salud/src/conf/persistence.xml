@@ -83,7 +83,6 @@
     <class>com.becasipn.persistence.model.VWPresupuestoTipoBecaPeriodo</class>
     <class>com.becasipn.persistence.model.VWPresupuestoUnidadAcademica</class>
     <class>com.becasipn.persistence.model.VWDepositosEstatus</class>
-    <class>com.becasipn.persistence.model.VWUltimaBajaDetalle</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <!--
