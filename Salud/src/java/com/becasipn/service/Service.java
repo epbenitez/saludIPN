@@ -84,7 +84,6 @@ import com.becasipn.persistence.dao.UsuarioPrivilegioDao;
 import com.becasipn.persistence.dao.VWPresupuestoPeriodoDao;
 import com.becasipn.persistence.dao.VWPresupuestoTipoBecaPeriodoDao;
 import com.becasipn.persistence.dao.VWPresupuestoUnidadAcademicaDao;
-import com.becasipn.persistence.dao.VWPresupuestoUnidadAcademicaPreDao;
 import com.becasipn.persistence.dao.PadronProsperaDao;
 import com.becasipn.persistence.model.CompaniaCelular;
 import com.becasipn.persistence.model.EstadoCivil;
@@ -184,7 +183,6 @@ public class Service {
     private AlumnoTarjetaBancariaDao alumnoTarjetaDao;
     private BitacoraTarjetaBancariaDao bitacoraTarjetaBancariaDao;
     private VWPresupuestoUnidadAcademicaDao vwPresupuestoUnidadAcademicaDao;
-    private VWPresupuestoUnidadAcademicaPreDao vWPresupuestoUnidadAcademicaPreDao;
     private VWPresupuestoPeriodoDao vwPresupuestoPeriodoDao;
     private VWPresupuestoTipoBecaPeriodoDao vwPresupuestoTipoBecaPeriodoDao;
     private TipoProcesoDao tipoProcesoDao;
@@ -886,13 +884,6 @@ public class Service {
         this.tipoPermisoCambioDao = tipoPermisoCambioDao;
     }
 
-    public VWPresupuestoUnidadAcademicaPreDao getPresupuestoPreasignacionesUA() {
-        return vWPresupuestoUnidadAcademicaPreDao;
-    }
-
-    public void setvWPresupuestoUnidadAcademicaPreDao(VWPresupuestoUnidadAcademicaPreDao vWPresupuestoUnidadAcademicaPreDao) {
-        this.vWPresupuestoUnidadAcademicaPreDao = vWPresupuestoUnidadAcademicaPreDao;
-    }
     public PadronSubesDao getPadronSubesDao() {
         return padronSubesDao;
     }

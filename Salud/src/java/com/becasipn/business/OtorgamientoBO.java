@@ -24,7 +24,6 @@ import com.becasipn.persistence.model.TipoBecaPeriodo;
 import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Usuario;
 import com.becasipn.persistence.model.VWPresupuestoUnidadAcademica;
-import com.becasipn.persistence.model.VWPresupuestoUnidadAcademicaPre;
 import com.becasipn.service.Service;
 import com.becasipn.util.ExcelExport;
 import com.becasipn.util.ExcelTitulo;
@@ -370,17 +369,8 @@ public class OtorgamientoBO extends XlsLoaderBO {
             Logger.getLogger(OtorgamientoBO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //Paso 1 Lista presupuesto por TipoBecaPeriodo.prioridad
-        List<VWPresupuestoUnidadAcademicaPre> presupuestosXUnidad
-                = service.getPresupuestoPreasignacionesUA().presupuestoUAPeriodoNivel(periodoActivo, nivel);
-
         //Paso 2 Por cada presupuesto sacar tipo de beca, presupuesto para preasignacioenss
         Map<Tupla<BigDecimal, BigDecimal>, Integer> disponiblesTipoBeca = new HashMap<>();
-        for (VWPresupuestoUnidadAcademicaPre pua : presupuestosXUnidad) {
-            Tupla<BigDecimal, BigDecimal> llave = new Tupla<>(pua.getTipoBecaPeriodo().getTipoBeca().getId(),
-                    pua.getUnidadAcademica().getId());
-            disponiblesTipoBeca.put(llave, (int) (pua.getBecasDisponibles() * 0.8));
-        }
 
         //Paso 3 Inicializar manager con totales
         int tiposDeBeca = service.getTipoBecaPeriodoDao().getCountTiposBecasPeriodoPorNivel(nivel).intValue();
@@ -393,62 +383,6 @@ public class OtorgamientoBO extends XlsLoaderBO {
         AsignacionResumen tipoBecaEscuela;
         Integer becasDisponibles;
         Otorgamiento o = null;
-
-        for (VWPresupuestoUnidadAcademicaPre presupuestoEscuela : presupuestosXUnidad) {
-
-            //Lista de alumnos candidatos para esta escuela
-            alumnosCandidatos = service.getAlumnoDao().nuevos(presupuestoEscuela.getUnidadAcademica().getId(), nivel, periodoActivo);
-
-            //Hasta que sea cambio de tipo de beca, cambia la barra 
-            if (tipoBecaCicloAnterior == null || !presupuestoEscuela.getTipoBecaPeriodo().getTipoBeca().equals(tipoBecaCicloAnterior.getTipoBeca())) {
-                tipoBecaCicloAnterior = presupuestoEscuela.getTipoBecaPeriodo();
-                Long countTotalesParaEstaBecaNuevos
-                        = service.getTipoBecaPeriodoDao().getCountTotalNuevosBeca(tipoBecaCicloAnterior, nivel, periodoActivo, presupuestoEscuela.getUnidadAcademica());
-                manager.cambiarElemento(tipoBecaCicloAnterior, countTotalesParaEstaBecaNuevos, countTotalesParaEstaBecaNuevos);
-            }
-
-            Tupla<BigDecimal, BigDecimal> llave = new Tupla<>(presupuestoEscuela.getTipoBecaPeriodo().getTipoBeca().getId(),
-                    presupuestoEscuela.getUnidadAcademica().getId());
-
-            for (Alumno alumno : alumnosCandidatos) {
-
-                becasDisponibles = disponiblesTipoBeca.get(llave);
-
-                if (becasDisponibles == null) {
-                    razonNoOtorgamiento = 21;//No se ha asignado presupuesto para el tipo de beca que se quiere revalidar.
-                    break;
-                } else if (becasDisponibles > 0) {
-                    /*  if (validarDatosAcademicos(alumno, presupuestoEscuela.getTipoBecaPeriodo(), null)) {
-                     Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
-                     o = new Otorgamiento(alumno, periodoActivo, presupuestoEscuela.getTipoBecaPeriodo(), null, usuario, null, 1);
-                     o.setAutomatico(Boolean.TRUE);
-                     service.getOtorgamientoDao().savePreAsignacion(o);
-                     disponiblesTipoBeca.put(llave, becasDisponibles - 1);
-                     manager.aumentarRevalidacionAsignada();
-                     imprimirOtorgamientoNuevo("SI PREASIGNO", o, bufferAsignaciones);
-                     } else {
-                     imprimirOtorgamientoNuevo("NO PREASIGNO", alumno, presupuestoEscuela.getTipoBecaPeriodo(), bufferAsignaciones);
-                     manager.aumentarRevalidacionNoAsignada();
-                     }*/
-                } else {
-                    razonNoOtorgamiento = 23;//Se agotó el presupuesto de becas.
-                    manager.aumentarRevalidacionNoAsignada();
-                    imprimirOtorgamientoNuevo("NO PREASIGNO", alumno, presupuestoEscuela.getTipoBecaPeriodo(), bufferAsignaciones);
-                    break;
-                }
-
-            }// Termina for otorgamiento anterior(escuela, tipo beca)
-
-            tipoBecaEscuela = new AsignacionResumen();
-            tipoBecaEscuela.setAlumnosAsignados(manager.getRevalidacionesAsignadas());
-            tipoBecaEscuela.setAlumnosNoAsignados(manager.getRevalidacionesNoAsignadas());
-            tipoBecaEscuela.setMontoPorBeca(presupuestoEscuela.getMontoPorBeca());
-            BigDecimal presupuestoAsignado = new BigDecimal(manager.getRevalidacionesAsignadas() * tipoBecaEscuela.getMontoPorBeca().longValue());
-            tipoBecaEscuela.setPresupuestoAsignado(presupuestoAsignado);
-            tipoBecaEscuela.setTipoDeBeca(presupuestoEscuela.getTipoBecaPeriodo().getTipoBeca().getNombre());
-            tipoBecaEscuela.setUnidadAcademica(presupuestoEscuela.getUnidadAcademica().getNombreCorto());
-            result.add(tipoBecaEscuela);
-        }
 
         try {
             bufferAsignaciones.flush();
@@ -469,18 +403,6 @@ public class OtorgamientoBO extends XlsLoaderBO {
         Periodo periodoActivo = service.getPeriodoDao().getPeriodoActivo();
         ProgressBarManager manager = new ProgressBarManager();
 
-        //Paso 1 Lista presupuesto por TipoBecaPeriodo.prioridad
-        List<VWPresupuestoUnidadAcademicaPre> presupuestosXUnidad
-                = service.getPresupuestoPreasignacionesUA().presupuestoUAPeriodoNivel(periodoActivo, nivel);
-
-        Map<Tupla<BigDecimal, BigDecimal>, Integer> disponiblesTipoBeca = new HashMap<>();
-        for (VWPresupuestoUnidadAcademicaPre pua : presupuestosXUnidad) {
-            Tupla<BigDecimal, BigDecimal> llave = new Tupla<>(pua.getTipoBecaPeriodo().getTipoBeca().getId(),
-                    pua.getUnidadAcademica().getId());
-            Integer disponibles = pua.getBecasDisponibles();
-            disponiblesTipoBeca.put(llave, disponibles);
-        }
-
         //Inicializar manager 
         manager.setTotalDeElementos(service.getOtorgamientoDao().getCandidatosRevalidacion(periodoActivo, nivel),
                 service.getTipoBecaPeriodoDao().getCountTiposBecasPeriodoPorNivel(nivel).intValue(), nivel, 2);
@@ -490,94 +412,7 @@ public class OtorgamientoBO extends XlsLoaderBO {
         AsignacionResumen tipoBecaEscuela;
         Integer becasDisponibles;
         boolean asigno = false;
-        for (VWPresupuestoUnidadAcademicaPre presupuestoEscuela : presupuestosXUnidad) {
 
-            //Lista de otorgamientos para esta unidad academica y con esta beca
-            otorgamientoTipoBecaUnidad = service.getOtorgamientoDao().revalidantes(presupuestoEscuela.getUnidadAcademica().getId(),
-                    presupuestoEscuela.getTipoBecaPeriodo(), nivel, periodoActivo.getPeriodoAnterior().getId(), periodoActivo.getId());
-
-            //Hasta que sea cambio de tipo de beca, cambia la barra            
-            if (tipoBecaCicloAnterior == null || !presupuestoEscuela.getTipoBecaPeriodo().getTipoBeca().equals(tipoBecaCicloAnterior.getTipoBeca())) {
-                tipoBecaCicloAnterior = presupuestoEscuela.getTipoBecaPeriodo();
-                Periodo periodoAnterior = service.getPeriodoDao().getPeriodoActivo().getPeriodoAnterior();
-                //Long totalPorTipoDeBeca = service.getTipoBecaPeriodoDao().getCountTotalPorBeca(tipoBeca.getId(), periodoAnterior.getId());
-                Long countTotalRealesPorBeca = service.getTipoBecaPeriodoDao().getCountTotalRealesPorBeca(
-                        tipoBecaCicloAnterior, nivel, periodoAnterior.getId(), periodoActivo.getId()
-                );
-                manager.cambiarElemento(tipoBecaCicloAnterior, countTotalRealesPorBeca, countTotalRealesPorBeca);
-            }
-
-            for (Otorgamiento otorgamientoAnterior : otorgamientoTipoBecaUnidad) {
-                if (otorgamientoAnterior.getProceso().getUnidadAcademica().getId().compareTo(otorgamientoAnterior.getDatosAcademicos().getUnidadAcademica().getId()) != 0) {
-                    razonNoOtorgamiento = 1;//La U.A. del alumno no corresponde con su otorgamiento anterior.
-                    impirmirOtorgamiento("NO PREASIGNÓ", otorgamientoAnterior, null);
-                    manager.aumentarRevalidacionNoAsignada();
-                    continue;
-                }
-                Otorgamiento nuevoOtorgamiento = null;
-
-                //PASO 3 Aplicar reglas de operación
-                if (otorgamientoAnterior.getDatosAcademicos().getSemestre().intValue() == otorgamientoAnterior.getDatosAcademicos().getSemestre().intValue()) {
-                    razonNoOtorgamiento = 2;//El alumno tiene el mismo semestre que el otorgamiento anterior.
-                    nuevoOtorgamiento = null;
-                    impirmirOtorgamiento("NO PREASIGNÓ", otorgamientoAnterior, nuevoOtorgamiento);
-                    manager.aumentarRevalidacionNoAsignada();
-                    continue;
-                }
-
-                /*switch (otorgamientoAnterior.getTipoBecaPeriodo().getTipoBeca().getBeca().getId().intValue()) {
-                 case 4:
-                 if (nivel == 1 || otorgamientoAnterior.getTipoBecaPeriodo().getTipoBeca().getId().intValue() == 23) {
-                 nuevoOtorgamiento = validarGeneral(otorgamientoAnterior);
-                 } else {
-                 nuevoOtorgamiento = validarBecalos(otorgamientoAnterior);
-                 }
-                 break;
-                 case 5:
-                 nuevoOtorgamiento = validarManutencion(otorgamientoAnterior);
-                 break;
-                 default:
-                 nuevoOtorgamiento = validarGeneral(otorgamientoAnterior);
-                 break;
-                 }*/
-                //Paso 4 - Guardar revalidacion
-                if (nuevoOtorgamiento != null) {
-                    Tupla<BigDecimal, BigDecimal> llave = new Tupla<>(nuevoOtorgamiento.getTipoBecaPeriodo().getTipoBeca().getId(),
-                            presupuestoEscuela.getUnidadAcademica().getId());
-                    becasDisponibles = disponiblesTipoBeca.get(llave);
-
-                    if (becasDisponibles == null) {
-                        razonNoOtorgamiento = 21;//No se ha asignado presupuesto para el tipo de beca que se quiere revalidar.
-                    } else if (becasDisponibles > 0) {
-                        nuevoOtorgamiento.setAutomatico(true);
-                        service.getOtorgamientoDao().savePreAsignacion(nuevoOtorgamiento);
-                        impirmirOtorgamiento("SI PREASIGNÓ", otorgamientoAnterior, nuevoOtorgamiento);
-                        disponiblesTipoBeca.put(llave, becasDisponibles - 1);
-                        asigno = true;
-                        manager.aumentarRevalidacionAsignada();
-                    } else {
-                        razonNoOtorgamiento = 23;//Se agotó el presupuesto de becas.
-                    }
-                }
-                if (!asigno) {
-                    impirmirOtorgamiento("NO PREASIGNÓ", otorgamientoAnterior, nuevoOtorgamiento);
-                    //razonOtorgamiento = "";
-                    manager.aumentarRevalidacionNoAsignada();
-                }
-                asigno = false;
-            }// Termina for otorgamiento anterior(escuela, tipo beca)
-
-            //Paso 5 - Elaborar cuadro resumen
-            tipoBecaEscuela = new AsignacionResumen();
-            tipoBecaEscuela.setAlumnosAsignados(manager.getRevalidacionesAsignadas());
-            tipoBecaEscuela.setAlumnosNoAsignados(manager.getRevalidacionesNoAsignadas());
-            tipoBecaEscuela.setMontoPorBeca(presupuestoEscuela.getMontoPorBeca());
-            BigDecimal presupuestoAsignado = new BigDecimal(manager.getRevalidacionesAsignadas() * tipoBecaEscuela.getMontoPorBeca().longValue());
-            tipoBecaEscuela.setPresupuestoAsignado(presupuestoAsignado);
-            tipoBecaEscuela.setTipoDeBeca(presupuestoEscuela.getTipoBecaPeriodo().getTipoBeca().getNombre());
-            tipoBecaEscuela.setUnidadAcademica(presupuestoEscuela.getUnidadAcademica().getNombreCorto());
-            result.add(tipoBecaEscuela);
-        }
 
 //        try {
 //            bufferAsignaciones.flush();
@@ -597,16 +432,8 @@ public class OtorgamientoBO extends XlsLoaderBO {
         Periodo periodoActivo = service.getPeriodoDao().getPeriodoActivo();
         ProgressBarManager manager = new ProgressBarManager();
 
-        //Paso 1 Lista presupuesto por TipoBecaPeriodo.prioridad
-        List<VWPresupuestoUnidadAcademicaPre> presupuestosXUnidad = service.getPresupuestoPreasignacionesUA().presupuestoUAPeriodoNivel(periodoActivo, nivel);
 
-        Map<Tupla<BigDecimal, BigDecimal>, Integer> disponiblesTipoBeca = new HashMap<>();
-        for (VWPresupuestoUnidadAcademicaPre pua : presupuestosXUnidad) {
-            Tupla<BigDecimal, BigDecimal> llave = new Tupla<>(pua.getTipoBecaPeriodo().getTipoBeca().getId(),
-                    pua.getUnidadAcademica().getId());
-            Integer disponibles = pua.getBecasDisponibles();
-            disponiblesTipoBeca.put(llave, disponibles);
-        }
+
 
         //Inicializar manager 
         manager.setTotalDeElementos(service.getSolicitudBecaDao().getCountCandidatosBecaSolicitada(periodoActivo, nivel),
@@ -617,50 +444,6 @@ public class OtorgamientoBO extends XlsLoaderBO {
         AsignacionResumen tipoBecaEscuela;
         Integer becasDisponibles;
         boolean asigno = false;
-        for (VWPresupuestoUnidadAcademicaPre presupuestoEscuela : presupuestosXUnidad) {
-
-            //Lista de otorgamientos para esta unidad academica y con esta beca
-            solicitudesTipoBecaUnidad = service.getSolicitudBecaDao().getCandidatosBecaSolicitada(presupuestoEscuela.getUnidadAcademica().getId(), presupuestoEscuela.getTipoBecaPeriodo(), nivel, periodoActivo.getId());
-
-            //Hasta que sea cambio de tipo de beca, cambia la barra            
-            if (tipoBecaPeriodo == null || !presupuestoEscuela.getTipoBecaPeriodo().getTipoBeca().equals(tipoBecaPeriodo.getTipoBeca())) {
-                tipoBecaPeriodo = presupuestoEscuela.getTipoBecaPeriodo();
-                Long countTotalRealesPorBeca = service.getSolicitudBecaDao().getCountCandidatosPorBecaSolicitada(presupuestoEscuela.getUnidadAcademica().getId(), tipoBecaPeriodo, nivel, periodoActivo.getId());
-                manager.cambiarElemento(tipoBecaPeriodo, countTotalRealesPorBeca, countTotalRealesPorBeca);
-            }
-
-            for (SolicitudBeca solicitud : solicitudesTipoBecaUnidad) {
-                //Guardar solicitud
-                if (solicitud != null) {
-                    Tupla<BigDecimal, BigDecimal> llave = new Tupla<>(solicitud.getProgramaBecaSolicitada().getId(), presupuestoEscuela.getUnidadAcademica().getId());
-                    becasDisponibles = disponiblesTipoBeca.get(llave);
-
-                    if (becasDisponibles == null) {
-                        razonNoOtorgamiento = 22;//No se ha asignado presupuesto para el tipo de beca que se quiere verificar.
-                    } else if (becasDisponibles > 0) {
-                        solicitud.setTipoBecaPreasignada(tipoBecaPeriodo);
-                        service.getSolicitudBecaDao().update(solicitud);
-//			service.getOtorgamientoDao().saveSolicitud(solicitud);
-                        impirmirSolicitud("SI PREASIGNÓ", solicitud);
-                        disponiblesTipoBeca.put(llave, becasDisponibles - 1);
-                        asigno = true;
-                        manager.aumentarRevalidacionAsignada();
-                    } else {
-                        razonNoOtorgamiento = 23;//Se agotó el presupuesto de becas.
-                    }
-                }
-                asigno = false;
-            }
-            tipoBecaEscuela = new AsignacionResumen();
-            tipoBecaEscuela.setAlumnosAsignados(manager.getRevalidacionesAsignadas());
-            tipoBecaEscuela.setAlumnosNoAsignados(manager.getRevalidacionesNoAsignadas());
-            tipoBecaEscuela.setMontoPorBeca(presupuestoEscuela.getMontoPorBeca());
-            BigDecimal presupuestoAsignado = new BigDecimal(manager.getRevalidacionesAsignadas() * tipoBecaEscuela.getMontoPorBeca().longValue());
-            tipoBecaEscuela.setPresupuestoAsignado(presupuestoAsignado);
-            tipoBecaEscuela.setTipoDeBeca(presupuestoEscuela.getTipoBecaPeriodo().getTipoBeca().getNombre());
-            tipoBecaEscuela.setUnidadAcademica(presupuestoEscuela.getUnidadAcademica().getNombreCorto());
-            result.add(tipoBecaEscuela);
-        }
         manager.borraBarra();
         return result;
     }
