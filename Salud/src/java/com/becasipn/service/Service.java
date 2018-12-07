@@ -81,7 +81,6 @@ import com.becasipn.persistence.dao.TrayectoDao;
 import com.becasipn.persistence.dao.UnidadAcademicaDao;
 import com.becasipn.persistence.dao.UsuarioDao;
 import com.becasipn.persistence.dao.UsuarioPrivilegioDao;
-import com.becasipn.persistence.dao.VWConteoDepositosDao;
 import com.becasipn.persistence.dao.VWPresupuestoPeriodoDao;
 import com.becasipn.persistence.dao.VWPresupuestoTipoBecaPeriodoDao;
 import com.becasipn.persistence.dao.VWPresupuestoUnidadAcademicaDao;
@@ -208,7 +207,6 @@ public class Service {
     private CuestionarioTransporteDao cuestionarioTransporteDao;
     private TransporteTrasladoDao transporteTrasladoDao;
     private TransporteDatosFamiliaresDao transporteDatosFamiliaresDao;
-    private VWConteoDepositosDao vwConteoDepositosDao;
     private PadronSubesDao padronSubesDao;
     private ConvocatoriaSubesDao convocatoriaSubesDao;
     private IdentificadorOtorgamientoDao identificadorOtorgamientoDao;
@@ -895,15 +893,6 @@ public class Service {
     public void setvWPresupuestoUnidadAcademicaPreDao(VWPresupuestoUnidadAcademicaPreDao vWPresupuestoUnidadAcademicaPreDao) {
         this.vWPresupuestoUnidadAcademicaPreDao = vWPresupuestoUnidadAcademicaPreDao;
     }
-
-    public VWConteoDepositosDao getVwConteoDepositosDao() {
-        return vwConteoDepositosDao;
-    }
-
-    public void setVwConteoDepositosDao(VWConteoDepositosDao vwConteoDepositosDao) {
-        this.vwConteoDepositosDao = vwConteoDepositosDao;
-    }
-
     public PadronSubesDao getPadronSubesDao() {
         return padronSubesDao;
     }

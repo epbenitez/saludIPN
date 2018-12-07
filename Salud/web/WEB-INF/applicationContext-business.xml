@@ -98,7 +98,6 @@
     <bean id="bitacoraPermisoCambioDao" class="com.becasipn.persistence.dao.jpa.BitacoraPermisoCambioJpaDao" />
     <bean id="tipoPermisoCambioDao" class="com.becasipn.persistence.dao.jpa.TipoPermisoCambioJpaDao" />
     <bean id="presupuestoUnidadAcademicaPreJpaDao" class="com.becasipn.persistence.dao.jpa.VWPresupuestoUnidadAcademicaPreJpaDao" />
-    <bean id="vwConteoDepositosJpaDao" class="com.becasipn.persistence.dao.jpa.VWConteoDepositosJpaDao" />
     <bean id="padronSubesDao" class="com.becasipn.persistence.dao.jpa.PadronSubesJpaDao" />
     <bean id="convocatoriaSubesDao" class="com.becasipn.persistence.dao.jpa.ConvocatoriaSubesJpaDao" />
     <bean id="identificadorOtorgamientoDao" class="com.becasipn.persistence.dao.jpa.IdentificadorOtorgamientoJpaDao" />
@@ -221,7 +220,6 @@
           p:bitacoraPermisoCambioDao-ref="bitacoraPermisoCambioDao"
           p:tipoPermisoCambioDao-ref="tipoPermisoCambioDao"
           p:vWPresupuestoUnidadAcademicaPreDao-ref="presupuestoUnidadAcademicaPreJpaDao"
-          p:vwConteoDepositosDao-ref="vwConteoDepositosJpaDao"
           p:padronSubesDao-ref="padronSubesDao"
           p:convocatoriaSubesDao-ref="convocatoriaSubesDao"
           p:identificadorOtorgamientoDao-ref="identificadorOtorgamientoDao"
