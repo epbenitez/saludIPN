@@ -5,12 +5,10 @@
 package com.becasipn.business;
 
 import com.becasipn.actions.Mensajes;
-import com.becasipn.persistence.model.Depositos;
 import com.becasipn.persistence.model.Rol;
 import com.becasipn.persistence.model.Usuario;
 import com.becasipn.service.Service;
 import com.becasipn.util.Ambiente;
-import com.becasipn.util.AsyncMailSender;
 import java.math.BigDecimal;
 import java.io.File;
 import java.util.Collection;
@@ -45,8 +43,6 @@ public class BaseBO implements Mensajes {
     
     protected Ambiente ambiente = new Ambiente();
     protected Service service;
-    
-    private AsyncMailSender mailSender;
 
     /**
      * Constructor Default
@@ -98,80 +94,7 @@ public class BaseBO implements Mensajes {
         }
         return true;
     }
-
-    /**
-     * Obtiene la interfaz JavaMailSender, para la creación correos
-     * electrónicos.
-     *
-     * @return manejador del envío de emails.
-     */
-    private AsyncMailSender getMailSender() {
-        if (mailSender == null) {
-            try {
-                ApplicationContext applicationContext
-                        = WebApplicationContextUtils.getWebApplicationContext(ServletActionContext.getServletContext());
-                mailSender = (AsyncMailSender) applicationContext.getBean("mailSender");
-            } catch (BeansException beansException) {
-                beansException.printStackTrace();
-            }
-        }
-        return mailSender;
-    }
-
-    /**
-     * Envía un correo electrónico a una lista de destinatarios junto con un
-     * archivo anexo.
-     *
-     * @param to Lista correos electrónicos de los destinatarios (Para).
-     * @param subject Asunto del correo electrónico.
-     * @param body Cuerpo del correo electrónico.
-     * @param attach Archivo anexo.
-     * @throws MessagingException
-     */
-    protected final void sendEmail(String[] to, String subject, String body, InputStreamSource attach) throws MessagingException {
-        AsyncMailSender sender = getMailSender();
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setFrom("sibec@ipn.mx");
-        helper.setTo(to);
-//        helper.setBcc(to);
-        helper.setSubject(subject);
-        helper.setText("<html><body>" + body + "</body></html>", true);
-        sender.send(message);
-
-//        SimpleMailMessage smm = new SimpleMailMessage();
-//        smm.setSubject(subject);
-//        smm.setTo(to);
-//        smm.setFrom("sibec@ipn.mx");
-//        smm.setText(body);
-//        sender.send(smm);
-    }
-    
-    /**
-     * Manda correo de forma asíncrona a cada alumno del depósito correspondiente
-     * En caso de reportar un error, se establece el campo fechanotificacion en nulo
-     * para el depósito indicado.
-     * @param d
-     * @param correo
-     * @param model 
-     */
-    protected final void sendEmail(Depositos d,String correo, Map model) {
-        AsyncMailSender sender = getMailSender();
-        MimeMessage message = sender.createMimeMessage();
-        String body = creaTexto("velocity/EnvioCorreos/mail.vm", model);
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom("sibec@ipn.mx");
-            helper.setTo(correo);
-            helper.setSubject(model.get("asunto").toString());
-            helper.setText("<html><body>" + body + "</body></html>", true);
-            sender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            d.setFechaDeposito(null);
-            service.getDepositosDao().update(d);
-        }
-    }
+  
 
     // Une html de la plantilla, con variables
     public  final String creaTexto(String ruta, Map model) {
@@ -186,58 +109,6 @@ public class BaseBO implements Mensajes {
         }
         
         return VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, ruta, "UTF-8", model);
-    }
-    
-    protected final void sendEmailSync(String correo, Map model) throws MessagingException {
-        ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(ServletActionContext.getServletContext());
-        JavaMailSenderImpl mailSenderSync = (JavaMailSenderImpl) applicationContext.getBean("mailSenderSync");
-        MimeMessage message = mailSenderSync.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        String text = creaTexto("velocity/EnvioCorreos/mail.vm", model);
-        
-        helper.setFrom("sibec@ipn.mx");
-        helper.setTo(correo);
-        helper.setSubject(model.get("asunto").toString());
-        helper.setText(text, true);
-        if (model.containsKey("nombreArchivo")) {
-            helper.addAttachment(model.get("nombreArchivo").toString(), (File) model.get("archivo"));
-        }
-        
-        mailSenderSync.send(message);
-    }
-
-    /**
-     * Envía un correo electrónico al destinatario deseado.
-     *
-     * @param to Correo electrónico del destinatario (Para).
-     * @param subject Asunto del correo electrónico.
-     * @param body Cuerpo del correo electrónico.
-     * @throws MessagingException
-     */
-    protected final void sendEmail(String to, String subject, String body) throws MessagingException {
-        String[] toArray = {};
-        if (to != null && !to.isEmpty()) {
-            StringTokenizer st = new StringTokenizer(to, ",");
-            toArray = new String[st.countTokens()];
-            int i = 0;
-            while (st.hasMoreTokens()) {
-                toArray[i] = st.nextToken().trim();
-                i++;
-            }
-        }
-        sendEmail(toArray, subject, body);
-    }
-
-    /**
-     * Envía un correo electrónico a una lista de destinatarios.
-     *
-     * @param to Lista correos electrónicos de los destinatarios (Para).
-     * @param subject Asunto del correo electrónico.
-     * @param body Cuerpo del correo electrónico.
-     * @throws MessagingException
-     */
-    protected final void sendEmail(String[] to, String subject, String body) throws MessagingException {
-        sendEmail(to, subject, body, null);
     }
     
     protected Rol getRolAlto() {

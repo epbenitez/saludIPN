@@ -1,13 +1,10 @@
 package com.becasipn.persistence.dao.jpa;
 
-import com.becasipn.business.BitacoraBO;
 import com.becasipn.exception.RegexException;
 import com.becasipn.persistence.dao.DaoBase;
-import com.becasipn.persistence.model.Accion;
 import com.becasipn.persistence.model.BaseBitacora;
 import com.becasipn.persistence.model.BaseEntity;
 import com.becasipn.persistence.model.Usuario;
-import com.becasipn.persistence.model.Bitacora;
 import com.becasipn.service.Service;
 import com.becasipn.util.PaginateUtil;
 import com.opensymphony.xwork2.ActionContext;
@@ -27,7 +24,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import static com.becasipn.util.StringUtil.addParameters;
 import static com.becasipn.util.StringUtil.buildCountQuery;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -104,19 +100,11 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
         entityManager.flush();//Esta línea se deja, en caso de que se qiera comentar la Bitacora
 
         if (obj instanceof BaseBitacora) {
-            BitacoraBO bitacoraBO = new BitacoraBO(getDaos());
             Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
             if (usuario == null) {
                 usuario = new Usuario();
                 usuario.setId(new BigDecimal(2));
             }
-            String action = (String) ActionContext.getContext().getSession().get("action");
-            Bitacora b = bitacoraBO.saveBitacora(usuario,
-                    obj.getClass().getSimpleName(),
-                    obj.getId() == null ? "" : obj.getId().toString(),
-                    action + ">  " + obj.toString(),
-                    Accion.ALTA);
-            writeFileLog.info(b);
         }
         return obj;
     }
@@ -140,13 +128,6 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
         if (obj instanceof BaseBitacora) {
             Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
             String action = (String) ActionContext.getContext().getSession().get("action");
-            BitacoraBO bitacoraBO = new BitacoraBO(getDaos());
-            Bitacora b = bitacoraBO.saveBitacora(usuario,
-                    re.getClass().getSimpleName(),
-                    re.getId() == null ? "" : re.getId().toString(),
-                    action + ">  " + obj.toString(),
-                    Accion.MODIFICACION);
-            writeFileLog.info(b);
         }
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -177,18 +158,8 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
     @Override
     public void delete(T obj) {
 //        T old = entityManager.find(clase, obj.getId());
-        BitacoraBO bitacoraBO = new BitacoraBO(getDaos());
         Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
         String urlAction = (String) ActionContext.getContext().getSession().get("urlAction");
-        entityManager.remove(entityManager.contains(obj) ? obj : entityManager.merge(obj)); //Esta línea se deja, en caso de que se qiera comentar la Bitacora
-        if (obj instanceof BaseBitacora) {
-            bitacoraBO.saveBitacora(usuario,
-                    obj.getClass().getSimpleName(),
-                    obj.getId().toString(),
-                    obj.toString() + " :: " + urlAction,
-                    Accion.BAJA);
-            writeFileLog.info(bitacoraBO);
-        }
         entityManager.flush(); //Esta línea se deja, en caso de que se qiera comentar la Bitacora
     }
 
@@ -439,7 +410,7 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
 
         List<Object[]> result;
         Query q;
-        
+
         q = entityManager.createNativeQuery(sql);
         for (Map.Entry<String, Object> entry : parametros.entrySet()) {
             q.setParameter(entry.getKey(), entry.getValue());
@@ -557,10 +528,9 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
         }
         return Long.parseLong(q.getSingleResult().toString());
     }
-    
+
     /**
-     * Obtiene el count, con parámetros llave valor.
-     * Author: Mario Márquez
+     * Obtiene el count, con parámetros llave valor. Author: Mario Márquez
      *
      * @param sql Query en sql
      * @param mapa Parámetros para la query
@@ -568,13 +538,13 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
      */
     public Long getCountNativeQueryMap(String sql, Map<String, Object> mapa) {
         Query q = entityManager.createNativeQuery(sql);
-        
+
         if (mapa != null) {
             for (Map.Entry<String, Object> entry : mapa.entrySet()) {
                 q.setParameter(entry.getKey(), entry.getValue());
             }
         }
-        
+
         return Long.parseLong(q.getSingleResult().toString());
     }
 
@@ -591,8 +561,8 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
     }
 
     /**
-     * Obtiene objetos de una clase en específico, con parámetros llave valor, para una query nativa
-     * Author: Mario Márquez
+     * Obtiene objetos de una clase en específico, con parámetros llave valor,
+     * para una query nativa Author: Mario Márquez
      *
      * @param sql Query en sql
      * @param start inicio paginación
@@ -603,13 +573,13 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
      */
     public List<T> executeNativeQueryPaginateMap(String sql, int start, int length, Map<String, Object> mapa, Class type) {
         Query q = entityManager.createNativeQuery(sql, type).setFirstResult(start).setMaxResults(length);
-        
+
         if (mapa != null) {
             for (Map.Entry<String, Object> entry : mapa.entrySet()) {
                 q.setParameter(entry.getKey(), entry.getValue());
             }
         }
-        
+
         return (List<T>) q.getResultList();
     }
 
@@ -770,19 +740,19 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
     }
 
     /**
-     * Crea un Mapa hasheable, que mantiene el orden de los elementos como fueron ingresados.
-     * El mapa es creado a partir de una lista de cadenas de texto, y una lista de resultados 
-     * de tipo lista de objetos. Liga los resultados con cada una des estas cadenas, dentro del 
-     * mapa llava valor.
+     * Crea un Mapa hasheable, que mantiene el orden de los elementos como
+     * fueron ingresados. El mapa es creado a partir de una lista de cadenas de
+     * texto, y una lista de resultados de tipo lista de objetos. Liga los
+     * resultados con cada una des estas cadenas, dentro del mapa llava valor.
      * Author: Mario Márquez
      *
      * @param resultDB Lista de resultados Object[], provenientes de la BD
-     * @param columnas Lista de String con el nombre de las columnas     
+     * @param columnas Lista de String con el nombre de las columnas
      * @return List<LinkedHashMap<String, Object>> Lista de mapas llave valor
      */
     public final List<LinkedHashMap<String, Object>> creaModelo(List<Object[]> resultDB, List<String> columnas) {
         List<LinkedHashMap<String, Object>> modelst = new ArrayList();
-        
+
         Integer originalSize = resultDB.size();
         for (int i = 0; i < originalSize; i++) {
             Object[] object = resultDB.get(0);
@@ -796,28 +766,28 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
 
         return modelst;
     }
-    
+
     /**
-     * Extrae una cadena de texto en caso de encontrar comillas, y si no, regresa la cadena completa
-     * Se asume que cuando hay comillas es un Alias, y se usará como encabezado del excel (columna)
-     * Author: Mario Márquez
+     * Extrae una cadena de texto en caso de encontrar comillas, y si no,
+     * regresa la cadena completa Se asume que cuando hay comillas es un Alias,
+     * y se usará como encabezado del excel (columna) Author: Mario Márquez
      *
      * @param columna String con la información de las columna SQL
      * @return String cadena de texto para ser usada como llave en un mapa
      */
     private String creaLlaveDesdeColumna(String columna) {
         String llave;
-        
+
         Integer first = columna.indexOf("\"") + 1;
         Integer second = columna.indexOf("\"", first);
         Boolean alias = (first != -1) && (second != -1);
-        
+
         if (alias) {
             llave = columna.substring(first, second);
         } else {
             llave = columna;
         }
-        
+
         return llave;
     }
 
@@ -830,18 +800,19 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
             sb.append(columnas.get(i));
         }
     }
-    
+
     /**
-     * Crea una cadena de texto con un decode básico, para ir de 0 y 1, a no y sí     
-     * Author: Mario Márquez
+     * Crea una cadena de texto con un decode básico, para ir de 0 y 1, a no y
+     * sí Author: Mario Márquez
      *
      * @param columna String con la información de las columna SQL
      * @param alias String con la información del alias
-     * @return String cadena de texto para ser usada en el select de una consulta
+     * @return String cadena de texto para ser usada en el select de una
+     * consulta
      */
-    public final String decodeBoolean(String columna, String alias)  {
+    public final String decodeBoolean(String columna, String alias) {
         StringBuilder decode = new StringBuilder();
-        
+
         decode.append(" Decode(");
         decode.append(columna);
         decode.append(" ,");
@@ -852,7 +823,7 @@ public class JpaDaoBase<T extends BaseEntity, Id extends Serializable> implement
         decode.append(" \"");
         decode.append(alias);
         decode.append("\"");
-        
+
         return decode.toString();
     }
 }

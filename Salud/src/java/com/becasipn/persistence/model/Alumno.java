@@ -7,9 +7,7 @@ package com.becasipn.persistence.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.ColumnResult;
@@ -20,19 +18,13 @@ import javax.persistence.FieldResult;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.NamedStoredProcedureQueries;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
-import javax.persistence.ParameterMode;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.SqlResultSetMappings;
-import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.Transient;
 import org.eclipse.persistence.annotations.Cache;
 
 /**
@@ -50,22 +42,29 @@ import org.eclipse.persistence.annotations.Cache;
                 @EntityResult(entityClass = Alumno.class) //0
             },
             columns = {
-                @ColumnResult(name = "anterior"),    //1 Nombre becaAnterior     
-                @ColumnResult(name = "propuestaId"), //2 Id Tipo Beca
-                @ColumnResult(name = "propuestaNombre"), //3 Nombre Tipo Beca
-                @ColumnResult(name = "tbp_id"), //4 Id Tipo Beca Periodo
-                @ColumnResult(name = "oPasado"), //5 Id Otorgamiento anterior 
+                @ColumnResult(name = "anterior")
+                ,    //1 Nombre becaAnterior     
+                @ColumnResult(name = "propuestaId")
+                , //2 Id Tipo Beca
+                @ColumnResult(name = "propuestaNombre")
+                , //3 Nombre Tipo Beca
+                @ColumnResult(name = "tbp_id")
+                , //4 Id Tipo Beca Periodo
+                @ColumnResult(name = "oPasado")
+                , //5 Id Otorgamiento anterior 
                 @ColumnResult(name = "programaPropuesto")//6 Programa de beca propuesto    
-            }),
+            })
+    ,
     @SqlResultSetMapping(
             name = "TarjetaAsignacionesMapping",
             entities = {
                 @EntityResult(entityClass = Alumno.class, fields = {
-                    @FieldResult(name = "id", column = "alumnoId")
-                }),
+            @FieldResult(name = "id", column = "alumnoId")
+        })
+                ,
                 @EntityResult(entityClass = UnidadAcademica.class, fields = {
-                    @FieldResult(name = "id", column = "unidadAcademicaId")
-                })
+            @FieldResult(name = "id", column = "unidadAcademicaId")
+        })
             },
             columns = {
                 @ColumnResult(name = "numTarjetaBancaria")
@@ -97,7 +96,7 @@ public class Alumno implements Serializable, BaseEntity {
     private String celular;
     @ManyToOne(fetch = FetchType.LAZY)
     private CompaniaCelular companiaCelular;
-    private String correoElectronico;   
+    private String correoElectronico;
     private Boolean beneficiarioOportunidades;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fechaAlta;
@@ -110,30 +109,7 @@ public class Alumno implements Serializable, BaseEntity {
     private String telefonoCasa;
     private Boolean datosBancarios;
     private Boolean permiteingresocuentaexterna;
-    @OneToMany(mappedBy = "alumno", fetch = FetchType.LAZY)
-    private Set<SolicitudBeca> cuestionarios;
-    @Transient
-    private String becaAnterior;
-    @Transient
-    private TipoBecaPeriodo becaPropuesta;
-    @Transient
-    private BigDecimal otorgamientoPasadoId;
-    @Transient
-    private BigDecimal monto;
-    @Transient
-    private BigDecimal tarjetaBancariaId;
-    @Transient
-    private Boolean montoVariable;
-    @Transient
-    private AlumnoDAE origenDAE;
-    //    @OneToMany(fetch = FetchType.LAZY, mappedBy="alumno")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "alumno", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    @OrderBy("id DESC")
-    private List<DatosAcademicos> listaDatosAcademicos = new ArrayList();
-    @Transient
-    private DatosAcademicos datosAcademicos = new DatosAcademicos();
-    @Transient
-    private Depositos deposito = new Depositos();
+    private Boolean preregistro;
 
     public Alumno() {
     }
@@ -312,68 +288,12 @@ public class Alumno implements Serializable, BaseEntity {
         this.telefonoCasa = telefonoCasa;
     }
 
-    public String getBecaAnterior() {
-        return becaAnterior;
+    public String getPreboleta() {
+        return preboleta;
     }
 
-    public void setBecaAnterior(String becaAnterior) {
-        this.becaAnterior = becaAnterior;
-    }
-
-    public TipoBecaPeriodo getBecaPropuesta() {
-        return becaPropuesta;
-    }
-
-    public void setBecaPropuesta(TipoBecaPeriodo becaPropuesta) {
-        this.becaPropuesta = becaPropuesta;
-    }
-
-    public BigDecimal getOtorgamientoPasadoId() {
-        return otorgamientoPasadoId;
-    }
-
-    public void setOtorgamientoPasadoId(BigDecimal otorgamientoPasadoId) {
-        this.otorgamientoPasadoId = otorgamientoPasadoId;
-    }
-
-    public BigDecimal getMonto() {
-        return monto;
-    }
-
-    public void setMonto(BigDecimal monto) {
-        this.monto = monto;
-    }
-
-    public BigDecimal getTarjetaBancariaId() {
-        return tarjetaBancariaId;
-    }
-
-    public void setTarjetaBancariaId(BigDecimal tarjetaBancariaId) {
-        this.tarjetaBancariaId = tarjetaBancariaId;
-    }
-
-    public Boolean getMontoVariable() {
-        return montoVariable;
-    }
-
-    public void setMontoVariable(Boolean montoVariable) {
-        this.montoVariable = montoVariable;
-    }
-
-    public AlumnoDAE getOrigenDAE() {
-        return origenDAE;
-    }
-
-    public void setOrigenDAE(AlumnoDAE origenDAE) {
-        this.origenDAE = origenDAE;
-    }
-
-    public Set<SolicitudBeca> getCuestionarios() {
-        return cuestionarios;
-    }
-
-    public void setCuestionarios(Set<SolicitudBeca> cuestionarios) {
-        this.cuestionarios = cuestionarios;
+    public void setPreboleta(String preboleta) {
+        this.preboleta = preboleta;
     }
 
     public Boolean getDatosBancarios() {
@@ -392,47 +312,12 @@ public class Alumno implements Serializable, BaseEntity {
         this.permiteingresocuentaexterna = permiteingresocuentaexterna;
     }
 
-    public String getPreboleta() {
-        return preboleta;
+    public Boolean getPreregistro() {
+        return preregistro;
     }
 
-    public void setPreboleta(String preboleta) {
-        this.preboleta = preboleta;
+    public void setPreregistro(Boolean preregistro) {
+        this.preregistro = preregistro;
     }
 
-    public List<DatosAcademicos> getListaDatosAcademicos() {
-        return listaDatosAcademicos;
-    }
-
-    public void setListaDatosAcademicos(List<DatosAcademicos> listaDatosAcademicos) {
-        this.listaDatosAcademicos = listaDatosAcademicos;
-    }
-
-    public void addDatosAcademicos(DatosAcademicos datosAcademicos) {
-        this.listaDatosAcademicos.add(datosAcademicos);
-        if (datosAcademicos.getAlumno() != this) {
-            datosAcademicos.setAlumno(this);
-        }
-    }
-
-    public DatosAcademicos getDatosAcademicos() {
-        return datosAcademicos;
-    }
-
-    public void setDatosAcademicos(DatosAcademicos datosAcademicos) {
-        this.datosAcademicos = datosAcademicos;
-    }
-
-    public Depositos getDeposito() {
-        return deposito;
-    }
-
-    public void setDeposito(Depositos deposito) {
-        this.deposito = deposito;
-    }
-
-    @Override
-    public String toString() {
-        return "Alumno{" + "id=" + id + ", boleta=" + boleta + ", direccion=" + direccion + ", beneficiarioOportunidades=" + beneficiarioOportunidades + ", fechaAlta=" + fechaAlta + ", fechaModificacion=" + fechaModificacion + ", usuario=" + usuario + ", estatus=" + estatus + ", permiteingresocuentaexterna=" + permiteingresocuentaexterna + '}';
-    }
 }

@@ -58,17 +58,11 @@ public class AlumnoAjaxAction extends JSONAjaxAction implements MensajesAlumno {
         }
 
         AdministraAlumnoAction aa = new AdministraAlumnoAction();
-        aa.mandarCorreo(a, "misdatos.alumno.correo.body.recupera.usuario");
 
         getJsonResult().add("\"OK\"");
         return SUCCESS_JSON;
     }
 
-    public String buscar() {
-        String banco = getDaos().getBancosDao().bancoPorClave(numero.substring(0, 3));
-        getJsonResult().add("[\"" + banco + "\"]");
-        return SUCCESS_JSON;
-    }
     
     public String comparar() {
         Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");

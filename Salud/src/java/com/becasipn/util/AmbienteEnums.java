@@ -2,7 +2,6 @@ package com.becasipn.util;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import com.becasipn.domain.Genero;
 
 /**
  * Servicio que obtiene los valores de los enums para desplegarlos en selects
@@ -53,10 +52,6 @@ public class AmbienteEnums {
         respuestaBoolean.put(0, "No");
 
         return respuestaBoolean;
-    }
-
-    public Genero[] getSexo() {
-        return Genero.values();
     }
 
     public Map<String, String> getEstatus() {

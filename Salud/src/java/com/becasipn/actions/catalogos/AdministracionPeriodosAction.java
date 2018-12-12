@@ -81,11 +81,6 @@ public class AdministracionPeriodosAction extends BaseAction implements Mensajes
             addActionError(getText("catalogo.guardado.periodos.activos"));
             return FORMULARIO;
         }
-        //Validamos que no existan procesos asociados.
-        if (periodo.getEstatus() == Boolean.FALSE && periodo.getId() != null && bo.existenProcesosAsociados(periodo.getId())) {
-            addActionError(getText("catalogo.guardado.procesos.asociados"));
-            return FORMULARIO;
-        }
         //Validamos si tiene periodo anterior
         if (periodo.getPeriodoAnterior() == null) {
             addActionError(getText("catalogo.guardado.error.fecha.invalida"));
@@ -93,7 +88,7 @@ public class AdministracionPeriodosAction extends BaseAction implements Mensajes
         }
         if (bo.guardaPeriodo(periodo)) {
             try {//Establecemos en nulo la variable del sistema que contiene la lista de periodos
-                 //lo que ayudará a recargarla completa una vez que se solicite esta lista en cualquier módulo con el nuevo dato
+                //lo que ayudará a recargarla completa una vez que se solicite esta lista en cualquier módulo con el nuevo dato
                 getAmbiente().setPeriodoList(null);
             } catch (Exception ex) {
                 Logger.getLogger(AdministracionPeriodosAction.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,31 +125,16 @@ public class AdministracionPeriodosAction extends BaseAction implements Mensajes
         }
         //Traemos todos los datos de mi objeto
         periodo = bo.getPeriodo(periodo.getId());
-        //Validamos que no existan procesos asociados
-        if ((periodo != null && periodo.getEstatus()) && periodo.getId() != null && bo.existenProcesosAsociados(periodo.getId())) {
-            addActionError(getText("catalogo.eliminado.error.procesos.asociados"));
-            return LISTA;
-        } //Validamos que no existan presupuestos asociados.
-        else if (periodo != null && periodo.getId() != null && bo.existenPresupuestosAsociados(periodo.getId())) {
-            addActionError(getText("catalogo.eliminado.error.presupuesto.asociados"));
-            return LISTA;
-        } //Validamos que no existan tipos de beca asociados.
-        else if (periodo != null && periodo.getId() != null && bo.existenTiposBecaAsociados(periodo.getId())) {
-            addActionError(getText("catalogo.eliminado.error.tipo.beca.asociados"));
-            return LISTA;
-        } //Validamos que no existan ordenes de deposito asociados.
-        else if (periodo != null && periodo.getId() != null) {
+
+        //Validamos que no existan ordenes de deposito asociados.
+        if (periodo != null && periodo.getId() != null) {
             addActionError(getText("catalogo.eliminado.error.deposito.asociados"));
-            return LISTA;
-        } //Validamos que no existan otorgamientos asociados.
-        else if (periodo != null && periodo.getId() != null && bo.existenOtorgamientosAsociados(periodo.getId())) {
-            addActionError(getText("catalogo.eliminado.error.otorgamientos.asociados"));
             return LISTA;
         }
         Boolean res = bo.eliminaPeriodo(periodo);
         if (res) {
             try {//Establecemos en nulo la variable del sistema que contiene la lista de periodos
-                 //lo que ayudará a recargarla completa una vez que se solicite esta lista en cualquier módulo con el nuevo dato
+                //lo que ayudará a recargarla completa una vez que se solicite esta lista en cualquier módulo con el nuevo dato
                 getAmbiente().setPeriodoList(null);
             } catch (Exception ex) {
                 Logger.getLogger(AdministracionPeriodosAction.class.getName()).log(Level.SEVERE, null, ex);

@@ -75,16 +75,6 @@ public class AdministracionUnidadAcademicaAction extends BaseAction implements M
         }
         //Traemos todos los datos de mi objeto.
         unidadAcademica = bo.getUnidadAcademica(unidadAcademica.getId());
-        //Validamos que no sea utilizada por la tabla Proceso.
-        if (unidadAcademica.getId() != null && bo.asociadaProceso(unidadAcademica.getId())) {
-            addActionError(getText("catalogo.eliminado.error.unidadAcademica.usada"));
-            return LISTA;
-        }
-        //Validamos que no sea utilizada por la tabla Alumno.
-        if (unidadAcademica.getId() != null && bo.asociadaAlumno(unidadAcademica.getId())) {
-            addActionError(getText("catalogo.eliminado.error.unidadAcademica.usada"));
-            return LISTA;
-        }
         //Validamos que no sea utilizada por la tabla OrdenDeposito.
         if (unidadAcademica.getId() != null) {
             addActionError(getText("catalogo.eliminado.error.unidadAcademica.usada"));
@@ -92,11 +82,6 @@ public class AdministracionUnidadAcademicaAction extends BaseAction implements M
         }
         //Validamos que no sea utilizada por la tabla PersonalAdministrativo.
         if (unidadAcademica.getId() != null && bo.asociadaPersonalAdministrativo(unidadAcademica.getId())) {
-            addActionError(getText("catalogo.eliminado.error.unidadAcademica.usada"));
-            return LISTA;
-        }
-        //Validamos que no sea utilizada por la tabla PresupuestoUnidadAcademica.
-        if (unidadAcademica.getId() != null && bo.asociadaPresupuestoUnidadAcademica(unidadAcademica.getId())) {
             addActionError(getText("catalogo.eliminado.error.unidadAcademica.usada"));
             return LISTA;
         }

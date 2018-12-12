@@ -5,13 +5,10 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.util.logging.commons.CommonsLogger;
 import com.becasipn.business.BaseBO;
 import com.becasipn.business.PeriodoBO;
-import com.becasipn.business.NotificacionesBO;
 import com.becasipn.exception.LoginException;
 import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.Configuracion;
 import com.becasipn.persistence.model.DatosAcademicos;
-import com.becasipn.persistence.model.Notificaciones;
-import com.becasipn.persistence.model.Otorgamiento;
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.PersonalAdministrativo;
 import com.becasipn.persistence.model.Rol;
@@ -19,7 +16,6 @@ import com.becasipn.persistence.model.Usuario;
 import com.becasipn.service.Service;
 import com.becasipn.util.Ambiente;
 import com.becasipn.util.AmbienteEnums;
-import com.becasipn.util.AsyncMailSender;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,9 +50,7 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
     private static final long serialVersionUID = -4001850137117080470L;
     private Ambiente ambiente = null;
     private Service daos = null;
-    private AsyncMailSender mailSender;
     private String ubicacion;
-    private List<Notificaciones> notificacionesRol = new ArrayList<Notificaciones>();
     private Boolean ese = Boolean.FALSE;
     private Boolean estatusAlumno = Boolean.FALSE;
     private int notificacionesRolSize = 0;
@@ -114,7 +108,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
                 setMenuActivo(action);
             }
             
-            notificacionesRol = getNotificacionesByRol();
 
         }
     }
@@ -122,7 +115,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
     private void setMenuActivo(String action) {
         StringBuilder menuActivo = new StringBuilder("");
         String menuOriginal = String.valueOf(ActionContext.getContext().getSession().get("menuOriginal"));
-        ubicacion = daos.getMenuDao().getNombreModulo(action, menuActivo);
         if (menuOriginal != null && !menuActivo.toString().equals("")) {
             Document doc = Jsoup.parseBodyFragment(menuOriginal);
             Elements liHijo = doc.select("ul[class='nav nav-pills nav-stacked']>li>ul>li[id='" + menuActivo.toString() + "']");
@@ -155,40 +147,10 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
                 throw new LoginException("El usuario (" + numeroDeBoleta + ") que intenta ingresar no tiene su registro correspondiente en la tabla de alumnos.");
             }
             //Se busca el otorgamiento del periodo anterior.
-            Otorgamiento otorgamientoAnterior = getDaos().getOtorgamientoDao().getOtorgamientoAlumno(alumno.getId(), periodo.getPeriodoAnterior().getId());
-            //Si el alumno tiene otorgamiento con validación de inscripción le permite ver todo el menu.
-            Boolean validacionInscripcionESE = getDaos().getOtorgamientoDao().tieneValidacionInscripcion(periodo, alumno.getId(), null);
-            Boolean validacionInscripcionESET = getDaos().getOtorgamientoDao().tieneValidacionInscripcion(periodo, alumno.getId(), true);
-            Boolean validacionInscripcion = validacionInscripcionESE || validacionInscripcionESET;
-            DatosAcademicos da = getDaos().getDatosAcademicosDao().datosPorPeriodo(alumno.getId(), getDaos().getPeriodoDao().getPeriodoActivo().getId());
-            if (validacionInscripcion && otorgamientoAnterior != null
-                    && da != null && da.getUnidadAcademica().getId().equals(otorgamientoAnterior.getProceso().getUnidadAcademica().getId())) {
-                menuStr = getDaos().getRelacionMenuRolesDao().findURLByRols(usuario.getPrivilegios());
-            } else {
-                ese = getDaos().getSolicitudBecaDao().exiteESEPeriodoActivo(alumno.getId(), new BigDecimal("1"), bo.getPeriodoActivo().getId());
-                estatusAlumno = alumno.getEstatus();
-                boolean eseTransporte = getDaos().getCuestionarioTransporteDao().tieneEseTransporte(alumno.getUsuario().getId(), bo.getPeriodoActivo().getId());
-                boolean tieneTransporteManutencion = getDaos().getSolicitudBecaDao().exiteESEPeriodoActivo(alumno.getId(), new BigDecimal("4"), bo.getPeriodoActivo().getId());
-                boolean tieneManutencion = getDaos().getSolicitudBecaDao().exiteESEPeriodoActivo(alumno.getId(), new BigDecimal("5"), bo.getPeriodoActivo().getId());
-
-                if (ese || eseTransporte || tieneTransporteManutencion || tieneManutencion) {
-                    //Si ya lo contesto le muestra el menu normal.
-                    menuStr = getDaos().getRelacionMenuRolesDao().findURLByRols(usuario.getPrivilegios());
-                } else {
-                    //Si no lo ha contestado en el menu sólo aparecera la opción del ESE.
-                    try {
-                        menuStr = getDaos().getRelacionMenuRolesDao().findURLESE();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                ActionContext.getContext().getSession().put("ese", ese);
+           ActionContext.getContext().getSession().put("ese", ese);
                 ActionContext.getContext().getSession().put("estatusAlumno", estatusAlumno);
             }
-        } else {
-            menuStr = getDaos().getRelacionMenuRolesDao().findURLByRols(usuario.getPrivilegios());
-        }
-        ActionContext.getContext().getSession().put("menu", menuStr);
+               ActionContext.getContext().getSession().put("menu", menuStr);
         ActionContext.getContext().getSession().put("menuOriginal", menuStr);
     }
 
@@ -222,24 +184,7 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
         }
     }
 
-    /**
-     * Obtiene la interfaz JavaMailSender, para la creación correos
-     * electrónicos.
-     *
-     * @return manejador del envío de emails.
-     */
-    private AsyncMailSender getMailSender() {
-        if (mailSender == null) {
-            try {
-                ApplicationContext applicationContext
-                        = WebApplicationContextUtils.getWebApplicationContext(ServletActionContext.getServletContext());
-                mailSender = (AsyncMailSender) applicationContext.getBean("mailSender");
-            } catch (BeansException beansException) {
-                beansException.printStackTrace();
-            }
-        }
-        return mailSender;
-    }
+
 
     /**
      * Verifica que exista un usuario autentificado.
@@ -312,15 +257,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
             }
         }
         return roles;
-    }
-
-    public List<Notificaciones> getNotificacionesByRol() {
-        NotificacionesBO bo = new NotificacionesBO(getDaos());
-        List<Rol> roles = new ArrayList<Rol>();
-        roles = getRol();
-        notificacionesRol = bo.getNotificacionByRol(roles.get(0));
-        notificacionesRolSize = notificacionesRol.size();
-        return notificacionesRol;
     }
 
     protected String getRol(List<Rol> roles) {
@@ -495,87 +431,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
     }
 
     /**
-     * Envía un correo electrónico al destinatario deseado.
-     *
-     * @param from Correo electrónico del remitente (De).
-     * @param to Correo electrónico del destinatario (Para).
-     * @param subject Asunto del correo electrónico.
-     * @param body Cuerpo del correo electrónico.
-     * @throws MessagingException
-     */
-    protected final void sendEmail(String to, String subject, String body) throws MessagingException {
-        String[] toArray = {};
-        if (to != null && !to.isEmpty()) {
-            StringTokenizer st = new StringTokenizer(to, ",");
-            toArray = new String[st.countTokens()];
-            int i = 0;
-            while (st.hasMoreTokens()) {
-                toArray[i] = st.nextToken().trim();
-                i++;
-            }
-        }
-        sendEmail(toArray, subject, body);
-    }
-
-    protected final void sendEmailMonitoreo(String subject, String body) throws MessagingException {
-        String[] toArray = {};
-        String to = "epbenitez@ipn.mx,taniizita@gmail.com";
-        if (!to.isEmpty()) {
-            StringTokenizer st = new StringTokenizer(to, ",");
-            toArray = new String[st.countTokens()];
-            int i = 0;
-            while (st.hasMoreTokens()) {
-                toArray[i] = st.nextToken().trim();
-                i++;
-            }
-        }
-        sendEmail(toArray, subject, body);
-    }
-
-    /**
-     * Envía un correo electrónico a una lista de destinatarios.
-     *
-     * @param from Correo electrónico del remitente (De).
-     * @param to Lista correos electrónicos de los destinatarios (Para).
-     * @param subject Asunto del correo electrónico.
-     * @param body Cuerpo del correo electrónico.
-     * @throws MessagingException
-     */
-    protected final void sendEmail(String[] to, String subject, String body) throws MessagingException {
-        sendEmail(to, subject, body, null);
-    }
-
-    /**
-     * Envía un correo electrónico a una lista de destinatarios junto con un
-     * archivo anexo.
-     *
-     * @param from Correo electrónico del remitente (De).
-     * @param to Lista correos electrónicos de los destinatarios (Para).
-     * @param subject Asunto del correo electrónico.
-     * @param body Cuerpo del correo electrónico.
-     * @param attach Archivo anexo.
-     * @throws MessagingException
-     */
-    protected final void sendEmail(String[] to, String subject, String body, InputStreamSource attach) throws MessagingException {
-        AsyncMailSender sender = getMailSender();
-        MimeMessage message = sender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setFrom("sibec@ipn.mx");
-        helper.setTo(to);
-        //helper.setBcc(to);
-        helper.setSubject(subject);
-        helper.setText("<html><body>" + body + "</body></html>", true);
-        sender.send(message);
-
-//        SimpleMailMessage smm = new SimpleMailMessage();
-//        smm.setSubject(subject);
-//        smm.setTo(to);
-//        smm.setFrom("sibec@ipn.mx");
-//        smm.setText(body);
-//        sender.send(smm);
-    }
-
-    /**
      * Obtiene el ambiente donde estan listas y otros objetos comunes.
      *
      * @return ambiente general.
@@ -689,14 +544,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
 
     public void setEstatusAlumno(Boolean estatusAlumno) {
         this.estatusAlumno = estatusAlumno;
-    }
-
-    public List<Notificaciones> getNotificacionesRol() {
-        return notificacionesRol;
-    }
-
-    public void setNotificacionesRol(List<Notificaciones> notificacionesRol) {
-        this.notificacionesRol = notificacionesRol;
     }
 
     public int getNotificacionesRolSize() {

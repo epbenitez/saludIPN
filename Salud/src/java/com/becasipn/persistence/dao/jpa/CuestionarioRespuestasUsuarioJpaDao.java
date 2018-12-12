@@ -8,7 +8,6 @@ import com.becasipn.persistence.model.CuestionarioRespuestas;
 import com.becasipn.persistence.model.CuestionarioRespuestasUsuario;
 import com.becasipn.persistence.model.CuestionarioSeccion;
 import com.becasipn.persistence.model.Periodo;
-import com.becasipn.persistence.model.SolicitudBeca;
 import com.becasipn.persistence.model.Usuario;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -64,41 +63,6 @@ public class CuestionarioRespuestasUsuarioJpaDao extends JpaDaoBase<Cuestionario
             cru.setRespuesta(cr);
             cru.setRespuestaAbierta((String) res[9]);
             lcru.add(cru);
-        }
-
-        if (cuestionarioId.compareTo(new BigDecimal(1))==0) {
-            //Se agregan las respuestas de la sección 5
-            Alumno a = getDaos().getAlumnoDao().getByUsuario(usuario);
-            SolicitudBeca sb = getDaos().getSolicitudBecaDao().getESEAlumno(a.getId(), periodoId);
-            if (sb
-                    != null) {
-                if (sb.getProgramaBecaSolicitada() != null) {
-                    CuestionarioRespuestasUsuario cru = new CuestionarioRespuestasUsuario();
-                    //Sección
-                    CuestionarioSeccion cs = new CuestionarioSeccion();
-                    cs.setId(new BigDecimal("5"));
-                    cs.setNombre("Selección de Beca");
-                    cru.setSeccion(cs);
-                    //Preguntas
-                    CuestionarioPreguntas cp = new CuestionarioPreguntas();
-                    cp.setId(new BigDecimal("0"));
-                    //CuestionarioPreguntaTipo
-                    CuestionarioPreguntaTipo cpt = new CuestionarioPreguntaTipo();
-                    cpt.setId(new BigDecimal("0"));
-                    cp.setCuestionarioPreguntaTipo(cpt);
-                    cp.setNombre("A continuación te mostramos un listado de los programas de beca disponibles para éste periodo. Por favor, selecciona la beca por la que deseas participar:");
-                    cp.setOrden(1);
-                    cru.setPregunta(cp);
-                    //Respuestas
-                    CuestionarioRespuestas cr = new CuestionarioRespuestas();
-                    cr.setId(sb.getProgramaBecaSolicitada().getId());
-                    cr.setNombre(sb.getProgramaBecaSolicitada().getNombre());
-                    cru.setRespuesta(cr);
-                    cru.setRespuestaAbierta(null);
-                    lcru.add(cru);
-                }
-                return lcru;
-            }
         }
         return lcru;
     }

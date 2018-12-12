@@ -3,7 +3,6 @@ package com.becasipn.persistence.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -100,13 +99,6 @@ public class DatosAcademicos implements Serializable,BaseBitacora, BaseEntity {
 
     public Alumno getAlumno() {
         return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
-        if (!alumno.getListaDatosAcademicos().contains(this)) { // warning this may cause performance issues if you have a large data set since this operation is O(n)
-            alumno.addDatosAcademicos(this);
-        }
     }
 
     public Double getPromedio() {

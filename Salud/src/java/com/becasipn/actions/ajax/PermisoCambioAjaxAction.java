@@ -1,18 +1,13 @@
 package com.becasipn.actions.ajax;
 
 import static com.becasipn.actions.ajax.JSONAjaxAction.SUCCESS_JSON;
-import com.becasipn.business.AdministraBecaTransporteBO;
-import com.becasipn.business.AdministraCuestionarioBO;
-import com.becasipn.business.PeriodoBO;
 import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.Carrera;
 import com.becasipn.persistence.model.DatosAcademicos;
 import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Periodo;
-import com.becasipn.persistence.model.SolicitudBeca;
 import com.becasipn.persistence.model.Usuario;
 import com.becasipn.persistence.model.UsuarioPrivilegio;
-import static com.becasipn.util.Util.CampoValidoAJAX;
 import com.opensymphony.xwork2.ActionContext;
 import java.math.BigDecimal;
 import java.util.List;
@@ -75,14 +70,6 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
 
     private String getPermiteTransferencia(Alumno alumno) {
         String res = "\", \"<span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-times fa-stack-1x fa-inverse'></i></span>";
-        SolicitudBeca sb = getDaos().getSolicitudBecaDao().getESEAlumno(alumno.getId(), getDaos().getPeriodoDao().getPeriodoActivo().getId());
-        if (sb != null) {
-            if (sb.getPermiteTransferencia() != null) {
-                if (sb.getPermiteTransferencia() == 1) {
-                    res = "\", \"<span style='color:green' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-check fa-stack-1x fa-inverse'></i></span>";
-                }
-            }
-        }
         return res;
     }
 
@@ -103,19 +90,7 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
         Periodo p = getDaos().getPeriodoDao().getPeriodoActivo();
 
         if (getDaos().getCuestionarioDao().findById(new BigDecimal(1)).getActivo()) {
-            Boolean o = getDaos().getSolicitudBecaDao().exiteESEPeriodoActivo(alumno.getId(), new BigDecimal("1"), p.getId());
-
-            if (o) {
-                res += "<a title='ESE' class='fancybox fancybox.iframe table-link'  href='/admin/eseCuestionario.action?cuestionarioId=1&alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-file-text-o fa-stack-1x fa-inverse'></i></span></a>";
-            } else {
-                Boolean validacionInscripcion = getDaos().getOtorgamientoDao().tieneValidacionInscripcion(getDaos().getPeriodoDao().getPeriodoActivo(), alumno.getId(), null);
-                o = getDaos().getSolicitudBecaDao().exiteESEPeriodoActivo(alumno.getId(), new BigDecimal("1"), p.getPeriodoAnterior().getId());
-                if (o && validacionInscripcion) {
-                    res += "<a title='ESE' class='fancybox fancybox.iframe table-link'  href='/admin/eseCuestionario.action?cuestionarioId=1&alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-file-text-o fa-stack-1x fa-inverse'></i></span></a>";
-                } else {
-                    res += "<a title='ESE' onclick='ESENoActivo()' class='table-link danger'> <span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-file-text-o fa-stack-1x fa-inverse'></i></span></a>";
-                }
-            }
+            res += "<a title='ESE' class='fancybox fancybox.iframe table-link'  href='/admin/eseCuestionario.action?cuestionarioId=1&alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-file-text-o fa-stack-1x fa-inverse'></i></span></a>";
         }
         if (getDaos().getCuestionarioDao().findById(new BigDecimal(3)).getActivo()) {
             Boolean ox = getDaos().getCensoSaludDao().contestoEncuestaSalud(alumno.getId(), p.getId());
@@ -133,22 +108,7 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
                 res += "<a title='Seguimiento Becarios' onclick='ESENoActivo()' class='table-link danger'> <span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-search fa-stack-1x fa-inverse'></i></span></a>";
             }
         }
-        if (getDaos().getCuestionarioDao().findById(new BigDecimal(2)).getActivo()) {
-            Boolean oxx = getDaos().getSolicitudBecaDao().exiteESEPeriodoActivo(alumno.getId(), new BigDecimal("2"), p.getId());
 
-            if (oxx) {
-                res += "<a title='ESET' class='fancybox fancybox.iframe table-link'  href='/admin/esetCuestionario.action?cuestionarioId=2&alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-bus fa-stack-1x fa-inverse'></i></span></a>";
-            } else {
-                Boolean validacionInscripcionESET = getDaos().getOtorgamientoDao().tieneValidacionInscripcion(p, alumno.getId(), true);
-                oxx = getDaos().getSolicitudBecaDao().exiteESEPeriodoActivo(alumno.getId(), new BigDecimal("2"), p.getPeriodoAnterior().getId());
-                if (oxx && validacionInscripcionESET) {
-                    res += "<a title='ESET' class='fancybox fancybox.iframe table-link'  href='/admin/esetCuestionario.action?cuestionarioId=2&alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-bus fa-stack-1x fa-inverse'></i></span></a>";
-                } else {
-                    res += "<a title='ESET' onclick='ESENoActivo()' class='table-link danger'> <span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-bus fa-stack-1x fa-inverse'></i></span></a>";
-                }
-
-            }
-        }
         return res;
     }
 
@@ -171,38 +131,12 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
     }
 
     private String getDatosDAE(Alumno alumno) {
-        String res;
-        if (checkResponsableOrFuncionario()) {
-            Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
-            UnidadAcademica ua = getDaos().getPersonalAdministrativoDao().findByUsuario(usuario.getId()).getUnidadAcademica();
-            DatosAcademicos datosAcademicos = alumno.getListaDatosAcademicos().get(0);
-            Boolean o = datosAcademicos.getUnidadAcademica().getId().equals(ua.getId());
-            if (o) {
-                res = "\", \"<a title='Datos DAE' class='fancybox fancybox.iframe table-link'  href='/misdatos/datosDAEPermisoCambio.action?numeroDeBoleta=" + alumno.getBoleta() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-files-o fa-stack-1x fa-inverse'></i></span></a>";
-            } else {
-                res = "\", \"<a title='Datos DAE' onclick='CorreoNoActivo()' class='table-link danger'><span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-files-o fa-stack-1x fa-inverse'></i></span></a>";
-            }
-        } else {
-            res = "\", \"<a title='Datos DAE' class='fancybox fancybox.iframe table-link'  href='/misdatos/datosDAEPermisoCambio.action?numeroDeBoleta=" + alumno.getBoleta() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-files-o fa-stack-1x fa-inverse'></i></span></a>";
-        }
+        String res = "\", \"<a title='Datos DAE' class='fancybox fancybox.iframe table-link'  href='/misdatos/datosDAEPermisoCambio.action?numeroDeBoleta=" + alumno.getBoleta() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-files-o fa-stack-1x fa-inverse'></i></span></a>";
         return res;
     }
 
-    private String getDocumentos(Alumno alumno) {
-        String res;
-        if (checkResponsableOrFuncionario()) {
-            Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
-            UnidadAcademica ua = getDaos().getPersonalAdministrativoDao().findByUsuario(usuario.getId()).getUnidadAcademica();
-            DatosAcademicos datosAcademicos = alumno.getListaDatosAcademicos().get(0);
-            Boolean o = datosAcademicos.getUnidadAcademica().getId().equals(ua.getId());
-            if (o) {
-                res = "\", \"<a title='Validacion de documentos' class='fancybox fancybox.iframe table-link'  href='/misdatos/validacionPermisoCambio.action?alumno.boleta=" + alumno.getBoleta() + "&permisoCambio=true'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-clipboard fa-stack-1x fa-inverse'></i></span></a>";
-            } else {
-                res = "\", \"<a title='Validacion de documentos' onclick='CorreoNoActivo()' class='table-link danger'><span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-clipboard fa-stack-1x fa-inverse'></i></span></a>";
-            }
-        } else {
-            res = "\", \"<a title='Validacion de documentos' class='fancybox fancybox.iframe table-link'  href='/misdatos/validacionPermisoCambio.action?alumno.boleta=" + alumno.getBoleta() + "&permisoCambio=true'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-clipboard fa-stack-1x fa-inverse'></i></span></a>";
-        }
+    public String getDocumentos(Alumno alumno) {
+        String res = "\", \"<a title='Validacion de documentos' class='fancybox fancybox.iframe table-link'  href='/misdatos/validacionPermisoCambio.action?alumno.boleta=" + alumno.getBoleta() + "&permisoCambio=true'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-clipboard fa-stack-1x fa-inverse'></i></span></a>";
         return res;
     }
 
@@ -239,9 +173,8 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
 
     public void setNumeroDeBoleta(String numeroDeBoleta) {
         this.numeroDeBoleta = numeroDeBoleta;
-        if (CampoValidoAJAX(numeroDeBoleta)) {
-            ssu.parametros.put("a.boleta", this.numeroDeBoleta.toUpperCase());
-        }
+        ssu.parametros.put("a.boleta", this.numeroDeBoleta.toUpperCase());
+
     }
 
     public String getCurp() {
@@ -250,9 +183,8 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
 
     public void setCurp(String curp) {
         this.curp = curp;
-        if (CampoValidoAJAX(curp)) {
-            ssu.parametros.put("a.curp", this.curp.toUpperCase());
-        }
+        ssu.parametros.put("a.curp", this.curp.toUpperCase());
+
     }
 
     public String getNombre() {
@@ -261,9 +193,8 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-        if (CampoValidoAJAX(nombre)) {
-            ssu.parametros.put("a.nombre", this.nombre.toUpperCase());
-        }
+        ssu.parametros.put("a.nombre", this.nombre.toUpperCase());
+
     }
 
     public String getApPaterno() {
@@ -272,9 +203,8 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
 
     public void setApPaterno(String apPaterno) {
         this.apPaterno = apPaterno;
-        if (CampoValidoAJAX(apPaterno)) {
-            ssu.parametros.put("a.apellidoPaterno", this.apPaterno.toUpperCase());
-        }
+        ssu.parametros.put("a.apellidoPaterno", this.apPaterno.toUpperCase());
+
     }
 
     public String getApMaterno() {
@@ -283,9 +213,8 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
 
     public void setApMaterno(String apMaterno) {
         this.apMaterno = apMaterno;
-        if (CampoValidoAJAX(apMaterno)) {
-            ssu.parametros.put("a.apellidoMaterno", this.apMaterno.toUpperCase());
-        }
+        ssu.parametros.put("a.apellidoMaterno", this.apMaterno.toUpperCase());
+
     }
 
     public BigDecimal getUa() {

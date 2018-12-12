@@ -7,7 +7,6 @@ package com.becasipn.persistence.dao;
 
 import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.Periodo;
-import com.becasipn.persistence.model.TipoBecaPeriodo;
 import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.util.PaginateUtil;
 import com.becasipn.util.ServerSideUtil;
@@ -90,8 +89,6 @@ public interface AlumnoDao extends DaoBase<Alumno, BigDecimal> {
 
     public Integer alumnos0sNuevos();
 
-    public List<Alumno> nuevosOtorgamientosUABeca(UnidadAcademica ua, TipoBecaPeriodo tbp, Integer nivel);
-
     public List<Alumno> nuevosOtorgamientosUABeca(BigDecimal uaId, Integer semMin, Integer semMax, Float promMin, Float promMax, BigDecimal modalidad, Integer nivel);
 
     public Integer alumnosNoAsinadosAutomaticamente();
@@ -150,16 +147,5 @@ public interface AlumnoDao extends DaoBase<Alumno, BigDecimal> {
     public List<Object[]> reporteFundacion (BigDecimal periodoId, String beca, BigDecimal origenRecursosId);
     
     public PaginateUtil alumnosConfiguracionCuenta(ServerSideUtil ssu);
-    
-    public List<Object[]> totalAlumnosRegistradosD();
-    
-    /**
-     * Devuelve alumnos que coincidan con la lista de boletas.
-     *
-     * @author Mario Márquez
-     * @param boletas
-     * @return List<Alumno> o null si está vacía
-     */
-    public List<Alumno> getAlumnosDesdeBoletas(List<String> boletas);
     
 }

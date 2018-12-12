@@ -1,7 +1,6 @@
 package com.becasipn.persistence.dao.jpa;
 
 import com.becasipn.persistence.dao.CuestionarioPreguntaRespuestaDao;
-import com.becasipn.persistence.model.Beca;
 import com.becasipn.persistence.model.CuestionarioPreguntaRespuesta;
 import com.becasipn.persistence.model.CuestionarioPreguntaTipo;
 import com.becasipn.persistence.model.CuestionarioPreguntas;
@@ -79,39 +78,6 @@ public class CuestionarioPreguntaRespuestaJpaDao extends JpaDaoBase<Cuestionario
         }
         cpr.setRespuesta(res);
         cuestionario.add(cpr);
-
-        if (cuestionarioId.compareTo(new BigDecimal(1)) == 0) {
-            //Se agrega la sección Selección de Beca cuando se solicita mostrar el formulario de Solicitud de Beca. Para otros cuestionarios, no aplica.
-            cpr = new CuestionarioPreguntaRespuesta();
-            cpr.setId(new BigDecimal("0"));
-            CuestionarioSeccion cs = new CuestionarioSeccion();
-            cs.setId(new BigDecimal("5"));
-            cs.setNombre("Selección de Beca");
-            cs.setOrden(5);
-            cpr.setSeccion(cs);
-            CuestionarioPreguntas cp = new CuestionarioPreguntas();
-            cp.setActivo(1);
-            CuestionarioPreguntaTipo cpt = new CuestionarioPreguntaTipo();//getDaos().getCuestionarioPreguntaTipoDao().findById((BigDecimal) pregunta[6]);
-            cpt.setId(new BigDecimal("0"));
-            cp.setCuestionarioPreguntaTipo(cpt);
-            cpr.setPregunta(cp);
-            List<Beca> becasPeriodo = getDaos().getBecaDao().becasSinTransportePorPeriodoNivel(getDaos().getPeriodoDao().getPeriodoActivo().getId(), nivelId, Boolean.FALSE);
-            res = new ArrayList<>();
-            if (becasPeriodo != null && !becasPeriodo.isEmpty()) {
-                for (Beca b : becasPeriodo) {
-                // Fix 15/02/18 horripilante, se oculta beca manutención
-                    // en duro
-                    if (!b.getId().equals(new BigDecimal(5))) {
-                        CuestionarioRespuestas cr = new CuestionarioRespuestas();
-                        cr.setId(b.getId());
-                        cr.setNombre(b.getNombre());
-                        res.add(cr);
-                    }
-                }
-            }
-            cpr.setRespuesta(res);
-            cuestionario.add(cpr);
-        }
         return cuestionario;
     }
 

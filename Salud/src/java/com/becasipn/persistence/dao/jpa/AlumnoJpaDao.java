@@ -7,15 +7,8 @@ package com.becasipn.persistence.dao.jpa;
 
 import com.becasipn.persistence.dao.AlumnoDao;
 import com.becasipn.persistence.model.Alumno;
-import com.becasipn.persistence.model.Beca;
-import com.becasipn.persistence.model.Carrera;
-import com.becasipn.persistence.model.DatosAcademicos;
-import com.becasipn.persistence.model.EstadoCivil;
 import com.becasipn.persistence.model.Periodo;
 import com.becasipn.persistence.model.PersonalAdministrativo;
-import com.becasipn.persistence.model.TipoBeca;
-import com.becasipn.persistence.model.UnidadAcademica;
-import com.becasipn.persistence.model.TipoBecaPeriodo;
 import com.becasipn.persistence.model.Usuario;
 import com.becasipn.util.PaginateUtil;
 import com.becasipn.util.ServerSideUtil;
@@ -31,8 +24,6 @@ import static com.becasipn.util.StringUtil.addParameters;
 import static com.becasipn.util.StringUtil.buildCountQuery;
 import com.opensymphony.xwork2.ActionContext;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import javax.persistence.Query;
 
 /**
@@ -534,54 +525,6 @@ public class AlumnoJpaDao extends JpaDaoBase<Alumno, BigDecimal> implements Alum
         }
     }
 
-    public List<Alumno> asignarElementos(List<Object[]> listado) {
-        Periodo periodoActivo = getDaos().getPeriodoDao().getPeriodoActivo();
-        List<Alumno> alumnos = new ArrayList<>();
-        for (Object[] elemento : listado) {
-            Alumno alumno = new Alumno();
-            DatosAcademicos datosAcademicos = new DatosAcademicos();
-            Alumno datos = (Alumno) elemento[0];
-            DatosAcademicos datosAcademicosdelDato = getDaos().getDatosAcademicosDao().ultimosDatos(datos.getId());
-            datosAcademicos.setAlumno(alumno);
-            datosAcademicos.setPeriodo(periodoActivo);
-            alumno.setId(datos.getId());
-            alumno.setBoleta(datos.getBoleta());
-            alumno.setNombre(datos.getNombre());
-            alumno.setApellidoPaterno(datos.getApellidoPaterno());
-            alumno.setApellidoMaterno(datos.getApellidoMaterno());
-            datosAcademicos.setPromedio(datosAcademicosdelDato.getPromedio());
-            datosAcademicos.setSemestre(datosAcademicosdelDato.getSemestre());
-            datosAcademicos.setCarrera(datosAcademicosdelDato.getCarrera());
-            if (elemento[1] != null) {
-                alumno.setBecaAnterior(elemento[1].toString());
-            }
-
-            if (elemento[4] != null) {
-                TipoBecaPeriodo tbp = new TipoBecaPeriodo();
-                TipoBeca tb = new TipoBeca();
-                tb.setId(new BigDecimal(elemento[2] == null ? null : elemento[2].toString()));
-                tb.setNombre(elemento[3] == null ? null : elemento[3].toString());
-                Beca programa = new Beca();
-                programa.setId(new BigDecimal(elemento[6] == null ? "0" : elemento[6].toString()));
-                tb.setBeca(programa);
-                if (tb.getId() == null || tb.getNombre() == null) {
-                    tb = null;
-                    alumno.setBecaPropuesta(null);
-                } else {
-                    tbp.setTipoBeca(tb);
-                    tbp.setId(new BigDecimal(elemento[4].toString()));
-                    alumno.setBecaPropuesta(tbp);
-                }
-            }
-            if (elemento[5] != null) {
-                alumno.setOtorgamientoPasadoId(new BigDecimal(elemento[5].toString()));
-            }
-
-            alumnos.add(alumno);
-        }
-        return alumnos;
-    }
-
     @Override
     public Boolean estatusAlumno(String noBoleta) {
         String jpql = "SELECT a FROM Alumno a WHERE a.boleta = ?1";
@@ -1033,78 +976,6 @@ public class AlumnoJpaDao extends JpaDaoBase<Alumno, BigDecimal> implements Alum
     }
 
     @Override
-    public List<Alumno> nuevosOtorgamientosUABeca(BigDecimal uaId, Integer semMin, Integer semMax, Float promMin,
-            Float promMax, BigDecimal modalidad, Integer nivel) {
-
-        String sql = "SELECT a.* FROM ent_alumno a "
-                + "inner join ENT_SOLICITUD_BECAS cpa on a.id = cpa.alumno_id "
-                + "join ENT_ALUMNO_DATOS_ACADEMICOS da on a.ID = da.ALUMNO_ID and da.PERIODO_ID = (select id from cat_periodo where estatus=1 and rownum = 1) "
-                + "join cat_unidad_academica cua on cua.id = da.unidadacademica_id "
-                + "where not exists (SELECT alumno_id FROM ent_otorgamientos o join ent_proceso pr ON o.proceso_id=pr.id "
-                + "where o.periodo_id = (select pe.periodoanterior_id from cat_periodo pe where pe.estatus = 1 and rownum = 1) "
-                + "and O.ALTA=1 "
-                + "and o.proceso_id is not null "
-                + "AND PR.UNIDADACADEMICA_ID=da.UNIDADACADEMICA_ID "
-                + "AND A.ID=O.ALUMNO_ID) "
-                + "and not exists(select alumno_id from ent_otorgamientos o where O.ALUMNO_ID=a.id and O.PERIODO_ID=(select pe.id from cat_periodo pe where pe.estatus = 1 and rownum = 1) ) "
-                + "and cpa.periodo_id=(select pe.id from cat_periodo pe where pe.estatus = 1 and rownum = 1) "
-                + "and a.estatus=1 and a.inscrito=1 and regular=1 ";
-        sql += modalidad == null ? "" : " and da.modalidad_id = " + modalidad;
-        sql += " and da.unidadacademica_id = " + uaId
-                + " and a.semestre between " + semMin + " and " + semMax
-                + " and a.promedio between " + promMin + " and " + promMax
-                + " and cua.nivel_id = " + nivel
-                + " order by a.promedio desc";
-
-        List<Object[]> lista = executeNativeQuery(sql);
-        List<Alumno> la = new ArrayList<>();
-        for (Object[] res : lista) {
-            Alumno a = new Alumno();
-            a.setId((BigDecimal) res[0]);
-            a.setNombre((String) res[1]);
-            a.setApellidoPaterno((String) res[2]);
-            a.setApellidoMaterno((String) res[3]);
-            a.setCurp((String) res[4]);
-            //EstadoCivil
-            EstadoCivil estadoCivil = new EstadoCivil();
-            estadoCivil.setId((BigDecimal) res[5]);
-            a.setEstadoCivil(estadoCivil);
-            a.setBoleta((String) res[6]);
-
-            BigDecimal periodoActualId = getDaos().getPeriodoDao().getPeriodoActivo().getId();
-            DatosAcademicos datosAcademicos = getDaos().getDatosAcademicosDao().datosPorPeriodo(a.getId(), periodoActualId);
-            datosAcademicos = datosAcademicos == null ? new DatosAcademicos() : datosAcademicos;
-
-            datosAcademicos.setAlumno(a);
-            //Falta Fecha de Nacimiento
-            Double d1 = Double.parseDouble(res[8].toString());
-            datosAcademicos.setPromedio(d1);
-//            a.setPromedio(d1);
-            Integer i1 = Integer.parseInt(res[9].toString());
-//            a.setSemestre(i1);
-            datosAcademicos.setSemestre(i1);
-            //UnidadAcademica
-            UnidadAcademica unidadAcademica = new UnidadAcademica();
-            unidadAcademica.setId((BigDecimal) res[10]);
-            datosAcademicos.setUnidadAcademica(unidadAcademica);
-//            a.setUnidadAcademica(unidadAcademica);
-            //Carrera
-            Carrera carrera = new Carrera();
-            carrera.setId((BigDecimal) res[11]);
-            datosAcademicos.setCarrera(carrera);
-//            a.setCarrera(carrera);
-
-            //Regular
-            datosAcademicos.setRegular(Integer.parseInt(String.valueOf(res[24])));
-//            a.setRegular(Integer.parseInt(String.valueOf(res[24])));
-            // Se cambió el orden de la siguiente línea
-            // antes estaba en la línea 806
-            la.add(a);
-        }
-        return la;
-    }
-
-    @Override
     public Integer alumnosNoAsinadosAutomaticamente() {
         String sql = "SELECT a.* FROM ent_alumno a "
                 + "inner join ENT_SOLICITUD_BECAS cpa on a.id = cpa.alumno_id "
@@ -1182,77 +1053,6 @@ public class AlumnoJpaDao extends JpaDaoBase<Alumno, BigDecimal> implements Alum
         return lista == null || lista.isEmpty() ? Boolean.FALSE : Boolean.TRUE;
     }
 
-    @Override
-    public List<Alumno> buscarAlumnos(BigDecimal periodoId, Integer mes, Integer origenRecursos, BigDecimal programaBeca,
-            BigDecimal nivelAcademico, BigDecimal uAcademica, BigDecimal tipoProceso, BigDecimal idOtorgamiento, String fechaDeposito) {
-        String uaps = "";
-        String ps = "";
-        if (uAcademica.compareTo(new BigDecimal(0)) == 0) {
-            uaps = " and dua.correspondeipn = " + origenRecursos;
-        } else {
-            uaps = " and ua.id = " + uAcademica + " and dua.correspondeipn = " + origenRecursos;
-        }
-        if (tipoProceso.compareTo(new BigDecimal(0)) == 0) {
-        } else {
-            uaps = uaps + " and tp.id = " + tipoProceso;
-        }
-        if (idOtorgamiento.compareTo(new BigDecimal(0)) == 0) {
-        } else {
-            uaps = uaps + " and o.identificadorotorgamiento_id = " + idOtorgamiento;
-        }
-        if (periodoId.intValue() >= 33) {
-            if (programaBeca.equals(new BigDecimal("5"))) {
-                ps = " inner join ent_padron_subes ps on ps.alumno_id = a.id and ps.periodo_id = p.id";
-                uaps = uaps + " and ps.estatussubes = 'Aceptado'";
-            } else if (programaBeca.equals(new BigDecimal("7"))) {
-                ps = " inner join ent_padron_subes ps on ps.alumno_id = a.id and ps.periodo_id = p.id";
-                uaps = uaps + " and ps.estatustransporte = 'Aceptado'";
-            }
-        }
-        String sql = "select a.id, o.id, atb.tarjetabancaria_id, tbp.monto, tbp.montovariable, bmp.monto"
-                + " from ent_otorgamientos o"
-                + " inner join cat_periodo p on p.id = o.periodo_id"
-                + " inner join ent_alumno a on a.id = o.alumno_id"
-                + " inner join rmm_alumno_tarjeta_bancaria atb on atb.alumno_id = o.alumno_id"
-                + " inner join ent_proceso pr on pr.id = o.proceso_id"
-                + " inner join cat_unidad_academica ua on ua.id = pr.unidadacademica_id"
-                + " inner join cat_nivel n on n.id = ua.nivel_id"
-                + " inner join ent_tipo_beca_periodo tbp on tbp.id = o.tipobecaperiodo_id"
-                + " inner join cat_tipo_beca tb on tb.id = tbp.tipobeca_id"
-                + " inner join cat_programa_beca pb on pb.id = tb.beca_id"
-                + " inner join cat_tipo_proceso tp on  tp.id = pr.tipoproceso_id"
-                + " inner join vw_conteo_depositos cd on cd.alumno_id = o.alumno_id and cd.periodo_id = p.id and o.id = cd.otorgamiento_id"
-                + " inner join rmm_deposito_unidad_academica dua on dua.tipobeca_id = tb.id and dua.unidadacademica_id = ua.id"
-                + " left join cat_beca_monto_variable bmp on bmp.tipobecaperiodo_id = tbp.id"
-                + " and '" + fechaDeposito + "' between bmp.fechainicial and bmp.fechafinal" + ps
-                + " where p.id = " + periodoId + " and pb.id = " + programaBeca + " and n.id = " + nivelAcademico + uaps
-                + " and pr.procesoestatus_id = 4 and atb.vigente = 1 and atb.tarjetaactiva = 1"
-                + " and o.id not in (select obd.otorgamiento_id from ent_otorgamientos_bajas_detall obd"
-                + " where obd.periodo_id = p.id and obd.otorgamiento_id = o.id)"
-                + " and o.excluirdeposito = 0 and pr.fechafinal < current_timestamp"
-                + " and cd.conteoDepositos < tbp.duracion"
-                + " order by ua.id, tb.id";
-        List<Object[]> lista = executeNativeQuery(sql);
-        List<Alumno> la = new ArrayList<>();
-        for (Object[] res : lista) {
-            Alumno a = new Alumno();
-            a.setId((BigDecimal) res[0]);
-            a.setOtorgamientoPasadoId((BigDecimal) res[1]);
-            a.setTarjetaBancariaId((BigDecimal) res[2]);
-            a.setMontoVariable(Integer.parseInt(res[4].toString()) == 0 ? Boolean.FALSE : Boolean.TRUE);
-            if (a.getMontoVariable()) {
-                if (res[5] == null) {
-                    a.setMonto((BigDecimal) res[3]);
-                } else {
-                    a.setMonto((BigDecimal) res[5]);
-                }
-            } else {
-                a.setMonto((BigDecimal) res[3]);
-            }
-            la.add(a);
-        }
-        return la;
-    }
 
     /**
      * Devuelve un alumno buscado en relación a su usuario
@@ -1329,87 +1129,6 @@ public class AlumnoJpaDao extends JpaDaoBase<Alumno, BigDecimal> implements Alum
         }
     }
 
-    @Override
-    public List<Object[]> totalAlumnosRegistradosD() {
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sbPeriodo = new StringBuilder();
-        StringBuilder sbCat_Periodo = new StringBuilder();
-        StringBuilder sbOtorgamientos = new StringBuilder();
-        StringBuilder sbAlta = new StringBuilder();
-        StringBuilder sbSelect = new StringBuilder();
-        StringBuilder sbExists = new StringBuilder();
-        StringBuilder sbAlumno = new StringBuilder();
-
-        List<String> columnas = new ArrayList<>();
-
-        Map<String, Object> params = new HashMap();
-        List<String> criteria = new ArrayList<>();
-
-        //columnas.add("ua.ID");
-        columnas.add("ua.nombrecorto \"UNIDAD ACADÉMICA\"");
-        columnas.add("count(a.id) \"NUMERO ALUMNOS\"");
-
-        sb.append(" SELECT ");
-        agregaColumnas(sb, columnas);
-
-        sb.append(" from ENT_ALUMNO a, CAT_UNIDAD_ACADEMICA ua, ENT_ALUMNO_DATOS_ACADEMICOS da ");
-
-        sbPeriodo.append(" (select periodoanterior_id from cat_periodo where estatus=1) ");
-        sbCat_Periodo.append(" (select id from cat_periodo where estatus=1 and rownum = 1) ");
-        sbOtorgamientos.append(" (select 1 from ent_otorgamientos_bajas_detall b where b.otorgamiento_id=o.id and b.periodo_id= ");
-        sbOtorgamientos.append(sbPeriodo);
-        sbOtorgamientos.append(") ");
-        sbAlta.append(" (o.alta=1 or not exists ");
-        sbAlta.append(sbOtorgamientos);
-        sbAlta.append(") ");
-        sbSelect.append(" (select 1 from ent_otorgamientos o ");
-        sbSelect.append(" JOIN ent_tipo_beca_periodo tbp on o.tipobecaperiodo_id = tbp.id ");
-        sbSelect.append(" JOIN cat_tipo_beca tb on tbp.tipobeca_id=tb.id ");
-        sbSelect.append(" where o.periodo_id= ");
-        sbSelect.append(sbPeriodo);
-        sbSelect.append(" and proceso_id is not null and");
-        sbSelect.append(sbAlta);
-        sbSelect.append(" and tb.beca_id!=8 and o.alumno_id=a.id) ");
-
-        criteria.add("a.estatus = 1");
-
-        sbExists.append(" not exists ");
-        sbExists.append(sbSelect);
-        criteria.add(sbExists.toString());
-
-        sbAlumno.append("a.id = da.ALUMNO_ID and da.PERIODO_ID = ");
-        sbAlumno.append(sbCat_Periodo.toString());
-        criteria.add(sbAlumno.toString());
-
-        criteria.add("da.UNIDADACADEMICA_ID = ua.ID");
-
-        agregaCriterios(sb, criteria);
-
-        if (isFuncionario() || isResponsable()) {
-            Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
-            BigDecimal ua = getDaos().getPersonalAdministrativoDao().findByUsuario(usuario.getId()).getUnidadAcademica().getId();
-            if (ua != null) {
-                // sb.append(" and ua.id = ");
-                // sb.append(ua);
-                // sb.append(" ");
-
-                if (ua != null) {
-                    criteria.add("ua.id = #ua_id");
-                    params.put("ua_id", ua);
-                }
-            }
-        }
-
-        sb.append(" GROUP BY ua.ID, ua.NOMBRECORTO ");
-        sb.append(" ORDER BY ua.ID ");
-
-        //List<LinkedHashMap<String, Object>> result = executeNativeQuery(sb.toString(), params, columnas, null);
-        List<Object[]> result = executeNativeQuery(sb.toString(), params, null);
-
-        return result;
-
-    }
-
     /**
      * Busca los alumnos que cumplen con ciertos parametros
      *
@@ -1461,58 +1180,6 @@ public class AlumnoJpaDao extends JpaDaoBase<Alumno, BigDecimal> implements Alum
         }
     }
 
-    /**
-     * Busca los alumnos que cumplen con ciertos parametros
-     *
-     * @author Victor Lozano
-     * @param parametros
-     * @return SUCCESS
-     */
-    @Override
-    public List<Alumno> busquedaAlumnosTarjeta(Map<String, Object> parametros) {
-        Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
-        String privilegio = getDaos().getUsuarioPrivilegioDao().findByUsuario(usuario.getId()).getPrivilegio().getDescripcion();
-        StringBuilder consulta;
-        BigDecimal unidadAcademicaId;
-        PersonalAdministrativo personal = getDaos().getPersonalAdministrativoDao().findByUsuario(usuario.getId());
-        consulta = new StringBuilder("SELECT \n")
-                .append(" a.id, a.boleta, a.nombre, a.apellidoPaterno, a.apellidoMaterno, ua.id, ua.nombreCorto\n")
-                .append(" FROM ent_alumno a \n")
-                .append(" inner join ENT_ALUMNO_DATOS_ACADEMICOS da on a.ID = da.ALUMNO_ID and da.id = (select max(id) from ENT_ALUMNO_DATOS_ACADEMICOS where alumno_id = a.id)\n")
-                .append(" LEFT JOIN cat_unidad_academica ua ON ua.id = da.unidadAcademica_id")
-                .append(" LEFT JOIN rmm_alumno_tarjeta_bancaria at ON at.alumno_id = a.id\n")
-                .append(" LEFT JOIN ent_tarjeta_bancaria t ON t.id = at.tarjetaBancaria_id \n")
-                .append("where 1 = 1");
-        if (privilegio.equals("ROLE_FUNCIONARIO_UA") || privilegio.equals("ROLE_RESPONSABLE_UA")) {
-            unidadAcademicaId = personal.getUnidadAcademica().getId();
-            consulta.append("AND da.unidadAcademica_id = ")
-                    .append(unidadAcademicaId);
-        }
-        Object[] params = addParameters(consulta, Boolean.FALSE, parametros);
-        consulta.append(" GROUP BY a.id, a.boleta, a.nombre, a.apellidoPaterno, a.apellidoMaterno, ua.id, ua.nombreCorto");
-        List<Object[]> lista = executeNativeQuery(consulta.toString(), params);
-        List<Alumno> alumnos = new ArrayList();
-        if (lista != null && !lista.isEmpty()) {
-            for (Object[] elemento : lista) {
-                Alumno alumno = new Alumno();
-                DatosAcademicos datosAcademicos = new DatosAcademicos();
-                UnidadAcademica unidadAcademica = new UnidadAcademica();
-
-                alumno.setId(new BigDecimal(elemento[0] == null ? "0" : elemento[0].toString()));
-                alumno.setBoleta(elemento[1] == null ? "" : elemento[1].toString());
-                alumno.setNombre(elemento[2] == null ? "" : elemento[2].toString());
-                alumno.setApellidoPaterno(elemento[3] == null ? "" : elemento[3].toString());
-                alumno.setApellidoMaterno(elemento[4] == null ? "" : elemento[4].toString());
-                unidadAcademica.setId(elemento[5] == null ? null : (BigDecimal) elemento[5]);
-                unidadAcademica.setNombreCorto(elemento[6] == null ? "" : elemento[6].toString());
-                datosAcademicos.setUnidadAcademica(unidadAcademica);
-//                alumno.setUnidadAcademica(unidadAcademica);
-                alumno.addDatosAcademicos(datosAcademicos);
-                alumnos.add(alumno);
-            }
-        }
-        return alumnos;
-    }
 
     /**
      * @param esNivelNMS En caso de ser <b>true</b> Devuelve el count para
@@ -1716,11 +1383,6 @@ public class AlumnoJpaDao extends JpaDaoBase<Alumno, BigDecimal> implements Alum
     }
 
     @Override
-    public List<Alumno> nuevosOtorgamientosUABeca(UnidadAcademica ua, TipoBecaPeriodo tbp, Integer nivel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Alumno> nuevos(BigDecimal unidadId, Integer nivel, Periodo periodoActivo) {
         String jpql
                 = "SELECT A FROM Alumno A "
@@ -1919,36 +1581,20 @@ public class AlumnoJpaDao extends JpaDaoBase<Alumno, BigDecimal> implements Alum
         List<Alumno> lista = executeQueryPaginate(sbQuery.toString(), ssu.getStart(), ssu.getLength(), params);
         return new PaginateUtil(lista, noTotal, noTotal);
     }
-    
-    /**
-     * Devuelve alumnos que coincidan con la lista de boletas.
-     *
-     * @author Mario Márquez
-     * @param boletas
-     * @return List<Alumno> o null si está vacía
-     */
+
     @Override
-    public List<Alumno> getAlumnosDesdeBoletas(List<String> boletas) {
-        List<List<String>> partitions = new LinkedList<>();
-        List<Alumno> alumnos = new ArrayList<>();
-        int partitionSize = 900;
-
-        // Crea grupos de boletas
-        for (int i = 0; i < boletas.size(); i += partitionSize) {
-            partitions.add(boletas.subList(i,
-                    Math.min(i + partitionSize, boletas.size())));
-        }
-        
-        StringBuilder query = new StringBuilder();
-        query.append(" SELECT a ");
-        query.append(" FROM Alumno a ");
-        query.append(" where a.boleta IN ?1 ");        
-        
-        // Obtiene alumnos
-        for (List<String> partition : partitions) {
-            alumnos.addAll(executeQuery(query.toString(), partition));
-        }
-
-        return alumnos;
+    public List<Alumno> nuevosOtorgamientosUABeca(BigDecimal uaId, Integer semMin, Integer semMax, Float promMin, Float promMax, BigDecimal modalidad, Integer nivel) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Alumno> buscarAlumnos(BigDecimal periodoId, Integer mes, Integer origenRecursos, BigDecimal programaBeca, BigDecimal nivelAcademico, BigDecimal uAcademica, BigDecimal tipoProceso, BigDecimal idOtorgamiento, String fechaDeposito) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Alumno> busquedaAlumnosTarjeta(Map<String, Object> parametros) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
