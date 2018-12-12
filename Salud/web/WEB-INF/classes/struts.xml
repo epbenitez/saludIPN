@@ -82,8 +82,8 @@
         <!-- action * -->
 
         <action name="index" class="com.becasipn.actions.IndexAction">
-            <result name="input" type="redirect">/tableroControl.action</result>
-            <result name="success" type="redirect">/panelcontrol/mostrar.action</result>
+            <result name="input" type="redirect">/misdatos/listaPermisoCambio.action</result>
+            <result name="success" type="redirect">/misdatos/cuestionarioCuestionarioSalud.action</result>
             <result name="error" type="redirect">/login.action</result>
         </action>
 

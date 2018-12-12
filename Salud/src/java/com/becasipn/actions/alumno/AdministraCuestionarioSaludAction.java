@@ -71,7 +71,7 @@ public class AdministraCuestionarioSaludAction extends BaseReportAction implemen
         }
 
 //        AlumnoBO abo = new AlumnoBO(getDaos());
-//        periodoActivo = abo.solicitudActiva(alumno, periodo);
+        periodoActivo = Boolean.TRUE;
 //
 //        if (!periodoActivo) {
 //            reason = "El periodo para contestar el Censo de Salud ha finalizado";
@@ -79,11 +79,10 @@ public class AdministraCuestionarioSaludAction extends BaseReportAction implemen
 //        }
 
         // ------------------ Validación de Censo de Saludo previamente contestado ------------------------------
-//        if ((getDaos().getCensoSaludDao().contestoEncuestaSalud(alumno.getId(), periodo.getId()))) {
-//            reason = "Resumen de tu Censo de Salud";
-//            return resultado();
-//        }
-
+        if ((getDaos().getCensoSaludDao().contestoEncuestaSalud(alumno.getId(), periodo.getId()))) {
+            reason = "Resumen de tu Censo de Salud";
+            return resultado();
+        }
         // ------------------ Validación de flag "ValidacionInscripcion" ------------------------------
 //        DatosAcademicos datosAcademicos = getDaos().getDatosAcademicosDao().datosPorPeriodo(alumno.getId(), periodo.getId());
 //        //Se busca el otorgamiento del periodo anterior.
@@ -95,7 +94,6 @@ public class AdministraCuestionarioSaludAction extends BaseReportAction implemen
 //            reason = "Este periodo no es necesario contestar tu censo de salud, debido a que las características de tu beca así lo indican.";
 //            return DESHABILITADO;
 //        }
-
 //        // ------------------ Validación de ESE previamente contestado ------------------------------
 //        if (!(getDaos().getSolicitudBecaDao().tieneESECompleto(alumno.getId(), periodo.getId()))) {
 //            addActionError("Debes de contestar tu ESE antes de responder el Censo de Salud");
@@ -114,7 +112,7 @@ public class AdministraCuestionarioSaludAction extends BaseReportAction implemen
             preguntas = getDaos().getCuestionarioPreguntaRespuestaDao().findByCuestionario(cId, null);
             //rangosSalarios = getDaos().getTipoBecaPeriodoDao().rangoIngresoPorPersonaPorBeca(periodo.getId(), datosAcademicos == null ? null : datosAcademicos.getUnidadAcademica().getNivel().getId());
             respuestasUsuario = getDaos().getCuestionarioRespuestasUsuarioDao().getResultadosUsuario(cId, u.getId(), periodo.getId());
-            
+
         }
 
         return CUESTIONARIO;
@@ -134,14 +132,14 @@ public class AdministraCuestionarioSaludAction extends BaseReportAction implemen
 
         AlumnoBO abo = new AlumnoBO(getDaos());
 
-        if (!periodoActivo) {
-            if (getDaos().getCensoSaludDao().contestoEncuestaSalud(alumnoId, periodo.getId())) {
-                return resultado();
-            } else {
-                reason = "El periodo para contestar el Censo de Salud ha finalizado";
-                return DESHABILITADO;
-            }
-        }
+//        if (!periodoActivo) {
+//            if (getDaos().getCensoSaludDao().contestoEncuestaSalud(alumnoId, periodo.getId())) {
+//                return resultado();
+//            } else {
+//                reason = "El periodo para contestar el Censo de Salud ha finalizado";
+//                return DESHABILITADO;
+//            }
+//        }
         CensoSalud cs = getDaos().getCensoSaludDao().getSaludAlumno(alumno.getId(), periodo.getId());
         if (cs == null) {
             cs = new CensoSalud();
@@ -272,7 +270,7 @@ public class AdministraCuestionarioSaludAction extends BaseReportAction implemen
             addActionError(getText("misdatos.alumno.no.especifico.cuestionario"));
         } else {
             BigDecimal cId = new BigDecimal(cuestionarioId);
-            preguntas = getDaos().getCuestionarioPreguntaRespuestaDao().findByCuestionario(cId,null);
+            preguntas = getDaos().getCuestionarioPreguntaRespuestaDao().findByCuestionario(cId, null);
             respuestasUsuario = getDaos().getCuestionarioRespuestasUsuarioDao().getResultadosUsuario(cId, u.getId(), periodo.getId());
         }
 

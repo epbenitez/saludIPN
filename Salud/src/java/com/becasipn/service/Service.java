@@ -29,9 +29,9 @@ import com.becasipn.persistence.model.Nacionalidad;
 import com.becasipn.persistence.dao.InegiLocalidadDao;
 import com.becasipn.persistence.dao.InegiTipoAsentamientoDao;
 import com.becasipn.persistence.dao.InegiTipoVialidadDao;
+import com.becasipn.persistence.dao.MenuDao;
 import com.becasipn.persistence.dao.RelacionMenuRolesDao;
 import com.becasipn.persistence.model.CicloEscolar;
-import com.becasipn.persistence.model.RelacionMenuRoles;
 import java.math.BigDecimal;
 
 public class Service {
@@ -41,7 +41,9 @@ public class Service {
     private EntidadFederativaDao entidadFederativaDao;
     private PaisDao paisDao;
     private RolDao rolDao;
+    private MenuDao menuDao;
     private DaoBase<Nacionalidad, Long> nacionalidadDao;
+    private DatosAcademicosDao datosAcademicosDao;
     //   private NacionalidadDao nacionalidadDao;
     //--------------------------------------------------------------------------
     // CONFIGURACION DEL SISTEMA
@@ -64,7 +66,6 @@ public class Service {
     private CuestionarioRespuestasUsuarioDao cuestionarioRespuestasUsuarioDao;
     private CuestionarioSeccionDao cuestionarioSeccionDao;
     private PeriodoDao periodoDao;
-    private DatosAcademicosDao datosAcademicosDao;
     private UnidadAcademicaDao unidadAcademicaDao;
     private CargoDao cargoDao;
     private PersonalAdministrativoDao personalAdministrativoDao;
@@ -315,6 +316,16 @@ public class Service {
     public void setRelacionMenuRolesDao(RelacionMenuRolesDao relacionMenuRolesDao) {
         this.relacionMenuRolesDao = relacionMenuRolesDao;
     }
+
+    public MenuDao getMenuDao() {
+        return menuDao;
+    }
+
+    public void setMenuDao(MenuDao menuDao) {
+        this.menuDao = menuDao;
+    }   
+    
     
 
+    
 }

@@ -20,60 +20,6 @@
             </list>
         </property>
     </bean>
-
-    <!-- Correo usando sendmail del SO
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="${mail.host}" />
-    </bean>
-    -->
-
-    <!-- Correo usando JNDI Glassfish
-    <jee:jndi-lookup id="mailSession" jndi-name="${mail.jndi}" resource-ref="true"/>
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" p:session-ref="mailSession"/>
-    -->
-
-    <!-- Correo usando smtp sin JNDI -->
-    <bean id="mailSender" class="com.becasipn.util.AsyncMailSender">
-       <property name="host" value="${mail.host}" />
-        <property name="port" value="${mail.port}" />
-        <property name="username" value="${mail.username}" />
-        <property name="password" value="${mail.password}" />
-        <property name="taskExecutor" ref="mailTasksExecutor"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.from">sibec@ipn.mx</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-            </props>
-        </property>
-        <!-- -->
-    </bean>
-    
-    <!-- Correo usando smtp sin JNDI para envíos síncronos -->
-    <bean id="mailSenderSync" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-       <property name="host" value="${mail.host}" />
-        <property name="port" value="${mail.port}" />
-        <property name="protocol" value="smtp" />
-        <property name="username" value="${mail.username}" />
-        <property name="password" value="${mail.password}" />
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-                <prop key="mail.transport.protocol">smtp</prop>
-                <prop key="mail.smtp.from">sibec@ipn.mx</prop>
-            </props>
-        </property>
-        <!-- -->
-    </bean>
-    
-    <bean id="mailTasksExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
-          p:corePoolSize="5" 
-          p:maxPoolSize="20000" 
-          p:queueCapacity="100"
-          p:waitForTasksToCompleteOnShutdown="true">
-        <property name="threadGroup" ref="logErrorMailHandler"/>        
-    </bean>
     
     <bean id="logErrorMailHandler" class="com.becasipn.exception.LogErrorThreadGroupHandler"/>
 

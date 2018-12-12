@@ -9,32 +9,21 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
     <!-- DAO's -->
-    <bean id="bitacoraDao" class="com.becasipn.persistence.dao.jpa.BitacoraJpaDao" />
     <bean id="usuarioDao" class="com.becasipn.persistence.dao.jpa.UsuarioJpaDao" />
     <bean id="relacionMenuRolesDao" class="com.becasipn.persistence.dao.jpa.RelacionMenuRolesJpaDao" />
     <bean id="entidadFederativaDao" class="com.becasipn.persistence.dao.jpa.EntidadFederativaJpaDao" />
     <bean id="paisDao" class="com.becasipn.persistence.dao.jpa.PaisJpaDao" />
+    <bean id="configuracionDao" class="com.becasipn.persistence.dao.jpa.ConfiguracionJpaDao" />
+
     <bean id="localidadColoniaDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
         <constructor-arg value="com.becasipn.persistence.model.LocalidadColonia" />
     </bean>
-    <bean id="relacionGeograficaDao" class="com.becasipn.persistence.dao.jpa.RelacionGeograficaJpaDao" />
     <bean id="nacionalidadDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
         <constructor-arg value="com.becasipn.persistence.model.Nacionalidad" />
     </bean>
     <bean id="estadoCivilDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
         <constructor-arg value="com.becasipn.persistence.model.EstadoCivil" />
     </bean>
-    <!--<bean id="unidadAcademicaDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
-        <constructor-arg value="com.becasipn.persistence.model.UnidadAcademica" />
-    </bean>-->
-    <bean id="carreraDao" class="com.becasipn.persistence.dao.jpa.CarreraJpaDao" />
-    <bean id="companiaCelularDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
-        <constructor-arg value="com.becasipn.persistence.model.CompaniaCelular" />
-    </bean>
-    <bean id="generoDao" class="com.becasipn.persistence.dao.jpa.JpaDaoBase">
-        <constructor-arg value="com.becasipn.persistence.model.Genero" />
-    </bean>
-    <bean id="configuracionDao" class="com.becasipn.persistence.dao.jpa.ConfiguracionJpaDao" />
     <bean id="menuDao" class="com.becasipn.persistence.dao.jpa.MenuJpaDao" />
     <bean id="alumnoDao" class="com.becasipn.persistence.dao.jpa.AlumnoJpaDao" />
     <bean id="periodoDao" class="com.becasipn.persistence.dao.jpa.PeriodoJpaDao" />
@@ -42,7 +31,6 @@
     <bean id="cargoDao" class="com.becasipn.persistence.dao.jpa.CargoJpaDao" />
     <bean id="rolDao" class="com.becasipn.persistence.dao.jpa.RolJpaDao"/>
     <bean id="personalAdministrativoDao" class="com.becasipn.persistence.dao.jpa.PersonalAdministrativoJpaDao" />
-    <bean id="areasConocimientoDao" class="com.becasipn.persistence.dao.jpa.AreasConocimientoJpaDao" />
     <bean id="cuestionarioDao" class="com.becasipn.persistence.dao.jpa.CuestionarioJpaDao" />
     <bean id="cuestionarioPreguntaRespuestaDao" class="com.becasipn.persistence.dao.jpa.CuestionarioPreguntaRespuestaJpaDao" />
     <bean id="cuestionarioPreguntaTipoDao" class="com.becasipn.persistence.dao.jpa.CuestionarioPreguntaTipoJpaDao" />
@@ -52,10 +40,11 @@
     <bean id="cuestionarioSeccionDao" class="com.becasipn.persistence.dao.jpa.CuestionarioSeccionJpaDao" />
     <bean id="usuarioPrivilegioDao" class="com.becasipn.persistence.dao.jpa.UsuarioPrivilegioJpaDao"/>
     <bean id="direccionDao" class="com.becasipn.persistence.dao.jpa.DireccionJpaDao" />
-    <bean id="datosAcademicosDao" class="com.becasipn.persistence.dao.jpa.DatosAcademicosJpaDao" />
     <bean id="inegiLocalidadDao" class="com.becasipn.persistence.dao.jpa.InegiLocalidadJpaDao" />
     <bean id="inegiTipoAsentamientoDao" class="com.becasipn.persistence.dao.jpa.InegiTipoAsentamientoJpaDao" />
     <bean id="inegiTipoVialidadDao" class="com.becasipn.persistence.dao.jpa.InegiTipoVialidadJpaDao" />
+    <bean id="datosAcademicosDao" class="com.becasipn.persistence.dao.jpa.DatosAcademicosJpaDao" />
+
 
 
     <bean id="censoSaludDao" class="com.becasipn.persistence.dao.jpa.CensoSaludJpaDao" />
@@ -63,25 +52,20 @@
     
     <!-- Service -->
     <bean id="service" class="com.becasipn.service.Service"
-          p:bitacoraDao-ref="bitacoraDao"
           p:usuarioDao-ref="usuarioDao"
           p:relacionMenuRolesDao-ref="relacionMenuRolesDao"
           p:entidadFederativaDao-ref="entidadFederativaDao"
           p:paisDao-ref="paisDao"
           p:localidadColoniaDao-ref="localidadColoniaDao"
-          p:relacionGeograficaDao-ref="relacionGeograficaDao"
           p:nacionalidadDao-ref="nacionalidadDao"
           p:unidadAcademicaDao-ref="unidadAcademicaDao"
-          p:carreraDao-ref="carreraDao"
-          p:companiaCelularDao-ref="companiaCelularDao"
-          p:generoDao-ref="generoDao"
           p:configuracionDao-ref="configuracionDao"
           p:menuDao-ref="menuDao"
           p:alumnoDao-ref="alumnoDao"
           p:cargoDao-ref="cargoDao"
           p:rolDao-ref="rolDao"
+          p:periodoDao-ref="periodoDao"
           p:personalAdministrativoDao-ref="personalAdministrativoDao"
-          p:areasConocimientoDao-ref="areasConocimientoDao"
           p:cuestionarioDao-ref="cuestionarioDao"
           p:cuestionarioPreguntaRespuestaDao-ref="cuestionarioPreguntaRespuestaDao"
           p:cuestionarioPreguntaTipoDao-ref="cuestionarioPreguntaTipoDao"
@@ -91,11 +75,11 @@
           p:cuestionarioSeccionDao-ref="cuestionarioSeccionDao"
           p:usuarioPrivilegioDao-ref="usuarioPrivilegioDao"
           p:direccionDao-ref="direccionDao"
-          p:datosAcademicosDao-ref="datosAcademicosDao"
           p:inegiLocalidadDao-ref="inegiLocalidadDao"
           p:inegiTipoAsentamientoDao-ref="inegiTipoAsentamientoDao"
           p:inegiTipoVialidadDao-ref="inegiTipoVialidadDao"
-          p:censoSaludDao-ref="censoSaludDao"         
+          p:censoSaludDao-ref="censoSaludDao"
+          p:datosAcademicosDao-ref="datosAcademicosDao"      
     />
 
     <!-- Ambiente -->
