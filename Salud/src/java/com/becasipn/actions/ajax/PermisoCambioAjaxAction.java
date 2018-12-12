@@ -2,16 +2,10 @@ package com.becasipn.actions.ajax;
 
 import static com.becasipn.actions.ajax.JSONAjaxAction.SUCCESS_JSON;
 import com.becasipn.persistence.model.Alumno;
-import com.becasipn.persistence.model.Carrera;
 import com.becasipn.persistence.model.DatosAcademicos;
-import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Periodo;
-import com.becasipn.persistence.model.Usuario;
-import com.becasipn.persistence.model.UsuarioPrivilegio;
-import com.opensymphony.xwork2.ActionContext;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 public class PermisoCambioAjaxAction extends JSONAjaxAction {
 
@@ -44,54 +38,17 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
             getJsonResult().add("[\"" + alumno.getBoleta()
                     + "\", \"" + alumno.getApellidoPaterno() + " " + alumno.getApellidoMaterno() + " " + alumno.getNombre()
                     + "\", \"" + nombreCorto
-                    + getMail(alumno)
-                    + getDocumentos(alumno)
-                    + getDatosDAE(alumno)
-                    + "\", \"<a title='Datos Bancarios' class='fancybox fancybox.iframe table-link'  href='/tarjeta/bitacoraMonitoreoTarjetaBancaria.action?numeroDeBoleta=" + alumno.getBoleta() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-money  fa-stack-1x fa-inverse'></i></span></a>"
-                    + getDetalles(alumno)
-                    + getESE(alumno)
-                    + getPermiteTransferencia(alumno)
+                    + getSalud(alumno)
                     + " \"]"
             );
         }
         return SUCCESS_PAGINATED_JSON;
     }
 
-    private String getDetalles(Alumno alumno) {
-        String res;
-        Boolean o = alumno.getEstatus();
-        if (o) {
-            res = "\", \"<span style='color:green' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-check fa-stack-1x fa-inverse'></i></span>";
-        } else {
-            res = "\", \"<span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-times fa-stack-1x fa-inverse'></i></span>";
-        }
-        return res;
-    }
-
-    private String getPermiteTransferencia(Alumno alumno) {
-        String res = "\", \"<span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-times fa-stack-1x fa-inverse'></i></span>";
-        return res;
-    }
-
-    private Boolean checkResponsableOrFuncionario() {
-        BigDecimal ROLE_RESPONSABLE_UA = new BigDecimal("5");
-        Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
-        Set<UsuarioPrivilegio> privilegios = usuario.getPrivilegios();
-        for (UsuarioPrivilegio privilegio : privilegios) {
-            if (privilegio.getPrivilegio().getId().equals(ROLE_RESPONSABLE_UA)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private String getESE(Alumno alumno) {
+    private String getSalud(Alumno alumno) {
         String res = "\", \"";
         Periodo p = getDaos().getPeriodoDao().getPeriodoActivo();
 
-        if (getDaos().getCuestionarioDao().findById(new BigDecimal(1)).getActivo()) {
-            res += "<a title='ESE' class='fancybox fancybox.iframe table-link'  href='/admin/eseCuestionario.action?cuestionarioId=1&alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-file-text-o fa-stack-1x fa-inverse'></i></span></a>";
-        }
         if (getDaos().getCuestionarioDao().findById(new BigDecimal(3)).getActivo()) {
             Boolean ox = getDaos().getCensoSaludDao().contestoEncuestaSalud(alumno.getId(), p.getId());
             if (ox) {
@@ -100,71 +57,7 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
                 res += "<a title='CS' onclick='ESENoActivo()' class='table-link danger'> <span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-medkit fa-stack-1x fa-inverse'></i></span></a>";
             }
         }
-        if (getDaos().getCuestionarioDao().findById(new BigDecimal(6)).getActivo()) {
-            Boolean ox = getDaos().getCensoSaludDao().contestoEncuestaSalud(alumno.getId(), p.getId());
-            if (ox) {
-                res += "<a title='Seguimiento Becarios' class='fancybox fancybox.iframe table-link'  href='/misdatos/adminSeguimientoSeguimientoBecarios.action?alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-search fa-stack-1x fa-inverse'></i></span></a>";
-            } else {
-                res += "<a title='Seguimiento Becarios' onclick='ESENoActivo()' class='table-link danger'> <span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-search fa-stack-1x fa-inverse'></i></span></a>";
-            }
-        }
-
         return res;
-    }
-
-    private String getMail(Alumno alumno) {
-        String res;
-        if (checkResponsableOrFuncionario()) {
-            Usuario usuario = (Usuario) ActionContext.getContext().getSession().get("usuario");
-            UnidadAcademica ua = getDaos().getPersonalAdministrativoDao().findByUsuario(usuario.getId()).getUnidadAcademica();
-            DatosAcademicos datosAcademicos = getDaos().getDatosAcademicosDao().ultimosDatos(alumno.getId());
-            Boolean o = datosAcademicos.getUnidadAcademica().getId().equals(ua.getId());
-            if (o) {
-                res = "\", \"<a title='Cambio de correo' class='fancybox fancybox.iframe table-link'  href='/misdatos/verPermisoCambio.action?numeroDeBoleta=" + alumno.getBoleta() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-envelope-o fa-stack-1x fa-inverse'></i></span></a>";
-            } else {
-                res = "\", \"<a title='Cambio de correo' onclick='CorreoNoActivo()' class='table-link danger'><span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-envelope-o fa-stack-1x fa-inverse'></i></span></a>";
-            }
-        } else {
-            res = "\", \"<a title='Cambio de correo' class='fancybox fancybox.iframe table-link'  href='/misdatos/verPermisoCambio.action?numeroDeBoleta=" + alumno.getBoleta() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-envelope-o fa-stack-1x fa-inverse'></i></span></a>";
-        }
-        return res;
-    }
-
-    private String getDatosDAE(Alumno alumno) {
-        String res = "\", \"<a title='Datos DAE' class='fancybox fancybox.iframe table-link'  href='/misdatos/datosDAEPermisoCambio.action?numeroDeBoleta=" + alumno.getBoleta() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-files-o fa-stack-1x fa-inverse'></i></span></a>";
-        return res;
-    }
-
-    public String getDocumentos(Alumno alumno) {
-        String res = "\", \"<a title='Validacion de documentos' class='fancybox fancybox.iframe table-link'  href='/misdatos/validacionPermisoCambio.action?alumno.boleta=" + alumno.getBoleta() + "&permisoCambio=true'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-clipboard fa-stack-1x fa-inverse'></i></span></a>";
-        return res;
-    }
-
-    public String getPlanE() {
-        List<String> planes = getDaos().getCarreraDao().findPlan(ua);
-        for (String pl : planes) {
-            getJsonResult().add("[\"" + pl
-                    + "\", \"" + pl + "\"]");
-        }
-        return SUCCESS_JSON;
-    }
-
-    public String getCarrera() {
-        List<Carrera> planes = getDaos().getCarreraDao().findCarrera(ua, plan);
-        for (Carrera pl : planes) {
-            getJsonResult().add("[\"" + pl.getClaveCarrera()
-                    + "\", \"" + pl.getCarrera() + "\"]");
-        }
-        return SUCCESS_JSON;
-    }
-
-    public String getEspecialidad() {
-        List<String> planes = getDaos().getCarreraDao().findEspecialidad(ua, plan, crr);
-        for (String pl : planes) {
-            getJsonResult().add("[\"" + pl
-                    + "\", \"" + pl + "\"]");
-        }
-        return SUCCESS_JSON;
     }
 
     public String getNumeroDeBoleta() {

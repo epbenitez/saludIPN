@@ -135,19 +135,13 @@
             <div class="main-box clearfix">
                 <div class="col-md-12" style="padding: 0px">
                     <div class="responsive">                        
-                        <table id="listado" class="table table-striped table-hover dt-responsive" style="width: 100%">
+                        <table id="listado" class="table table-striped table-hover dt-responsive text-center" style="width: 100%">
                             <thead>
                                 <tr>
-                                    <th data-orderable="true">Boleta</th>
-                                    <th data-orderable="true">Nombre</th>
-                                    <th data-orderable="true">Unidad Académica</th>
-                                    <th>Correo</th>
-                                    <th>Datos Registro</th>
-                                    <th>Datos DAE</th>
-                                    <th>Datos Bancarios</th>
-                                    <th>Datos Actua- lizados</th>
-                                    <th>Cuestionarios</th>
-                                    <th>Permite<br>Transferencia</th>
+                                    <th class="text-center" data-orderable="true"><b>Boleta</b></th>
+                                    <th class="text-center" data-orderable="true"><b>Nombre</b></th>
+                                    <th class="text-center" data-orderable="true"><b>Unidad Académica</b></th>
+                                    <th class="text-center" data-orderable="true"><b>Cuestionario Salud</b></th>
                                 </tr>
                             </thead>
                         </table>                        
@@ -207,43 +201,16 @@
             });
         }
 
-        function RecargarTabla() {            
+        function RecargarTabla() {
             var table = $('#listado').DataTable();
             table.draw(false);
         }
-        
-        function eliminar(id) {
-            $("#numeroDeBoleta").val(id);
-            ModalGenerator.notificacion({
-                "titulo": "Borrar el ESE seleccionado",
-                "cuerpo": "Esto borrará el ESE para el alumno seleccionado, ¿Está seguro de quererlo eliminar?",
-                "tipo": "WARNING",
-                "funcionAceptar": function () {
-                    $("#eliminarForm").submit();
-                }
-            });
-        }
+
 
         function ESENoActivo() {
             ModalGenerator.notificacion({
                 "titulo": "Alerta",
                 "cuerpo": "El alumno no tiene contestado este cuestionario",
-                "tipo": "ALERT"
-            });
-        }
-
-        function NoDatosBancarios() {
-            ModalGenerator.notificacion({
-                "titulo": "Alerta",
-                "cuerpo": "El alumno no cuenta con datos bancarios",
-                "tipo": "ALERT"
-            });
-        }
-
-        function CorreoNoActivo() {
-            ModalGenerator.notificacion({
-                "titulo": "No se puede cambiar el correo",
-                "cuerpo": "El alumno no pertenece a tu unidad academica, si deseas realizar algún cambio consulta a tu analista.",
                 "tipo": "ALERT"
             });
         }

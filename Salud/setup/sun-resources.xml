@@ -10,14 +10,14 @@
                           connection-validation-method="auto-commit" 
                           datasource-classname="oracle.jdbc.pool.OracleDataSource" 
                           fail-all-connections="false" idle-timeout-in-seconds="300" 
-                          is-connection-validation-required="false" 
+                          is-connection-validation-required="false"
                           is-isolation-level-guaranteed="true" 
                           lazy-connection-association="false" 
                           lazy-connection-enlistment="false" 
                           match-connections="false" 
                           max-connection-usage-count="0" 
                           max-pool-size="32" max-wait-time-in-millis="60000"    
-                          name="oracle_BecasIPNPool" 
+                          name="oracle_SaludIPNPool" 
                           non-transactional-connections="false" 
                           pool-resize-quantity="2" 
                           res-type="javax.sql.DataSource" 
@@ -30,11 +30,11 @@
         <property name="serverName" value="10.0.1.160"/>
         <property name="portNumber" value="1521"/>
         <property name="databaseName" value="sibecv2"/>
-        <property name="User" value="TESTINGV3"/>
-        <property name="Password" value="T3st1ngQA"/>
+        <property name="User" value="SALUD"/>
+        <property name="Password" value="T3st5alud"/>
         <property name="URL" value="jdbc:oracle:thin:@10.0.1.160:1521:sibecv2"/>
 
         <property name="driverClass" value="oracle.jdbc.OracleDriver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="becasipnJNDI" object-type="user" pool-name="oracle_BecasIPNPool"/>
+    <jdbc-resource enabled="true" jndi-name="saludipnJNDI" object-type="user" pool-name="oracle_SaludIPNPool"/>
 </resources>
