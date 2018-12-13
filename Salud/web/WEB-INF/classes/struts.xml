@@ -194,13 +194,6 @@
 
     <include file="struts-alumno.xml" />
     <include file="struts-ajax.xml" />
-    
-    <include file="struts-catalogos.xml" />
     <include file="struts-admin.xml" />
-    <include file="struts-becas.xml" />
-    <include file="struts-cargas.xml" />
-    <include file="struts-jasper.xml" />
-    <include file="struts-becas-externas.xml" />
-    <include file="struts-recurso-reconsideracion.xml" />
 
 </struts>

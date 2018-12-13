@@ -60,7 +60,7 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
      */
     public BaseAction() {
         LOG = new CommonsLogger(new Log4JLogger(LogManager.getLogger(this.getClass().getName())));
-        setVariablesPersonalizadas(); 
+        setVariablesPersonalizadas();
         if (SecurityContextHolder.getContext().getAuthentication().getName() != null
                 && !SecurityContextHolder.getContext().getAuthentication().getName().equals("")
                 && !SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")) {
@@ -107,7 +107,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
             if (action.indexOf("ajax") <= 0) {
                 setMenuActivo(action);
             }
-            
 
         }
     }
@@ -115,6 +114,7 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
     private void setMenuActivo(String action) {
         StringBuilder menuActivo = new StringBuilder("");
         String menuOriginal = String.valueOf(ActionContext.getContext().getSession().get("menuOriginal"));
+        ubicacion = daos.getMenuDao().getNombreModulo(action, menuActivo);
         if (menuOriginal != null && !menuActivo.toString().equals("")) {
             Document doc = Jsoup.parseBodyFragment(menuOriginal);
             Elements liHijo = doc.select("ul[class='nav nav-pills nav-stacked']>li>ul>li[id='" + menuActivo.toString() + "']");
@@ -146,11 +146,9 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
                 ActionContext.getContext().getSession().put("menu", "<i>Solicita la verificación de tu usuario en el sistema, debido a que no es posible mostrar las opciones del menú.</i>");
                 throw new LoginException("El usuario (" + numeroDeBoleta + ") que intenta ingresar no tiene su registro correspondiente en la tabla de alumnos.");
             }
-            //Se busca el otorgamiento del periodo anterior.
-           ActionContext.getContext().getSession().put("ese", ese);
-                ActionContext.getContext().getSession().put("estatusAlumno", estatusAlumno);
-            }
-               ActionContext.getContext().getSession().put("menu", menuStr);
+        }
+        menuStr = getDaos().getRelacionMenuRolesDao().findURLByRols(usuario.getPrivilegios());
+        ActionContext.getContext().getSession().put("menu", menuStr);
         ActionContext.getContext().getSession().put("menuOriginal", menuStr);
     }
 
@@ -183,8 +181,6 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
             // VERSION ESTABLECIENDO VARIABLES DE AMBIENTE
         }
     }
-
-
 
     /**
      * Verifica que exista un usuario autentificado.
@@ -553,6 +549,5 @@ public abstract class BaseAction extends ActionSupport implements Mensajes {
     public void setNotificacionesRolSize(int notificacionesRolSize) {
         this.notificacionesRolSize = notificacionesRolSize;
     }
-    
 
 }
