@@ -52,9 +52,9 @@ public class PermisoCambioAjaxAction extends JSONAjaxAction {
         if (getDaos().getCuestionarioDao().findById(new BigDecimal(3)).getActivo()) {
             Boolean ox = getDaos().getCensoSaludDao().contestoEncuestaSalud(alumno.getId(), p.getId());
             if (ox) {
-                res += "<a title='Censo Salud' class='fancybox fancybox.iframe table-link'  href='/misdatos/adminSaludCuestionarioSalud.action?alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-medkit fa-stack-1x fa-inverse'></i></span></a>";
+                res += "<a title='Censo Salud' class='fancybox fancybox.iframe table-link'  href='/misdatos/adminSaludCuestionarioSalud.action?alumnoId=" + alumno.getId() + "'><span class='fa-stack'><i class='fa fa-square fa-stack-2x'></i> <i class='fa fa-medkit fa-stack-1x fa-inverse cursor'></i></span></a>";
             } else {
-                res += "<a title='CS' onclick='ESENoActivo()' class='table-link danger'> <span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-medkit fa-stack-1x fa-inverse'></i></span></a>";
+                res += "<a title='Censo de Salud No Contestado' onclick='ESENoActivo()' class='table-link danger'> <span style='color:red' class='fa-stack'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-medkit fa-stack-1x fa-inverse cursor'></i></span></a>";
             }
         }
         return res;

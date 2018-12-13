@@ -11,6 +11,10 @@
         a.table-link.danger {
             white-space: pre;
         }
+
+        .cursor{
+            cursor: pointer;
+        }
     </style>
 </head> 
 
