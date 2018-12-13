@@ -1,6 +1,6 @@
 package com.becasipn.actions.alumno;
 
-import com.becasipn.actions.BaseReportAction;
+import com.becasipn.actions.BaseAction;
 import com.becasipn.business.AlumnoBO;
 import com.becasipn.business.PeriodoBO;
 import com.becasipn.exception.LoginException;
@@ -29,7 +29,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  *
  * @author Sistemas DSE
  */
-public class AdministraCuestionarioSaludAction extends BaseReportAction implements MensajesAlumno {
+public class AdministraCuestionarioSaludAction extends BaseAction implements MensajesAlumno {
 
     public static final String CUESTIONARIO = "cuestionario";
     public static final String DESHABILITADO = "deshabilitado";

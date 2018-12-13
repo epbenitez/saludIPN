@@ -5,9 +5,7 @@
 package com.becasipn.business;
 
 import com.becasipn.persistence.model.Alumno;
-import com.becasipn.persistence.model.DatosAcademicos;
 import com.becasipn.persistence.model.Rol;
-import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Usuario;
 import com.becasipn.persistence.model.UsuarioPrivilegio;
 import com.becasipn.service.Service;
@@ -19,13 +17,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  *
  * @author Patricia Benitez
  */
-public class AlumnoBO extends XlsLoaderBO {
+public class AlumnoBO extends BaseBO{
 
     private final SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
     private HashMap<BigDecimal, Integer> relacion;
@@ -33,22 +30,6 @@ public class AlumnoBO extends XlsLoaderBO {
 
     public AlumnoBO(Service service) {
         super(service);
-    }
-
-    /**
-     * Establece la fecha de nacimiento a partir de un string
-     *
-     * @param fechaDeNacimiento
-     * @return
-     */
-    public Date setFechaNacimiento(String fechaDeNacimiento) {
-        Date fecha = new Date();
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            fecha = dateFormat.parse(fechaDeNacimiento);
-        } catch (Exception ex) {
-        }
-        return fecha;
     }
 
     /**
@@ -110,31 +91,6 @@ public class AlumnoBO extends XlsLoaderBO {
             return Boolean.FALSE;
         }
         return Boolean.TRUE;
-    }
-
-    @Override
-    public <T> List<T> processFile(Workbook wb, String lote, Date fecha) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public <T> List<T> processFile(Workbook wb) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public <T> List<T> processFile(Workbook wb, BigDecimal periodo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public <T> List<T> processFile(Workbook wb, BigDecimal periodo, Integer accion) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public <T> List<T> processFile(Workbook wb, UnidadAcademica unidadAcademica) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
