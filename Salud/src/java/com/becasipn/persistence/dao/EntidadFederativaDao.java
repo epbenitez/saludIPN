@@ -14,12 +14,6 @@ import java.util.List;
  */
 public interface EntidadFederativaDao extends DaoBase<EntidadFederativa, BigDecimal> {
 
-    public EntidadFederativa findByNombre(String nombre);
-
-    public EntidadFederativa findByClave(String clave);
-
-    public BigDecimal findByNombreAcentos(String nombre);
-
     public List<EntidadFederativa> findTotal();
 
 }

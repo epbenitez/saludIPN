@@ -15,8 +15,4 @@ public interface UsuarioDao extends DaoBase<Usuario, BigDecimal> {
 
     public Usuario findById(String id);
 
-    public Boolean existeUsuario(String id);
-    
-    public Usuario findByUsuario(String id);
-
 }

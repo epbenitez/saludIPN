@@ -33,11 +33,4 @@ public class DatosAcademicosJpaDao extends JpaDaoBase<DatosAcademicos, BigDecima
         List<DatosAcademicos> listaDA = executeQuery(jpql, alumnoId);
         return listaDA.isEmpty()?null:listaDA.get(0);
     }
-    
-    @Override
-    public List<DatosAcademicos> asociadaAlumno (BigDecimal unidadAcademicaId) {
-        String jpql = "select da from DatosAcademicos da where da.unidadAcademica.id = ?1";
-        List<DatosAcademicos> lista = executeQuery(jpql, unidadAcademicaId);
-        return lista;
-    }
 }

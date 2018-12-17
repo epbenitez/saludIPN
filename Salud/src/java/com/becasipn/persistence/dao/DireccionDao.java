@@ -5,7 +5,6 @@
  */
 package com.becasipn.persistence.dao;
 
-import com.becasipn.persistence.model.Alumno;
 import com.becasipn.persistence.model.Direccion;
 import java.math.BigDecimal;
 

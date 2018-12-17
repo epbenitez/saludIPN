@@ -15,6 +15,4 @@ import com.becasipn.persistence.model.Configuracion;
 public interface ConfiguracionDao extends DaoBase<Configuracion, BigDecimal> {
 
 	public Configuracion secuenciaProcesosAutomaticos();
-
-	public Configuracion otorgamientosSubes();
 }

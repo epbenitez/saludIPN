@@ -10,27 +10,16 @@ import com.becasipn.persistence.model.Usuario;
 import com.becasipn.service.Service;
 import com.becasipn.util.Ambiente;
 import java.math.BigDecimal;
-import java.io.File;
 import java.util.Collection;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.struts2.ServletActionContext;
 import org.apache.velocity.app.VelocityEngine;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.InputStreamSource;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Funciones básicas de la lógica de negocios

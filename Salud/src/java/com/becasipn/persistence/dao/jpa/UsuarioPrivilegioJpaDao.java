@@ -5,7 +5,6 @@
 package com.becasipn.persistence.dao.jpa;
 
 import com.becasipn.persistence.dao.UsuarioPrivilegioDao;
-import com.becasipn.persistence.model.Usuario;
 import com.becasipn.persistence.model.UsuarioPrivilegio;
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,22 +17,6 @@ public class UsuarioPrivilegioJpaDao extends JpaDaoBase<UsuarioPrivilegio, BigDe
 
     public UsuarioPrivilegioJpaDao() {
         super(UsuarioPrivilegio.class);
-    }
-
-    @Override
-    public List<UsuarioPrivilegio> getPrivilegiosByUser(Usuario u) {
-        String jpql = "SELECT u FROM UsuarioPrivilegio u WHERE u.usuario.id = ?1";
-        List<UsuarioPrivilegio> privilegiosLst = executeQuery(jpql, u.getId());
-        return privilegiosLst;
-    }
-
-    @Override
-    public void borraPrivilegios(Usuario u) {
-//        String sql= "delete from rmm_rol_usuario p where p.usuario_id = " + u.getId();
-//        executeNativeQuery(sql);
-        String jpql = "SELECT u FROM UsuarioPrivilegio u WHERE u.usuario.id = ?1";
-        List<UsuarioPrivilegio> privilegiosLst = executeQuery(jpql, u.getId());
-
     }
 
     /**

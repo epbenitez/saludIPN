@@ -1,17 +1,12 @@
 package com.becasipn.business;
 
-import com.becasipn.persistence.model.Carrera;
 import com.becasipn.persistence.model.Periodo;
-import com.becasipn.persistence.model.UnidadAcademica;
 import com.becasipn.persistence.model.Cuestionario;
 import com.becasipn.persistence.model.EstadisticaCuestionarios;
 import com.becasipn.service.Service;
 import com.becasipn.util.AmbienteEnums;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +21,6 @@ public class EstadisticasBO extends BaseBO {
     public EstadisticasBO(Service service) {
         super(service);
     }
-
     
 //----------------------------------------------------------------------------------------------------------------
     public List<EstadisticaCuestionarios> estadisticaCuestionarios(Periodo periodo, Cuestionario cuestionario) {

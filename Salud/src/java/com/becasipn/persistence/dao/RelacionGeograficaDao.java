@@ -12,7 +12,4 @@ import java.util.List;
  * @author Patricia Benitez
  */
 public interface RelacionGeograficaDao extends DaoBase<RelacionGeografica, BigDecimal> {
-    public List<MunicipioDelegacion> getMunicipiosByEstado(BigDecimal estadoId);
-    public List<LocalidadColonia> getColoniasByMunicipio(BigDecimal municipioId);
-    public RelacionGeografica getRelacionGeografica(BigDecimal estadoId, BigDecimal municipioId, BigDecimal coloniaId);
 }

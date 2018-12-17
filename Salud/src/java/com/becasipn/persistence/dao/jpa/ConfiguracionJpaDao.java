@@ -25,11 +25,5 @@ public class ConfiguracionJpaDao extends JpaDaoBase<Configuracion, BigDecimal> i
 	List<Configuracion> lista = executeQuery(consulta);
 	return lista.isEmpty() ? null : lista.get(0);
     }
-	
-	@Override
-    public Configuracion otorgamientosSubes() {
-	String consulta = "SELECT c FROM Configuracion c WHERE c.propiedad = 'otorgamientosSubes'";
-	List<Configuracion> lista = executeQuery(consulta);
-	return lista.isEmpty() ? null : lista.get(0);
-    }
+
 }

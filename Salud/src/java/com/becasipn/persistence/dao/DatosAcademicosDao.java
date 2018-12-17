@@ -7,7 +7,6 @@ package com.becasipn.persistence.dao;
 
 import com.becasipn.persistence.model.DatosAcademicos;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  *
@@ -16,5 +15,4 @@ import java.util.List;
 public interface DatosAcademicosDao extends DaoBase<DatosAcademicos, BigDecimal> {
     public DatosAcademicos datosPorPeriodo(BigDecimal alumnoId, BigDecimal periodoId);
     public DatosAcademicos ultimosDatos(BigDecimal alumnoId);
-    public List<DatosAcademicos> asociadaAlumno (BigDecimal unidadAcademicaId);
 }
